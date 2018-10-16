@@ -1,0 +1,439 @@
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\ZedGraph.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017217\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\ZedGraph.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017218\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\ZedGraph.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB2405 Fusheng\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\ZedGraph.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017221\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\ZedGraph.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017222\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\ZedGraph.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM USB24052017224\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+G:\MCM USB24052017225\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+G:\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+G:\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017225\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017327\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM USB24052017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017329\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017331\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017406\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017407\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017410\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017410\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017410\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017411\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017411\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017411\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017411\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017411\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017412\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017412\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017412\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017412\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017412\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\WindowsFormsApplication1.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\dcpssacsAssembly.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\ddsapihelper.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\bin\Release\dcpssacs.netmodule
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng2017413\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MCM.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MCM.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MCM.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\JYUSB62405.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MetroFramework.Design.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MetroFramework.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\MCM.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\MCM.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\MCM.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170607Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\bin\Release\MCM.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\MCM.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary\WindowsFormsApplication1\obj\x86\Release\MCM.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MCM.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\MCM.exe
+C:\Users\vincentsj.chiu\Desktop\MCM\MCM China\MCM Fusheng20170608Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\MCM.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MCM.exe.config
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\Interop.ADOX.dll
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\MCM.exe
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\MCM.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MCM.exe
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MCM.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.dll
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\JYUSB62405.xml
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MetroFramework.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MetroFramework.Design.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\MetroFramework.Fonts.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.Database.pdb
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.DSP.Fundamental.xml
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\bin\Release\SeeSharpTools.JY.GUI.xml
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.Form2.resources
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\MCM.Properties.Resources.resources
+C:\Users\vincentsj.chiu\Desktop\MCM Fusheng20170616Resize_Layout_NewFileSavingBinary_NewDB\WindowsFormsApplication1\obj\x86\Release\WindowsFormsApplication1.csproj.GenerateResource.Cache

@@ -1,0 +1,273 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using MetroFramework.Forms;
+using JYUSB62405;
+using SeeSharpTools.JY.DSP.Fundamental;
+using SeeSharpTools.JY.Database;
+using System.Data.Common;
+using System.Threading;
+using ZedGraph;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : MetroForm
+    {
+        JYUSB62405AITask aitask;
+        string connectionString = "";//数据库连接字符串
+        DbOperation db = null;
+        string cmdString = null;//SQL命令字符串
+        int index;
+
+        double g = 9.8;
+        double[,] aidata = new double[12800, 3];
+        double[,] tanspose = new double[3, 12800];
+        double[] aidata0 = new double[12800];
+        double[] aidata1 = new double[12800];
+        double[] aidata2 = new double[12800];
+        double[] spectrumdata0 = new double[6400];    //定义一个一维数组存放FFT变换的结果
+        double[] spectrumdata1 = new double[6400];
+        double[] spectrumdata2 = new double[6400];
+        double[,] spectrumdatatotal = new double[3, 6400];
+        double df;  //频谱分辨率
+        Thread thdai, thddbase;
+        public delegate void DisplayInvoke(double[] invokech0, double[] invokech1, double[] invokech2);
+        public delegate void DisplayFFTInvoke(double[] invokeFFTch0, double[] invokeFFTch1, double[] invokeFFTch2);
+        public delegate void DisplaydatabaseInvoke(double[] invokedbase);
+        
+        public Form1()
+        {
+            InitializeComponent();
+            
+        }
+
+
+        // Thread thdai,thddbase;
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+            var binFolderPah = Environment.CurrentDirectory.ToString();//获取Debug文件夹绝对路径，.mdb文件在此文件夹下
+            connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + binFolderPah + "\\historydata.mdb";//
+            db = new DbOperation(connectionString, DbProviderType.OleDb);
+
+
+            thdai = new Thread(aiplot);
+            thddbase = new Thread(dbase);
+
+
+
+
+            aitask = new JYUSB62405AITask(0);
+            aitask.AddChannel(0, -10, 10, Coupling.AC, AITerminal.Differential, false);
+            aitask.AddChannel(1, -10, 10, Coupling.AC, AITerminal.Differential, false);
+            aitask.AddChannel(2, -10, 10, Coupling.AC, AITerminal.Differential, false);
+            aitask.SampleRate = 128000;   //设置采样率
+            aitask.Mode = AIMode.Continuous;    //设置采样模式为连续采集
+            aitask.Start(); //开始AI采集任务
+            //timer1.Enabled=true;
+            //timer2.Enabled = true;
+            thdai.Start();
+            //Thread.Sleep(1000);
+            thddbase.Start();
+
+        }
+
+
+        public void aiplot()
+        {
+            DisplayInvoke displayInvoke = new DisplayInvoke(Display);
+            DisplayFFTInvoke displayFFTInvoke = new DisplayFFTInvoke(DisplayFFT);
+            while (true)
+            {
+                aitask.ReadData(ref aidata, 12800, -1);
+                try
+                {
+                    for (int i = 0; i < aidata.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < aidata.GetLength(1); j++)
+                        {
+                            tanspose[j, i] = aidata[i, j];
+                        }
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
+
+                        for (int j = 0; j < tanspose.GetLength(1); j++)
+                        {
+                            if (i == 0)
+                            {
+                                aidata0[j] = tanspose[i, j];
+                            }
+                            else if (i == 1)
+                            {
+                                aidata1[j] = tanspose[i, j];
+                            }
+                            else
+                            {
+                                aidata2[j] = tanspose[i, j];
+                            }
+                        }
+                    }
+                    Spectrum.PowerSpectrum(aidata0, 128000, ref spectrumdata0, out df, SpectrumUnits.V, WindowType.Hanning);  //FFT变换
+                    Spectrum.PowerSpectrum(aidata1, 128000, ref spectrumdata1, out df, SpectrumUnits.V, WindowType.Hanning);  //FFT变换
+                    Spectrum.PowerSpectrum(aidata2, 128000, ref spectrumdata2, out df, SpectrumUnits.V, WindowType.Hanning);  //FFT变换
+                    
+
+                    //SaveFile(aidata);   //向TXT文件中写入数据
+
+
+                    BeginInvoke(displayInvoke, new object[] { aidata0, aidata1, aidata2 });
+                    BeginInvoke(displayFFTInvoke, new object[] { spectrumdata0, spectrumdata1, spectrumdata2 });
+
+                    
+                }
+                //读取采集数据
+                catch (Exception ex)
+                {
+
+                }
+                Thread.Sleep(50);
+            }
+        }
+
+
+        private void Display(double[] invokech0, double[] invokech1, double[] invokech2)
+        {
+            GraphPane[] tmp_ai_wave_raw_pane = new GraphPane[1] { this.zedGraphtime.GraphPane };
+            tmp_ai_wave_raw_pane[0].CurveList.Clear();
+            
+            LineItem[] tmp_ai_wave_raw_curve = new LineItem[3];
+
+            for (ushort vi = 0; vi < 3; ++
+                vi)
+            {
+                if (vi == 0)
+                {
+                    tmp_ai_wave_raw_curve[vi] = tmp_ai_wave_raw_pane[0].AddCurve("CH0", null, invokech0, Color.Red, SymbolType.None);
+                    tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+                }
+                else if (vi == 1)
+                {
+                    tmp_ai_wave_raw_curve[vi] = tmp_ai_wave_raw_pane[0].AddCurve("CH1", null, invokech1, Color.Blue, SymbolType.None);
+                    tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+                }
+                else { 
+                tmp_ai_wave_raw_curve[vi] = tmp_ai_wave_raw_pane[0].AddCurve("CH2", null, invokech2, Color.DeepPink, SymbolType.None);
+                tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+                }
+                
+            }
+            this.zedGraphtime.AxisChange();
+            this.zedGraphtime.Refresh();
+            
+        }
+        private void DisplayFFT(double[] invokeFFTch0, double[] invokeFFTch1, double[] invokeFFTch2)
+        {
+            GraphPane[] tmp_ai_fft_raw_pane = new GraphPane[1] { this.zedGraphfft.GraphPane };
+            tmp_ai_fft_raw_pane[0].CurveList.Clear();
+
+            LineItem[] tmp_ai_wave_raw_curve = new LineItem[3];
+
+            for (ushort vi = 0; vi < 3; ++vi)
+            {
+                if (vi == 0)
+                {
+                    tmp_ai_wave_raw_curve[vi] = tmp_ai_fft_raw_pane[0].AddCurve("CH0", null, invokeFFTch0, Color.Red, SymbolType.None);
+                    tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+                }
+                else if (vi == 1)
+                {
+                    tmp_ai_wave_raw_curve[vi] = tmp_ai_fft_raw_pane[0].AddCurve("CH1", null, invokeFFTch1, Color.Blue, SymbolType.None);
+                    tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+                }
+                else
+                {
+                    tmp_ai_wave_raw_curve[vi] = tmp_ai_fft_raw_pane[0].AddCurve("CH2", null, invokeFFTch2, Color.DeepPink, SymbolType.None);
+                    tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+                }
+
+            }
+            this.zedGraphfft.AxisChange();
+            this.zedGraphfft.Refresh();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //thdai = new Thread(aiplot);
+            if (thdai.IsAlive)
+            {
+                if (false == thdai.Join(200))
+                {
+                    thdai.Abort();
+                }
+            }
+            if (thddbase.IsAlive)
+            {
+                if (false == thddbase.Join(200))
+                {
+                    thddbase.Abort();
+                }
+            }
+            aitask.Stop();
+        }
+
+        private void dbase()
+        {
+            DisplaydatabaseInvoke displaydataInvoke = new DisplaydatabaseInvoke(Displaydata);
+            while (true)
+            {
+
+                cmdString = "select max(index) from historydata";    //max(index) 
+                DbDataReader reader = db.ExecuteReader(cmdString, null);
+                while (reader.Read())
+                {
+                    index = Convert.ToInt32(reader[0]);
+                }
+
+                index++;
+                g++;
+
+                cmdString = "INSERT INTO historydata VALUES ('" + Convert.ToString(index) + "','" + Convert.ToString(g) + "')";
+                int affectedRows = db.ExecuteNonQuery(cmdString, null);
+
+                cmdString = cmdString = "select * from historydata order by index asc"; ;    //max(index) 
+                DataTable data = db.ExecuteDataTable(cmdString, null);
+
+                double[] gcolum = new double[data.Rows.Count];
+
+
+
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+
+                    gcolum[i] = Convert.ToDouble(data.Rows[i]["g"]);
+
+                }
+                BeginInvoke(displaydataInvoke, new object[] { gcolum });
+                Thread.Sleep(1000);
+            }
+
+        }
+
+        private void Displaydata(double[] invokedbase)
+        {
+            GraphPane[] tmp_ai_dbase_raw_pane = new GraphPane[1] { this.zedGraphhistory.GraphPane };
+            tmp_ai_dbase_raw_pane[0].CurveList.Clear();
+
+            LineItem[] tmp_ai_dbase_raw_curve = new LineItem[1];
+            tmp_ai_dbase_raw_curve[0] = tmp_ai_dbase_raw_pane[0].AddCurve("History", null, invokedbase, Color.Red, SymbolType.None);
+            tmp_ai_dbase_raw_curve[0].Line.IsSmooth = true;
+
+        }
+
+
+
+
+    }
+}
+

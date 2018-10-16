@@ -1,0 +1,1326 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using MetroFramework.Forms;
+using JYUSB62405;
+using SeeSharpTools.JY.DSP.Fundamental;
+using SeeSharpTools.JY.Database;
+using System.Data.Common;
+using System.Threading;
+using ZedGraph;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.IO;
+using DDS;
+using DDS.OpenSplice;
+using DDSAPIHelper;
+using HelloWorldData;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form1 : MetroForm
+    {
+        
+        string connectionString = "";//数据库连接字符串
+        DbOperation db = null;
+        DataTable data;
+        DbDataReader reader;
+        string cmdString = null;//SQL命令字符串
+        int index, dbenable = 0, averageindex = 0, mouseenable = 0;
+        uint allchannellength, perchannellength, spectrumlength, channelcount;
+        double gx = 0, gy = 0, gz = 0, vx = 0, vy = 0, vz = 0, dx = 0, dy = 0, dz = 0, samplerate, sumgx = 0, sumvx = 0, sumdisx = 0, sumgy = 0, sumvy = 0, sumdisy = 0, sumgz = 0, sumvz = 0, sumdisz = 0;
+        IntPtr aidata;
+        double[] voltagedata;
+        double[] aidata0;
+        double[] aidata1;
+        double[] aidata2;
+        double[] spectrumdata0;    //定义一个一维数组存放FFT变换的结果
+        double[] spectrumdata1;
+        double xVal1, xVal2, xVal1temp, xVal2temp;
+        double yVal1, yVal2, yVal1temp, yVal2temp;
+        double gxalarm, gyalarm, gzalarm, gxdanger, gydanger, gzdanger, vxalarm, vyalarm, vzalarm, vxdanger, vydanger, vzdanger, dxalarm, dyalarm, dzalarm, dxdanger, dydanger, dzdanger;
+        short result;
+        double[] spectrumdata2;
+        double sensx, sensy, sensz;
+        private void metroCheckBoxwritedata_CheckedChanged(object sender, EventArgs e)
+        {
+            if (metroCheckBoxwritedata.Checked == true)
+            {
+                /*dt = DateTime.Now;
+                path = @"c:\DangerData\" + dt.Year.ToString() + dt.Month.ToString() + dt.Day.ToString() + dt.Hour.ToString() + dt.Minute.ToString() + dt.Second.ToString();
+                outputch1 = new FileStream(path + "CH1" + ".bin", FileMode.Create, FileAccess.ReadWrite);
+                binWtr1 = new BinaryWriter(outputch1);
+                outputch2 = new FileStream(path + "CH2" + ".bin", FileMode.Create, FileAccess.ReadWrite);
+                binWtr2 = new BinaryWriter(outputch2);
+                outputch3 = new FileStream(path + "CH3" + ".bin", FileMode.Create, FileAccess.ReadWrite);
+                binWtr3 = new BinaryWriter(outputch3);*/
+            }
+            else if (metroCheckBoxwritedata.Checked == false)
+            {
+                binWtr1.Close();
+                binWtr2.Close();
+                binWtr3.Close();
+            }
+        }
+
+        double[] dtx, dfx;
+        double df, bdf;  //频谱分辨率
+        static DDSEntityManager g_mgr;
+        static MsgDataWriter g_msg_writer;
+        static Msg g_msg_instance;
+        static InstanceHandle g_msg_handle;
+
+        private void metroButtonemptydatabase_Click(object sender, EventArgs e)
+        {
+            cmdString = "DELETE FROM historydata";    //max(index) DROP TABLE
+            int affectedRows = db.ExecuteNonQuery(cmdString, null);
+            index = 0;
+            cmdString = "INSERT INTO historydata VALUES ('" + Convert.ToString(index) + "','" + Convert.ToString(gx) + "','" + Convert.ToString(gy) + "','" + Convert.ToString(gz) + "','" + Convert.ToString(vx) + "','" + Convert.ToString(vy) + "','" + Convert.ToString(vz) + "','" + Convert.ToString(dx) + "','" + Convert.ToString(dy) + "','" + Convert.ToString(dz) + "','" + Convert.ToString(gxalarm) + "','" + Convert.ToString(gyalarm) + "','" + Convert.ToString(gzalarm) + "','" + Convert.ToString(gxdanger) + "','" + Convert.ToString(gydanger) + "','" + Convert.ToString(gzdanger) + "','" + Convert.ToString(vxalarm) + "','" + Convert.ToString(vyalarm) + "','" + Convert.ToString(vzalarm) + "','" + Convert.ToString(vxdanger) + "','" + Convert.ToString(vydanger) + "','" + Convert.ToString(vzdanger) + "','" + Convert.ToString(dxalarm) + "','" + Convert.ToString(dyalarm) + "','" + Convert.ToString(dzalarm) + "','" + Convert.ToString(dxdanger) + "','" + Convert.ToString(dydanger) + "','" + Convert.ToString(dzdanger) + "')";
+            affectedRows = db.ExecuteNonQuery(cmdString, null);
+
+        }
+
+        int xabstart, xabend, xvbstart, xvbend, xdbstart, xdbend, yabstart, yabend, yvbstart, yvbend, ydbstart, ydbend, zabstart, zabend, zvbstart, zvbend, zdbstart, zdbend;
+
+        private void textZdbandend_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textXvbandend_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        Thread thdai, thddbase;
+        double[] selectcolum;
+        public delegate void DisplayInvoke(double[] invokech0, double[] invokech1, double[] invokech2);
+        public delegate void DisplayFFTInvoke(double[] invokeFFTch0, double[] invokeFFTch1, double[] invokeFFTch2);
+        public delegate void DisplaydatabaseInvoke();
+        PointPairList userClickrListdanger = new PointPairList();
+        PointPairList userClickrListalarm = new PointPairList();
+        LineItem userClickCurvedanger = new LineItem("userClickCurvedanger");
+        LineItem userClickCurvealarm = new LineItem("userClickCurvealarm");
+        ushort[] ai_chnl_sel;
+        ushort[] ai_chnl_range_array;
+        ushort Chconfig;
+        int index1 = 0, index2 = 0, index3 = 0, index4 = 0;
+        uint AccessCnt;
+        int iepeindex = 0, couplingindex = 0;
+        ushort coupling, iepe;
+        DateTime dt;
+        FileStream outputch1,outputch2,outputch3;
+        BinaryWriter binWtr1, binWtr2, binWtr3;
+        StreamWriter csvWtr1, csvWtr2,csvWtr3;
+        string inipath,path;
+        Stopwatch sw3;
+        uint m_dwOverrunCnt=0;
+        private void metroTabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (metroTabControl1.SelectedTab == machinestatus)
+            {
+               SearchFreq();
+               sensx = (0.001 * Convert.ToDouble(metroTextBoxsensx.Text));
+               sensy = (0.001 * Convert.ToDouble(metroTextBoxsensy.Text));
+               sensz = (0.001 * Convert.ToDouble(metroTextBoxsensz.Text));
+                if ((metroComboBoxIEPE.SelectedIndex != iepeindex) || (metroComboBoxCoupling.SelectedIndex != couplingindex))
+                { 
+                    result = USBDASK.UD_AI_AsyncClear(0, out AccessCnt);
+                    if (metroComboBoxIEPE.SelectedIndex == 0)
+                    {
+                        iepe = USBDASK.P2405_AI_DisableIEPE;
+                    }
+                    else if (metroComboBoxIEPE.SelectedIndex == 1)
+                    {
+                        iepe = USBDASK.P2405_AI_EnableIEPE;
+                    }
+                    if (metroComboBoxCoupling.SelectedIndex == 0)
+                    {
+                        coupling = USBDASK.P2405_AI_Coupling_AC;
+                    }
+                    else if (metroComboBoxCoupling.SelectedIndex == 1)
+                    {
+                        coupling = USBDASK.P2405_AI_Coupling_None;
+                    }
+                 Chconfig = (ushort)(iepe|coupling);
+                 configurecard();
+                }
+            }
+            if (metroTabControl1.SelectedTab == Setting)
+            {
+                iepeindex=metroComboBoxIEPE.SelectedIndex;
+                couplingindex = metroComboBoxCoupling.SelectedIndex;
+            }
+
+
+        }
+
+        CallbackDelegate ai_buf_ready_cbdel;
+        
+        private void checkBoxZoomin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxZoomin.Checked == true)
+            {
+                this.zedGraphhistory.MouseDownEvent -= new ZedGraph.ZedGraphControl.ZedMouseEventHandler(this.zedGraphhistory_MouseDownEvent);
+                this.zedGraphhistory.MouseUpEvent -= new ZedGraph.ZedGraphControl.ZedMouseEventHandler(this.zedGraphhistory_MouseUpEvent);
+                this.zedGraphhistory.MouseMove -= new System.Windows.Forms.MouseEventHandler(this.zedGraphhistory_MouseMove);
+
+            }
+            else
+            {
+                this.zedGraphhistory.MouseDownEvent += new ZedGraph.ZedGraphControl.ZedMouseEventHandler(this.zedGraphhistory_MouseDownEvent);
+                this.zedGraphhistory.MouseUpEvent += new ZedGraph.ZedGraphControl.ZedMouseEventHandler(this.zedGraphhistory_MouseUpEvent);
+                this.zedGraphhistory.MouseMove += new System.Windows.Forms.MouseEventHandler(this.zedGraphhistory_MouseMove);
+            }
+        }
+
+       
+        
+
+
+        private bool zedGraphhistory_MouseDownEvent(ZedGraphControl sender, MouseEventArgs e)
+        {
+            if(checkBoxZoomin.Checked==false)
+            { 
+            mouseenable = 1;
+            }
+            return true;
+        }
+
+        private bool zedGraphhistory_MouseUpEvent(ZedGraphControl sender, MouseEventArgs e)
+        {
+            if (checkBoxZoomin.Checked == false)
+            {
+                mouseenable = 0;
+            }
+            return true;
+        }
+
+        private void zedGraphhistory_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseenable == 1)
+            {
+                GraphPane myPane = zedGraphhistory.GraphPane;
+                // x & y variables to store the axis values
+                // Clear the previous values if any
+                userClickrListdanger.Clear();
+                userClickrListalarm.Clear();
+                myPane.Legend.IsVisible = false;
+                // Use the current mouse locations to get the corresponding 
+                // X & Y CO-Ordinates
+                myPane.ReverseTransform(e.Location, out xVal1, out yVal1);
+                // Create a list using the above x & y values
+                if (yVal1 > ((yVal1temp + yVal2temp) / 2))
+                // Add a curve
+                {
+                    userClickrListdanger.Add(myPane.XAxis.Scale.Max, yVal1);
+                    userClickrListdanger.Add(myPane.XAxis.Scale.Min, yVal1);
+                    userClickCurvedanger = myPane.AddCurve(" ", userClickrListdanger, Color.Red, SymbolType.None);
+                    userClickrListalarm.Add(myPane.XAxis.Scale.Max, yVal2temp);
+                    userClickrListalarm.Add(myPane.XAxis.Scale.Min, yVal2temp);
+                    userClickCurvealarm = myPane.AddCurve(" ", userClickrListalarm, Color.Yellow, SymbolType.None);
+                    yVal1temp = yVal1;
+                }
+                else
+                {
+                    userClickrListdanger.Add(myPane.XAxis.Scale.Max, yVal1temp);
+                    userClickrListdanger.Add(myPane.XAxis.Scale.Min, yVal1temp);
+                    userClickCurvedanger = myPane.AddCurve(" ", userClickrListdanger, Color.Red, SymbolType.None);
+                    userClickrListalarm.Add(myPane.XAxis.Scale.Max, yVal1);
+                    userClickrListalarm.Add(myPane.XAxis.Scale.Min, yVal1);
+                    userClickCurvealarm = myPane.AddCurve(" ", userClickrListalarm, Color.Yellow, SymbolType.None);
+                    yVal2temp = yVal1;
+                }
+                if (metroComboAxis.SelectedIndex == 0)
+                {
+                    if (checkBox1.Checked == true)
+                    {
+
+                        gxalarm = yVal2temp;
+                        gxdanger = yVal1temp;
+                        cmdString = "update historydata set gxalarm='" + Convert.ToString(gxalarm) + "',gxdanger='" + Convert.ToString(gxdanger) + "' where index=(select max(index)from historydata)";
+                    }
+                    else if (checkBox2.Checked == true)
+                    {
+                        vxalarm = yVal2temp;
+                        vxdanger = yVal1temp;
+                        cmdString = "update historydata set vxalarm='" + Convert.ToString(vxalarm) + "',vxdanger='" + Convert.ToString(vxdanger) + "' where index=(select max(index)from historydata)";
+                    }
+                    else if (checkBox3.Checked == true)
+                    {
+                        dxalarm = yVal2temp;
+                        dxdanger = yVal1temp;
+                        cmdString = "update historydata set dxalarm='" + Convert.ToString(dxalarm) + "',dxdanger='" + Convert.ToString(dxdanger) + "' where index=(select max(index)from historydata)";
+                    }
+
+                }
+                else if (metroComboAxis.SelectedIndex == 1)
+                {
+                    if (checkBox1.Checked == true)
+                    {
+
+                        gyalarm = yVal2temp;
+                        gydanger = yVal1temp;
+                        cmdString = "update historydata set gyalarm='" + Convert.ToString(gyalarm) + "',gydanger='" + Convert.ToString(gydanger) + "' where index=(select max(index)from historydata)";
+                    }
+                    else if (checkBox2.Checked == true)
+                    {
+
+                        vyalarm = yVal2temp;
+                        vydanger = yVal1temp;
+                        cmdString = "update historydata set vyalarm='" + Convert.ToString(vyalarm) + "',vydanger='" + Convert.ToString(vydanger) + "' where index=(select max(index)from historydata)";
+                    }
+                    else if (checkBox3.Checked == true)
+                    {
+
+                        dyalarm = yVal2temp;
+                        dydanger = yVal1temp;
+                        cmdString = "update historydata set dyalarm='" + Convert.ToString(dyalarm) + "',dydanger='" + Convert.ToString(dydanger) + "' where index=(select max(index)from historydata)";
+                    }
+                }
+                else
+                {
+                    if (checkBox1.Checked == true)
+                    {
+
+                        gzalarm = yVal2temp;
+                        gzdanger = yVal1temp;
+                        cmdString = "update historydata set gzalarm='" + Convert.ToString(gzalarm) + "',gzdanger='" + Convert.ToString(gzdanger) + "' where index=(select max(index)from historydata)";
+                    }
+                    else if (checkBox2.Checked == true)
+                    {
+
+                        vzalarm = yVal2temp;
+                        vzdanger = yVal1temp;
+                        cmdString = "update historydata set vzalarm='" + Convert.ToString(vzalarm) + "',vzdanger='" + Convert.ToString(vzdanger) + "' where index=(select max(index)from historydata)";
+                    }
+                    else if (checkBox3.Checked == true)
+                    {
+
+                        dzalarm = yVal2temp;
+                        dzdanger = yVal1temp;
+                        cmdString = "update historydata set dzalarm='" + Convert.ToString(dzalarm) + "',dzdanger='" + Convert.ToString(dzdanger) + "' where index=(select max(index)from historydata)";
+                    }
+                }
+                int affectedRows = db.ExecuteNonQuery(cmdString, null);
+                zedGraphhistory.Refresh();
+                label1danger.Text = yVal1temp.ToString("f4");
+                label1alarm.Text = yVal2temp.ToString("f4");
+            }
+
+        }
+
+
+
+
+        private string zedGraphhistory_PointValueEvent(ZedGraphControl sender, GraphPane pane, CurveItem curve, int iPt)
+        {
+            return curve.Label.Text + " - " + curve.Points[iPt].ToString();
+        }
+
+
+
+
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                checkBox3.Checked = false;
+                checkBox2.Checked = false;
+                Displaydb();
+
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+            {
+                checkBox3.Checked = false;
+                checkBox1.Checked = false;
+                Displaydb();
+
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked == true)
+            {
+                checkBox2.Checked = false;
+                checkBox1.Checked = false;
+                Displaydb();
+
+            }
+        }
+
+
+        private void metroComboAxis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Displaydb();
+
+        }
+        
+
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            result = USBDASK.UD_Register_Card(USBDASK.USB_2405, 0);
+            if (result < 0)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Falied to perform UD_Register_Card(), error: " + result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ///Data base
+            var binFolderPah = Environment.CurrentDirectory.ToString();//获取Debug文件夹绝对路径，.mdb文件在此文件夹下
+            connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + binFolderPah + "\\historydata.mdb";//
+            db = new DbOperation(connectionString, DbProviderType.OleDb);
+          
+           // int affectedRows = db.ExecuteDataTable(cmdString, null);
+            //Thread
+            thdai = new Thread(aiplot);
+            thddbase = new Thread(dbase);
+            //Graph
+            zedGraphhistory.IsShowPointValues = true;
+            zedGraphhistory.PointValueEvent += new ZedGraphControl.PointValueHandler(zedGraphhistory_PointValueEvent);
+            this.zedGraphhistory.MouseDownEvent += new ZedGraph.ZedGraphControl.ZedMouseEventHandler(this.zedGraphhistory_MouseDownEvent);
+            this.zedGraphhistory.MouseUpEvent += new ZedGraph.ZedGraphControl.ZedMouseEventHandler(this.zedGraphhistory_MouseUpEvent);
+            this.zedGraphhistory.MouseMove += new System.Windows.Forms.MouseEventHandler(this.zedGraphhistory_MouseMove);
+            zedGraphhistory.IsEnableWheelZoom = false;
+            GraphPane[] tmp_ai_wave_raw_pane = new GraphPane[1] { this.zedGraphtime.GraphPane };
+            GraphPane[] tmp_ai_fft_raw_pane = new GraphPane[1] { this.zedGraphfft.GraphPane };
+            GraphPane[] tmp_ai_dbase_raw_pane = new GraphPane[1] { this.zedGraphhistory.GraphPane };
+            tmp_ai_wave_raw_pane[0].Title.Text = "Waveform";
+            tmp_ai_wave_raw_pane[0].XAxis.Title.Text = "Samples";
+            tmp_ai_wave_raw_pane[0].YAxis.Title.Text = "g";
+            tmp_ai_wave_raw_pane[0].Title.FontSpec.Size = 20.0f;
+            tmp_ai_wave_raw_pane[0].XAxis.Title.FontSpec.Size = 20.0f;
+            tmp_ai_wave_raw_pane[0].YAxis.Title.FontSpec.Size = 20.0f;
+            this.zedGraphtime.AxisChange();
+            this.zedGraphtime.Refresh();
+            tmp_ai_fft_raw_pane[0].Title.Text = "FFT";
+            tmp_ai_fft_raw_pane[0].XAxis.Title.Text = "Frequency(Hz)";
+            tmp_ai_fft_raw_pane[0].YAxis.Title.Text = "g rms";
+            tmp_ai_fft_raw_pane[0].Title.FontSpec.Size = 20.0f;
+            tmp_ai_fft_raw_pane[0].XAxis.Title.FontSpec.Size = 20.0f;
+            tmp_ai_fft_raw_pane[0].YAxis.Title.FontSpec.Size = 20.0f;
+            this.zedGraphfft.AxisChange();
+            this.zedGraphfft.Refresh();
+            tmp_ai_dbase_raw_pane[0].Title.Text = "History Data";
+            tmp_ai_dbase_raw_pane[0].XAxis.Title.Text = "Index";
+            tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "g rms";
+            tmp_ai_dbase_raw_pane[0].Title.FontSpec.Size = 20.0f;
+            tmp_ai_dbase_raw_pane[0].XAxis.Title.FontSpec.Size = 20.0f;
+            tmp_ai_dbase_raw_pane[0].YAxis.Title.FontSpec.Size = 20.0f;
+            tmp_ai_dbase_raw_pane[0].CurveList.Clear();
+            this.zedGraphhistory.AxisChange();
+            this.zedGraphhistory.Refresh();
+            this.metroTabControl1.SelectedIndexChanged -= new System.EventHandler(this.metroTabControl1_SelectedIndexChanged);
+            metroTabControl1.SelectedTab = machinestatus;
+            this.metroTabControl1.SelectedIndexChanged += new System.EventHandler(this.metroTabControl1_SelectedIndexChanged);
+            
+            //2405 Parameter
+            metroComboBoxIEPE.SelectedIndex = 1;
+            metroComboBoxCoupling.SelectedIndex = 0;
+            ai_chnl_sel = new ushort[3] { USBDASK.P2405_AI_CH_0, USBDASK.P2405_AI_CH_1, USBDASK.P2405_AI_CH_2 };
+            ai_chnl_range_array= new ushort[3] { USBDASK.AD_B_10_V, USBDASK.AD_B_10_V, USBDASK.AD_B_10_V };
+            Chconfig = USBDASK.P2405_AI_PseudoDifferential | USBDASK.P2405_AI_Coupling_AC | USBDASK.P2405_AI_EnableIEPE;
+            perchannellength = 25600;
+            spectrumlength = perchannellength / 2;
+            channelcount = 3;
+            allchannellength = perchannellength * channelcount;
+            samplerate = 25600;          
+            voltagedata = new double[allchannellength];
+            aidata = Marshal.AllocHGlobal((int)(sizeof(uint) * allchannellength));
+            aidata0 = new double[perchannellength];
+            aidata1 = new double[perchannellength];
+            aidata2 = new double[perchannellength];
+            spectrumdata0 = new double[spectrumlength];
+            spectrumdata1 = new double[spectrumlength];
+            spectrumdata2 = new double[spectrumlength];
+            dtx = new double[perchannellength];
+            dfx = new double[spectrumlength];
+            bdf = samplerate / perchannellength;
+            ai_buf_ready_cbdel = new CallbackDelegate(ai_buf_ready_cbfunc);
+            //panel control box tabpage control
+            this.metroComboAxis.SelectedIndexChanged -= new System.EventHandler(this.metroComboAxis_SelectedIndexChanged);
+            metroComboAxis.SelectedIndex = 0;
+            this.metroComboAxis.SelectedIndexChanged += new System.EventHandler(this.metroComboAxis_SelectedIndexChanged);
+            this.checkBox1.CheckedChanged -= new System.EventHandler(this.checkBox1_CheckedChanged);
+            checkBox1.Checked = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            metroTextBoxaverage.Text = "10";
+            metroTextBoxprocess.Text = "15";
+            metroCheckBoxwritedata.Checked = false;
+            metroTextBoxsensx.Text = "94.4";
+            metroTextBoxsensy.Text = "95.7";
+            metroTextBoxsensz.Text = "99.3";
+            sensx = (0.001 * Convert.ToDouble(metroTextBoxsensx.Text));
+            sensy = (0.001 * Convert.ToDouble(metroTextBoxsensy.Text));
+            sensz = (0.001 * Convert.ToDouble(metroTextBoxsensz.Text));
+            //file IO
+            string inipath = @"c:\DangerData";
+            DirectoryInfo di = Directory.CreateDirectory(inipath);
+            //DDS
+            // Initial DDS
+            fn_dds_initial(ref g_mgr, "HelloWorld", "HelloWorld example", "HelloWorldData_Msg", false);
+
+            // Create DDS Writer
+            fn_dds_create_writer(g_mgr, ref g_msg_writer, ref g_msg_instance, ref g_msg_handle);
+
+
+            SearchFreq();
+            for (int x = 0; x < perchannellength; x++)
+            {
+                if (x == 0)
+                {
+                    dtx[x] = 0;
+                }
+                else
+                {
+                    dtx[x] = dtx[x - 1] + (perchannellength / samplerate);
+                }
+            }
+            for (int x = 0; x < spectrumlength; x++)
+            {
+                if (x == 0)
+                {
+                    dfx[x] = 0;
+                }
+                else
+                {
+                    dfx[x] = dfx[x - 1] + (bdf);
+                }
+            }
+            Displaydb();
+            configurecard();     
+            thddbase.Start();
+            
+
+
+        }
+
+
+        public void aiplot()
+        {
+            
+        }
+
+
+        private void Display(double[] invokech0, double[] invokech1, double[] invokech2)
+
+        {
+            Stopwatch sw1 = Stopwatch.StartNew();
+            GraphPane[] tmp_ai_wave_raw_pane = new GraphPane[1] { this.zedGraphtime.GraphPane };
+            tmp_ai_wave_raw_pane[0].CurveList.Clear();
+            LineItem[] tmp_ai_wave_raw_curve = new LineItem[3];
+            if (metroComboAxis.SelectedIndex == 0)
+            {
+                tmp_ai_wave_raw_curve[metroComboAxis.SelectedIndex] = tmp_ai_wave_raw_pane[0].AddCurve("X-Axis", dtx, aidata0, Color.Red, SymbolType.None);
+
+            }
+            else if (metroComboAxis.SelectedIndex == 1)
+            {
+                tmp_ai_wave_raw_curve[metroComboAxis.SelectedIndex] = tmp_ai_wave_raw_pane[0].AddCurve("Y-Axis", dtx, aidata1, Color.Blue, SymbolType.None);
+
+            }
+            else
+            {
+                tmp_ai_wave_raw_curve[metroComboAxis.SelectedIndex] = tmp_ai_wave_raw_pane[0].AddCurve("Z-Axis", dtx, aidata2, Color.DeepPink, SymbolType.None);
+
+            }
+            
+            this.zedGraphtime.AxisChange();
+            this.zedGraphtime.Refresh();
+            sw1.Stop();
+            textBox1Ttime.Text = Convert.ToString(sw1.Elapsed.TotalMilliseconds);
+        }
+        private void DisplayFFT(double[] invokeFFTch0, double[] invokeFFTch1, double[] invokeFFTch2)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            GraphPane[] tmp_ai_fft_raw_pane = new GraphPane[1] { this.zedGraphfft.GraphPane };
+            tmp_ai_fft_raw_pane[0].CurveList.Clear();
+
+            LineItem[] tmp_ai_wave_raw_curve = new LineItem[3];
+
+            Spectrum.PowerSpectrum(invokeFFTch0, samplerate, ref spectrumdata0, out df, SpectrumUnits.V2, WindowType.Hanning);  //FFT变换
+            Spectrum.PowerSpectrum(invokeFFTch1, samplerate, ref spectrumdata1, out df, SpectrumUnits.V2, WindowType.Hanning);  //FFT变换
+            Spectrum.PowerSpectrum(invokeFFTch2, samplerate, ref spectrumdata2, out df, SpectrumUnits.V2, WindowType.Hanning);  //FFT变换
+            for (int l = 0; l < spectrumlength; l++)
+            {
+                spectrumdata0[l] = Math.Sqrt(spectrumdata0[l] / 4);
+                spectrumdata1[l] = Math.Sqrt(spectrumdata1[l] / 4);
+                spectrumdata2[l] = Math.Sqrt(spectrumdata2[l] / 4);
+            }
+            
+
+            sumgx = 0;
+            sumgy = 0;
+            sumgz = 0;
+            for (int l = xabstart; l <=xabend; l++)
+            {
+                sumgx = sumgx + spectrumdata0[l];              
+            }
+
+            for (int l = yabstart; l <= yabend; l++)
+            {               
+                sumgy = sumgy + spectrumdata1[l];           
+            }
+
+            for (int l = zabstart; l <= zabend; l++)
+            {
+                sumgz = sumgz + spectrumdata2[l];
+            }
+            if (sumgx > gxdanger)
+            {
+                g_msg_instance.is_alarm_x = 1;
+            }
+            else
+            {
+                g_msg_instance.is_alarm_x = 0;
+            }
+            if (sumgy > gydanger)
+            {
+                g_msg_instance.is_alarm_y = 1;
+            }
+            else
+            {
+                g_msg_instance.is_alarm_y = 0;
+            }
+            if (sumgz > gzdanger)
+            {
+                g_msg_instance.is_alarm_z = 1;
+            }
+            else
+            {
+                g_msg_instance.is_alarm_z = 0;
+            }
+            sumvx = 0;
+            sumvy = 0;
+            sumvz = 0;
+            for (int l = xvbstart; l <= xvbend; l++)
+            {
+                sumvx = sumvx + 1000 * 9.8 * (spectrumdata0[l] / (2 * 3.14 * dfx[l]));               
+            }
+
+            for (int l = yvbstart; l <= yvbend; l++)
+            {               
+                sumvy = sumvy + 1000 * 9.8 * (spectrumdata1[l] / (2 * 3.14 * dfx[l]));          
+            }
+
+            for (int l = zvbstart; l <= zvbend; l++)
+            {               
+                sumvz = sumvz + 1000 * 9.8 * (spectrumdata2[l] / (2 * 3.14 * dfx[l]));              
+            }
+
+            sumdisx = 0;
+            sumdisy = 0;
+            sumdisz = 0;
+            for (int l = xdbstart; l <=xdbend; l++)
+            {
+                sumdisx = sumdisx +2*1.414* 1000000 * 9.8 * (spectrumdata0[l] / (Math.Pow((2 * 3.14 * dfx[l]), 2)));               
+            }
+
+            for (int l = ydbstart; l <= ydbend; l++)
+            {                
+                sumdisy = sumdisy + 2 * 1.414 * 1000000 * 9.8 * (spectrumdata1[l] / (Math.Pow((2 * 3.14 * dfx[l]), 2)));                
+            }
+
+            for (int l = zdbstart; l <= zdbend; l++)
+            {
+                sumdisz = sumdisz + 2 * 1.414 * 1000000 * 9.8 * (spectrumdata2[l] / (Math.Pow((2 * 3.14 * dfx[l]), 2)));
+            }
+
+            if (metroComboAxis.SelectedIndex == 0)
+            {
+                if (sumgx > gxalarm && sumgx <  gxdanger)
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.Yellow;
+                    
+                }
+                else if (sumgx > gxdanger)
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.Red;
+                    
+                }
+                else
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.LimeGreen;
+                    
+                }
+                sevenSegmentArraygrms.Value = sumgx.ToString("f2");
+                if (sumvx > vxalarm && sumvx <  vxdanger)
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.Yellow;
+                }
+                else if (sumvx > vxdanger)
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.Red;
+                }
+                else
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.LimeGreen;
+                }
+                sevenSegmentArrayvrms.Value = sumvx.ToString("f2");
+                if (sumdisx > dxalarm && sumdisx <  dxdanger)
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.Yellow;
+                }
+                else if (sumdisx > dxdanger)
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.Red;
+                }
+                else
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.LimeGreen;
+                }
+                sevenSegmentArraydisrms.Value = sumdisx.ToString("f2");
+            }
+            else if (metroComboAxis.SelectedIndex == 1)
+            {
+                if (sumgy > gyalarm && sumgy < gydanger)
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.Yellow;
+ 
+                }
+                else if (sumgy > gydanger)
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.Red;                
+ 
+                }
+                else
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.LimeGreen;
+
+                }
+                sevenSegmentArraygrms.Value = sumgy.ToString("f2");
+
+                if (sumvy > vyalarm && sumvy < vydanger)
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.Yellow;
+                }
+                else if (sumvy > vydanger)
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.Red;
+                }
+                else
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.LimeGreen;
+                }
+                sevenSegmentArrayvrms.Value = sumvy.ToString("f2");
+
+                if (sumdisy > dyalarm && sumdisy < dydanger)
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.Yellow;
+                }
+                else if (sumdisy > dydanger)
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.Red;
+                }
+                else
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.LimeGreen;
+                }
+                sevenSegmentArraydisrms.Value = sumdisy.ToString("f2");
+            }
+            else
+            {
+                if (sumgz > gzalarm && sumgz < gzdanger)
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.Yellow;
+
+                }
+                else if (sumgz > gzdanger)
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.Red;
+
+                }
+                else
+                {
+                    sevenSegmentArraygrms.ColorLight = Color.LimeGreen;
+  
+                }
+                sevenSegmentArraygrms.Value = sumgz.ToString("f2");
+
+                if (sumvz > vzalarm && sumvz < vzdanger)
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.Yellow;
+                }
+                else if (sumvz > vzdanger)
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.Red;
+                }
+                else
+                {
+                    sevenSegmentArrayvrms.ColorLight = Color.LimeGreen;
+                }
+                sevenSegmentArrayvrms.Value = sumvz.ToString("f2");
+
+                if (sumdisz > dzalarm && sumdisz < dzdanger)
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.Yellow;
+                }
+                else if (sumdisz > dzdanger)
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.Red;
+                }
+                else
+                {
+                    sevenSegmentArraydisrms.ColorLight = Color.LimeGreen;
+                }
+                sevenSegmentArraydisrms.Value = sumdisz.ToString("f2");
+            }
+
+            if (dbenable == 1 && averageindex <Convert.ToInt16(metroTextBoxaverage.Text))
+            {
+                averageindex++;
+                gx = gx + sumgx;
+                gy = gy + sumgy;
+                gz = gz + sumgz;
+                vx = vx + sumvx;
+                vy = vy + sumvy;
+                vz = vz + sumvz;
+                dx = dx + sumdisx;
+                dy = dy + sumdisy;
+                dz = dz + sumdisz;
+                if (averageindex == Convert.ToInt16(metroTextBoxaverage.Text))
+                {
+                    gx = gx / averageindex;
+                    gy = gy / averageindex;
+                    gz = gz / averageindex;
+                    vx = vx / averageindex;
+                    vy = vy / averageindex;
+                    vz = vz / averageindex;
+                    dx = dx / averageindex;
+                    dy = dy / averageindex;
+                    dz = dz / averageindex;
+                    
+
+                }
+
+            }
+
+            g_msg_instance.acc_value_x = (float)sumgx;
+            g_msg_instance.acc_value_y = (float)sumgy;
+            g_msg_instance.acc_value_z = (float)sumgz;
+           
+            
+            
+            fn_dds_data_write(g_msg_writer, g_msg_instance, g_msg_handle);
+
+            if (metroComboAxis.SelectedIndex == 0)
+            {
+                tmp_ai_wave_raw_curve[metroComboAxis.SelectedIndex] = tmp_ai_fft_raw_pane[0].AddCurve("X-Axis", dfx, spectrumdata0, Color.Red, SymbolType.None);
+                
+                //tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+            }
+            else if (metroComboAxis.SelectedIndex == 1)
+            {
+                tmp_ai_wave_raw_curve[metroComboAxis.SelectedIndex] = tmp_ai_fft_raw_pane[0].AddCurve("Y-Axis", dfx, spectrumdata1, Color.Blue, SymbolType.None);
+                //tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+            }
+            else
+            {
+                tmp_ai_wave_raw_curve[metroComboAxis.SelectedIndex] = tmp_ai_fft_raw_pane[0].AddCurve("Z-Axis", dfx, spectrumdata2, Color.DeepPink, SymbolType.None);
+                //tmp_ai_wave_raw_curve[vi].Line.IsSmooth = true;
+            }
+
+
+            this.zedGraphfft.AxisChange();
+            this.zedGraphfft.Refresh();
+            sw.Stop();
+            textBox1ffttime.Text = Convert.ToString(sw.Elapsed.TotalMilliseconds);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            result = USBDASK.UD_AI_AsyncClear(0, out AccessCnt);
+            result = USBDASK.UD_Release_Card(0);
+
+            if (thddbase.IsAlive)
+            {
+                if (false == thddbase.Join(200))
+                {
+                    thddbase.Abort();
+                }
+            }
+            //binWtr1.Close();
+            //binWtr2.Close();
+            //binWtr3.Close();
+            fn_dds_release_writer(g_mgr, g_msg_writer, g_msg_instance, g_msg_handle);
+            // Deinitial DDS
+            fn_dds_deinitial(g_mgr);
+
+
+        }
+
+        private void dbase()
+        {
+            DisplaydatabaseInvoke displaydataInvoke = new DisplaydatabaseInvoke(Displaydb);
+            while(true)
+            { 
+            dbenable = 1;
+            Thread.Sleep(Convert.ToInt32(metroTextBoxprocess.Text)*1000);
+            if (dbenable == 1 && averageindex == Convert.ToInt16(metroTextBoxaverage.Text))
+                {
+                    dbenable = 0;
+                    averageindex = 0;
+                    cmdString = "select max(index) from historydata";    //max(index) 
+                    reader = db.ExecuteReader(cmdString, null);
+                    while (reader.Read())
+                    {
+                        index = Convert.ToInt32(reader[0]);
+                    }
+
+                    index++;
+                    cmdString = "INSERT INTO historydata VALUES ('" + Convert.ToString(index) + "','" + Convert.ToString(gx) + "','" + Convert.ToString(gy) + "','" + Convert.ToString(gz) + "','" + Convert.ToString(vx) + "','" + Convert.ToString(vy) + "','" + Convert.ToString(vz) + "','" + Convert.ToString(dx) + "','" + Convert.ToString(dy) + "','" + Convert.ToString(dz) + "','" + Convert.ToString(gxalarm) + "','" + Convert.ToString(gyalarm) + "','" + Convert.ToString(gzalarm) + "','" + Convert.ToString(gxdanger) + "','" + Convert.ToString(gydanger) + "','" + Convert.ToString(gzdanger) + "','" + Convert.ToString(vxalarm) + "','" + Convert.ToString(vyalarm) + "','" + Convert.ToString(vzalarm) + "','" + Convert.ToString(vxdanger) + "','" + Convert.ToString(vydanger) + "','" + Convert.ToString(vzdanger) + "','" + Convert.ToString(dxalarm) + "','" + Convert.ToString(dyalarm) + "','" + Convert.ToString(dzalarm) + "','" + Convert.ToString(dxdanger) + "','" + Convert.ToString(dydanger) + "','" + Convert.ToString(dzdanger) + "')";
+                    int affectedRows = db.ExecuteNonQuery(cmdString, null);
+                    BeginInvoke(displaydataInvoke);
+                    gx = 0;
+                    gy = 0;
+                    gz = 0;
+                    vx = 0;
+                    vy = 0;
+                    vz = 0;
+                    dx = 0;
+                    dy = 0;
+                    dz = 0;
+                    reader = null;
+
+                }
+
+
+            }
+
+        }
+
+        private void zedGraphfft_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Displaydb()
+        {
+            
+            GraphPane[] tmp_ai_dbase_raw_pane = new GraphPane[1] { this.zedGraphhistory.GraphPane };
+            GraphPane myPane = zedGraphhistory.GraphPane;
+            tmp_ai_dbase_raw_pane[0].CurveList.Clear();
+            userClickrListdanger.Clear();
+            userClickrListalarm.Clear();
+            myPane.Legend.IsVisible = false;
+            LineItem[] tmp_ai_dbase_raw_curve = new LineItem[1];
+            cmdString = "select * from historydata order by index asc";    //max(index) 
+            data = db.ExecuteDataTable(cmdString, null);
+            selectcolum = new double[data.Rows.Count];
+
+            gxalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["gxalarm"]);
+            gxdanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["gxdanger"]);
+            vxalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["vxalarm"]);
+            vxdanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["vxdanger"]);
+            dxalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["dxalarm"]);
+            dxdanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["dxdanger"]);
+
+            gyalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["gyalarm"]);
+            gydanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["gydanger"]);
+            vyalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["vyalarm"]);
+            vydanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["vydanger"]);
+            dyalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["dyalarm"]);
+            dydanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["dydanger"]);
+
+            gzalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["gzalarm"]);
+            gzdanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["gzdanger"]);
+            vzalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["vzalarm"]);
+            vzdanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["vzdanger"]);
+            dzalarm = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["dzalarm"]);
+            dzdanger = Convert.ToDouble(data.Rows[data.Rows.Count - 1]["dzdanger"]);
+
+            for (int i = 0; i < data.Rows.Count; i++)
+            {
+                if (metroComboAxis.SelectedIndex == 0)
+                {
+                    if (checkBox1.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["gx"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "g rms ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                            
+                            yVal1temp = gxdanger;
+                            yVal2temp = gxalarm;
+                        }
+                    }
+                    else if (checkBox2.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["vx"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "mms/s rms ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                            
+                            yVal1temp = vxdanger;
+                            yVal2temp = vxalarm;
+                        }
+                    }
+                    else if (checkBox3.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["dx"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "micron p-p ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                           
+                            yVal1temp = dxdanger;
+                            yVal2temp = dxalarm;
+                        }
+                    }
+
+                }
+                else if (metroComboAxis.SelectedIndex == 1)
+                {
+                    if (checkBox1.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["gy"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "g rms ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                            
+                            yVal1temp = gydanger;
+                            yVal2temp = gyalarm;
+
+                        }
+                    }
+                    else if (checkBox2.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["vy"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "mms/s rms ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                            
+                            yVal1temp = vydanger;
+                            yVal2temp = vyalarm;
+                        }
+                    }
+                    else if (checkBox3.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["dy"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "micron p-p ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                            
+                            yVal1temp = dydanger;
+                            yVal2temp = dyalarm;
+                        }
+                    }
+                }
+                else
+                {
+                    if (checkBox1.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["gz"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "g rms ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                            
+                            yVal1temp = gzdanger;
+                            yVal2temp = gzalarm;
+                        }
+                    }
+                    else if (checkBox2.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["vz"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "mms/s rms ";
+                        if (i == data.Rows.Count - 1)
+                        {
+                           
+                            yVal1temp = vzdanger;
+                            yVal2temp = vzalarm;
+                        }
+                    }
+                    else if (checkBox3.Checked == true)
+                    {
+                        selectcolum[i] = Convert.ToDouble(data.Rows[i]["dz"]);
+                        tmp_ai_dbase_raw_pane[0].YAxis.Title.Text = "micron p-p ";
+                        
+                        if (i == data.Rows.Count - 1)
+                        {
+                           
+                            yVal1temp = dzdanger;
+                            yVal2temp = dzalarm;
+                        }
+                    }
+                }
+
+            }
+
+            
+
+
+            if (metroComboAxis.SelectedIndex == 0)
+            {
+                tmp_ai_dbase_raw_curve[0] = tmp_ai_dbase_raw_pane[0].AddCurve("X-Axis History", null, selectcolum, Color.Red, SymbolType.None);
+                
+            }
+            else if (metroComboAxis.SelectedIndex == 1)
+            {
+                tmp_ai_dbase_raw_curve[0] = tmp_ai_dbase_raw_pane[0].AddCurve("Y-Axis History", null, selectcolum, Color.Blue, SymbolType.None);
+            }
+            else
+            {
+                tmp_ai_dbase_raw_curve[0] = tmp_ai_dbase_raw_pane[0].AddCurve("Z-Axis History", null, selectcolum, Color.DeepPink, SymbolType.None);
+            }
+
+            tmp_ai_dbase_raw_curve[0].Line.IsSmooth = true;
+
+            userClickrListdanger.Add(data.Rows.Count, yVal1temp);
+            userClickrListdanger.Add(0, yVal1temp);
+            userClickCurvedanger = myPane.AddCurve(" ", userClickrListdanger, Color.Red, SymbolType.None);
+            userClickCurvedanger.Line.Width = 4;
+            userClickrListalarm.Add(data.Rows.Count, yVal2temp);
+            userClickrListalarm.Add(0, yVal2temp);
+            userClickCurvealarm = myPane.AddCurve(" ", userClickrListalarm, Color.Yellow, SymbolType.None);
+            userClickCurvealarm.Line.Width = 4;
+            this.zedGraphhistory.GraphPane.YAxis.Scale.MaxAuto = true;
+            this.zedGraphhistory.GraphPane.YAxis.Scale.Min = 0;
+            this.zedGraphhistory.GraphPane.XAxis.Scale.Max = data.Rows.Count;
+            this.zedGraphhistory.GraphPane.XAxis.Scale.Min = 0;
+            this.zedGraphhistory.AxisChange();
+            this.zedGraphhistory.Refresh();
+            label1danger.Text = yVal1temp.ToString("f3");
+            label1alarm.Text = yVal2temp.ToString("f3");
+            selectcolum = null;
+            data = null;
+
+        }
+        void ai_buf_ready_cbfunc()
+        {
+            //sw3 = Stopwatch.StartNew();
+            USBDASK.UD_AI_AsyncDblBufferTransfer32(0, aidata);
+
+            // Convert AI raw data to scaled data, it depends on the setting of channel range.
+            //DSA_DASK.DSA_AI_ContVScale(config_para.card_handle, config_para.ai_chnl_range, config_para.ai_raw_data_buf[config_para.ai_buf_ready_idx], config_para.ai_scale_data_buf, (int)config_para.ai_buf_size);
+            USBDASK.UD_AI_ContVScale32(0, USBDASK.AD_B_10_V, 0/*inType*/, aidata, voltagedata, (int)allchannellength);
+            index1 = 0;
+            index2 = 0;
+            index3 = 0;
+            index4 = 0;
+            for (int i = 0; i < allchannellength; i++)
+            {
+                if ((i % channelcount) == 0)
+                {
+                    aidata0[index1] = voltagedata[i]/sensx;
+                    
+                    index1++;
+                                   
+                }
+                else if ((i % channelcount) == 1)
+                {
+                    aidata1[index2] = voltagedata[i] / sensy;
+                    index2++;
+                }
+                else
+                {
+                    aidata2[index3] = voltagedata[i]/sensz;
+                    index3++;
+                }
+
+            }
+
+
+            DisplayInvoke displayInvoke = new DisplayInvoke(Display);
+            DisplayFFTInvoke displayFFTInvoke = new DisplayFFTInvoke(DisplayFFT);
+            BeginInvoke(displayInvoke, new object[] { aidata0, aidata1, aidata2 });
+            BeginInvoke(displayFFTInvoke, new object[] { aidata0, aidata1, aidata2 });
+            MethodInvoker mi = new MethodInvoker(this.UpdateUI);
+            
+            if (metroCheckBoxwritedata.Checked == true)
+            {                
+                //writedata();                              
+            }
+            ushort OverrunFlag;
+
+
+            USBDASK.UD_AI_AsyncDblBufferHandled(0);
+            USBDASK.UD_AI_AsyncDblBufferOverrun(0, 0,  out OverrunFlag);
+
+                if (OverrunFlag==1)
+                {
+                    m_dwOverrunCnt = m_dwOverrunCnt + 1;
+                    USBDASK.UD_AI_AsyncDblBufferOverrun(0, 1, out OverrunFlag);
+                this.BeginInvoke(mi, null);
+                }
+
+         
+            //sw3.Stop();
+            //this.BeginInvoke(mi, null);
+        }
+        private void SearchFreq()
+        {
+            xabstart=(int)((Convert.ToInt32(textXabandstart.Text) )/ (bdf));
+            xabend = (int)((Convert.ToInt32(textXabandend.Text)) / (bdf));
+            xvbstart = (int)((Convert.ToInt32(textXvbandstart.Text)) / (bdf));
+            xvbend = (int)((Convert.ToInt32(textXvbandend.Text)) / (bdf));
+            xdbstart = (int)((Convert.ToInt32(textXdbandstart.Text)) / (bdf));
+            xdbend = (int)((Convert.ToInt32(textXdbandend.Text)) / (bdf));
+
+            yabstart = (int)((Convert.ToInt32(textYabandstart.Text)) / (bdf));
+            yabend = (int)((Convert.ToInt32(textYabandend.Text)) / (bdf));
+            yvbstart = (int)((Convert.ToInt32(textYvbandstart.Text)) / (bdf));
+            yvbend = (int)((Convert.ToInt32(textYvbandend.Text)) / (bdf));
+            ydbstart = (int)((Convert.ToInt32(textYdbandstart.Text)) / (bdf));
+            ydbend = (int)((Convert.ToInt32(textYdbandend.Text)) / (bdf));
+
+            zabstart = (int)((Convert.ToInt32(textZabandstart.Text)) / (bdf));
+            zabend = (int)((Convert.ToInt32(textZabandend.Text)) / (bdf));
+            zvbstart = (int)((Convert.ToInt32(textZvbandstart.Text)) / (bdf));
+            zvbend = (int)((Convert.ToInt32(textZvbandend.Text)) / (bdf));
+            zdbstart = (int)((Convert.ToInt32(textZdbandstart.Text)) / (bdf));
+            zdbend = (int)((Convert.ToInt32(textZdbandend.Text)) / (bdf));
+        }
+
+        private void configurecard()
+        {
+           
+            result = USBDASK.UD_AI_2405_Chan_Config(0, Chconfig, Chconfig, Chconfig, Chconfig);
+            if (result != USBDASK.NoError)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Falied to perform UD_AI_2405_Chan_Config(), error: " + result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            result = USBDASK.UD_AI_2405_Trig_Config(0, USBDASK.P2405_AI_CONVSRC_INT, USBDASK.UD_AI_TRGMOD_POST, 0, 0, 0, 0, 0);
+            if (result != USBDASK.NoError)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Falied to perform UD_AI_2405_Trig_Config(), error: " + result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            result = USBDASK.UD_AI_AsyncDblBufferMode(0, true);
+            if (result != USBDASK.NoError)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Falied to perform UD_AI_AsyncDblBufferMode(), error: " + result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            result = USBDASK.UD_AI_EventCallBack(0, 1/*add*/, USBDASK.DBEvent/*EventType*/, ai_buf_ready_cbdel);
+            if (result != USBDASK.NoError)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Falied to perform UD_AI_EventCallBack(), error: " + result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            result = USBDASK.UD_AI_ContReadMultiChannels(0, (ushort)channelcount, ai_chnl_sel, ai_chnl_range_array, aidata, allchannellength * 2, samplerate, USBDASK.ASYNCH_OP);
+            if (result != USBDASK.NoError)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Falied to perform UD_AI_ContReadMultiChannels(), error: " + result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+        }
+        private void writedata()
+        {
+
+            dt = DateTime.Now;
+            path = @"c:\DangerData\" + dt.Year.ToString() + dt.Month.ToString() + dt.Day.ToString() + dt.Hour.ToString() + dt.Minute.ToString() + dt.Second.ToString();
+            outputch1 = new FileStream(path + "CH1" + ".csv", FileMode.Create, FileAccess.ReadWrite);
+            csvWtr1 = new StreamWriter(outputch1);
+            outputch2 = new FileStream(path + "CH2" + ".csv", FileMode.Create, FileAccess.ReadWrite);
+            csvWtr2 = new StreamWriter(outputch2);
+            outputch3 = new FileStream(path + "CH3" + ".csv", FileMode.Create, FileAccess.ReadWrite);
+            csvWtr3 = new StreamWriter(outputch3);                    
+            for (int i = 0; i < spectrumlength; i++)
+            {
+                //binWtr1.Write(aidata0[i]);
+                //binWtr2.Write(aidata1[i]);
+                //binWtr3.Write(aidata2[i]);
+                csvWtr1.Write(spectrumdata0[i]+",");
+                csvWtr2.Write(spectrumdata1[i]+",");
+                csvWtr3.Write(spectrumdata2[i]+",");
+            }
+            csvWtr1.Close();
+            csvWtr2.Close();
+            csvWtr3.Close();
+
+        }
+        private void UpdateUI()
+        {
+            //textBox1daqtime.Text = Convert.ToString(sw3.Elapsed.TotalMilliseconds);
+            textBox1daqtime.Text = Convert.ToString(m_dwOverrunCnt);
+        }
+
+        static void fn_dds_initial(ref DDSEntityManager mgr, string name, string partition_name, string topic, bool auto_dispose)
+        {
+            mgr = new DDSEntityManager(name);
+
+            // Create Domain Participant
+            mgr.createParticipant(partition_name);
+            mgr.setAutoDispose(auto_dispose);
+
+            // Create Type
+            MsgTypeSupport msgTS = new MsgTypeSupport();
+            mgr.registerType(msgTS);
+
+            // Create Topic
+            mgr.createTopic(topic);
+        }
+
+        static void fn_dds_deinitial(DDSEntityManager mgr)
+        {
+            mgr.deleteTopic();
+            mgr.deleteParticipant();
+        }
+
+        static void fn_dds_create_writer(DDSEntityManager mgr, ref MsgDataWriter msg_writer, ref Msg msg_instance, ref InstanceHandle msg_handle)
+        {
+            // Create Publisher
+            mgr.createPublisher();
+
+            // Create DataWriter
+            mgr.createWriter();
+
+            // Publish Events
+            IDataWriter dwriter = mgr.getWriter();
+            msg_writer = dwriter as MsgDataWriter;
+
+            msg_instance = new Msg();
+            msg_instance.userID = 6;
+            msg_instance.message = "MCM";
+
+            msg_handle = msg_writer.RegisterInstance(msg_instance);
+            ErrorHandler.checkHandle(msg_instance, "msg_writer.RegisterInstance");
+        }
+
+        static void fn_dds_release_writer(DDSEntityManager mgr, MsgDataWriter msg_writer, Msg msg_instance, InstanceHandle msg_handle)
+        {
+            ReturnCode status = msg_writer.UnregisterInstance(msg_instance, msg_handle);
+
+            // Clean up
+            mgr.getPublisher().DeleteDataWriter(msg_writer);
+            mgr.deletePublisher();
+        }
+
+        static void fn_dds_data_write(MsgDataWriter msg_writer, Msg msg_instance, InstanceHandle msg_handle)
+        {
+            ReturnCode status = msg_writer.Write(msg_instance, msg_handle);
+            ErrorHandler.checkStatus(status, "msg_writer.Write");
+        }
+
+    }
+}
+
