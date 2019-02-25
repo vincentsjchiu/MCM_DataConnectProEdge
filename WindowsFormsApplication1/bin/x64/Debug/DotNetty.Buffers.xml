@@ -5,28 +5,19 @@
     </assembly>
     <members>
         <member name="T:DotNetty.Buffers.AbstractByteBuffer">
+            <inheritdoc />
             <summary>
                 Abstract base class implementation of a <see cref="T:DotNetty.Buffers.IByteBuffer" />
             </summary>
         </member>
-        <member name="M:DotNetty.Buffers.AbstractByteBuffer.NewSwappedByteBuffer">
-            <summary>
-                Creates a new <see cref="T:DotNetty.Buffers.SwappedByteBuffer" /> for this <see cref="T:DotNetty.Buffers.IByteBuffer" /> instance.
-            </summary>
-            <returns>A <see cref="T:DotNetty.Buffers.SwappedByteBuffer" /> for this buffer.</returns>
-        </member>
-        <member name="M:DotNetty.Buffers.AbstractByteBuffer.CheckReadableBytes(System.Int32)">
-            <summary>
-                Throws a <see cref="T:System.IndexOutOfRangeException" /> if the current <see cref="P:DotNetty.Buffers.AbstractByteBuffer.ReadableBytes" /> of this buffer
-                is less than <paramref name="minimumReadableBytes" />.
-            </summary>
-        </member>
         <member name="T:DotNetty.Buffers.AbstractByteBufferAllocator">
+            <inheritdoc />
             <summary>
                 Abstract base class for <see cref="T:DotNetty.Buffers.IByteBufferAllocator" /> instances
             </summary>
         </member>
         <member name="T:DotNetty.Buffers.AbstractDerivedByteBuffer">
+            <inheritdoc />
             <summary>
                 Abstract base class for <see cref="T:DotNetty.Buffers.IByteBuffer" /> implementations that wrap another
                 <see cref="T:DotNetty.Buffers.IByteBuffer" />.
@@ -62,6 +53,11 @@
                 useful when implementing a new buffer type.
             </summary>
         </member>
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.IndexOf(DotNetty.Buffers.IByteBuffer,DotNetty.Buffers.IByteBuffer)">
+            <summary>
+                Returns the reader index of needle in haystack, or -1 if needle is not in haystack.
+            </summary>
+        </member>
         <member name="M:DotNetty.Buffers.ByteBufferUtil.Equals(DotNetty.Buffers.IByteBuffer,System.Int32,DotNetty.Buffers.IByteBuffer,System.Int32,System.Int32)">
             <summary>
                 Returns {@code true} if and only if the two specified buffers are
@@ -85,24 +81,10 @@
                 This method is useful when implementing a new buffer type.
             </summary>
         </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapLong(System.Int64)">
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.IndexOf(DotNetty.Buffers.IByteBuffer,System.Int32,System.Int32,System.Byte)">
             <summary>
-                Toggles the endianness of the specified 64-bit long integer.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapInt(System.Int32)">
-            <summary>
-                Toggles the endianness of the specified 32-bit integer.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapShort(System.Int16)">
-            <summary>
-                Toggles the endianness of the specified 16-bit integer.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapMedium(System.Int32)">
-            <summary>
-                Toggles the endianness of the specified 24-bit medium integer.
+            The default implementation of <see cref="M:DotNetty.Buffers.IByteBuffer.IndexOf(System.Int32,System.Int32,System.Byte)"/>.
+            This method is useful when implementing a new buffer type.
             </summary>
         </member>
         <member name="M:DotNetty.Buffers.ByteBufferUtil.ReadBytes(DotNetty.Buffers.IByteBufferAllocator,DotNetty.Buffers.IByteBuffer,System.Int32)">
@@ -110,11 +92,35 @@
                 Read the given amount of bytes into a new {@link ByteBuf} that is allocated from the {@link ByteBufAllocator}.
             </summary>
         </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.IndexOf(DotNetty.Buffers.IByteBuffer,System.Int32,System.Int32,System.Byte)">
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.ReserveAndWriteUtf8(DotNetty.Buffers.IByteBuffer,System.String,System.Int32)">
             <summary>
-            The default implementation of <see cref="!:IByteBuffer.IndexOf(int, int, byte)"/>.
-            This method is useful when implementing a new buffer type.
+             Encode a string in http://en.wikipedia.org/wiki/UTF-8 and write it into reserveBytes of 
+             a byte buffer. The reserveBytes must be computed (ie eagerly using {@link #utf8MaxBytes(string)}
+             or exactly with #utf8Bytes(string)}) to ensure this method not to not: for performance reasons
+             the index checks will be performed using just reserveBytes.
+             </summary>
+             <returns> This method returns the actual number of bytes written.</returns>
+        </member>
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.EncodeString(DotNetty.Buffers.IByteBufferAllocator,System.String,System.Text.Encoding)">
+            <summary>
+                Encode the given <see cref="T:System.String" /> using the given <see cref="T:System.Text.Encoding" /> into a new
+                <see cref="T:DotNetty.Buffers.IByteBuffer" /> which
+                is allocated via the <see cref="T:DotNetty.Buffers.IByteBufferAllocator" />.
             </summary>
+            <param name="alloc">The <see cref="T:DotNetty.Buffers.IByteBufferAllocator" /> to allocate {@link IByteBuffer}.</param>
+            <param name="src">src The <see cref="T:System.String" /> to encode.</param>
+            <param name="encoding">charset The specified <see cref="T:System.Text.Encoding" /></param>
+        </member>
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.EncodeString(DotNetty.Buffers.IByteBufferAllocator,System.String,System.Text.Encoding,System.Int32)">
+            <summary>
+                Encode the given <see cref="T:System.String" /> using the given <see cref="T:System.Text.Encoding" /> into a new
+                <see cref="T:DotNetty.Buffers.IByteBuffer" /> which
+                is allocated via the <see cref="T:DotNetty.Buffers.IByteBufferAllocator" />.
+            </summary>
+            <param name="alloc">The <see cref="T:DotNetty.Buffers.IByteBufferAllocator" /> to allocate {@link IByteBuffer}.</param>
+            <param name="src">src The <see cref="T:System.String" /> to encode.</param>
+            <param name="encoding">charset The specified <see cref="T:System.Text.Encoding" /></param>
+            <param name="extraCapacity">the extra capacity to alloc except the space for decoding.</param>
         </member>
         <member name="M:DotNetty.Buffers.ByteBufferUtil.PrettyHexDump(DotNetty.Buffers.IByteBuffer)">
             <summary>
@@ -140,31 +146,20 @@
                 the given {@code length}.
             </summary>
         </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.AppendHexDumpRowPrefix(System.Text.StringBuilder,System.Int32,System.Int32)">
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapLong(System.Int64)">
             <summary>
-                Appends the prefix of each hex dump row.  Uses the look-up table for the buffer &lt;= 64 KiB.
+                Toggles the endianness of the specified 64-bit long integer.
             </summary>
         </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.EncodeString(DotNetty.Buffers.IByteBufferAllocator,System.String,System.Text.Encoding)">
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapInt(System.Int32)">
             <summary>
-                Encode the given <see cref="T:System.String" /> using the given <see cref="T:System.Text.Encoding" /> into a new
-                <see cref="T:DotNetty.Buffers.IByteBuffer" /> which
-                is allocated via the <see cref="T:DotNetty.Buffers.IByteBufferAllocator" />.
+                Toggles the endianness of the specified 32-bit integer.
             </summary>
-            <param name="alloc">The <see cref="T:DotNetty.Buffers.IByteBufferAllocator" /> to allocate {@link IByteBuffer}.</param>
-            <param name="src">src The <see cref="T:System.String" /> to encode.</param>
-            <param name="encoding">charset The specified <see cref="T:System.Text.Encoding" /></param>
         </member>
-        <member name="M:DotNetty.Buffers.ByteBufferUtil.EncodeString(DotNetty.Buffers.IByteBufferAllocator,System.String,System.Text.Encoding,System.Int32)">
+        <member name="M:DotNetty.Buffers.ByteBufferUtil.SwapShort(System.Int16)">
             <summary>
-                Encode the given <see cref="T:System.String" /> using the given <see cref="T:System.Text.Encoding" /> into a new
-                <see cref="T:DotNetty.Buffers.IByteBuffer" /> which
-                is allocated via the <see cref="T:DotNetty.Buffers.IByteBufferAllocator" />.
+                Toggles the endianness of the specified 16-bit integer.
             </summary>
-            <param name="alloc">The <see cref="T:DotNetty.Buffers.IByteBufferAllocator" /> to allocate {@link IByteBuffer}.</param>
-            <param name="src">src The <see cref="T:System.String" /> to encode.</param>
-            <param name="encoding">charset The specified <see cref="T:System.Text.Encoding" /></param>
-            <param name="extraCapacity">the extra capacity to alloc except the space for decoding.</param>
         </member>
         <member name="F:DotNetty.Buffers.ByteOrder.LittleEndian">
             <summary>
@@ -306,12 +301,8 @@
                 Discard all {@link IByteBuffer}s which are read.
             </summary>
         </member>
-        <member name="T:DotNetty.Buffers.DuplicatedByteBuffer">
-            <summary>
-                Dervied buffer that forwards requests to the original underlying buffer
-            </summary>
-        </member>
         <member name="T:DotNetty.Buffers.EmptyByteBuffer">
+            <inheritdoc />
             <summary>
                 Represents an empty byte buffer
             </summary>
@@ -506,11 +497,33 @@
                 <c>index + 2</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetShortLE(System.Int32)">
+            <summary>
+                Gets a short at the specified absolute <paramref name="index" /> in this buffer 
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 2</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.GetUnsignedShort(System.Int32)">
             <summary>
                 Gets an ushort at the specified absolute <paramref name="index" /> in this buffer.
                 This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
                 of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 2</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetUnsignedShortLE(System.Int32)">
+            <summary>
+                Gets an ushort at the specified absolute <paramref name="index" /> in this buffer 
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
                 if the specified <paramref name="index" /> is less than <c>0</c> or
@@ -528,11 +541,33 @@
                 <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetIntLE(System.Int32)">
+            <summary>
+                Gets an integer at the specified absolute <paramref name="index" /> in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.GetUnsignedInt(System.Int32)">
             <summary>
                 Gets an unsigned integer at the specified absolute <paramref name="index" /> in this buffer.
                 This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
                 of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetUnsignedIntLE(System.Int32)">
+            <summary>
+                Gets an unsigned integer at the specified absolute <paramref name="index" /> in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
                 if the specified <paramref name="index" /> is less than <c>0</c> or
@@ -550,6 +585,17 @@
                 <c>index + 8</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetLongLE(System.Int32)">
+            <summary>
+                Gets a long integer at the specified absolute <paramref name="index" /> in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or 
+                <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 8</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.GetMedium(System.Int32)">
             <summary>
                 Gets a 24-bit medium integer at the specified absolute index in this buffer.
@@ -557,7 +603,18 @@
                 of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
-                if the specified <see cref="!:index" /> is less than <c>0</c> or
+                if the specified <param name="index"/>  is less than <c>0</c> or
+                <c>index + 3</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetMediumLE(System.Int32)">
+            <summary>
+                Gets a 24-bit medium integer at the specified absolute index in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <param name="index"/> is less than <c>0</c> or
                 <c>index + 3</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
@@ -568,7 +625,18 @@
                 of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
-                if the specified <see cref="!:index" /> is less than <c>0</c> or
+                if the specified <param name="index"/> is less than <c>0</c> or
+                <c>index + 3</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetUnsignedMediumLE(System.Int32)">
+            <summary>
+                Gets an unsigned 24-bit medium integer at the specified absolute index in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <param name="index"/> is less than <c>0</c> or
                 <c>index + 3</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
@@ -594,11 +662,33 @@
                 <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetFloatLE(System.Int32)">
+            <summary>
+                Gets a float at the specified absolute <paramref name="index"/> in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index"/> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.GetDouble(System.Int32)">
             <summary>
                 Gets a double at the specified absolute <paramref name="index" /> in this buffer.
                 This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
                 of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 8</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetDoubleLE(System.Int32)">
+            <summary>
+                Gets a double at the specified absolute <paramref name="index" /> in this buffer
+                in Little Endian Byte Order. This method does not modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
                 if the specified <paramref name="index" /> is less than <c>0</c> or
@@ -673,6 +763,18 @@
                 <c>this.capacity</c>
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetString(System.Int32,System.Int32,System.Text.Encoding)">
+            <summary>
+                Gets a string with the given length at the given index.
+            </summary>
+            <param name="index"></param>
+            <param name="length">length the length to read</param>
+            <param name="encoding">charset that should be use</param>
+            <returns>the string value.</returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if length is greater than readable bytes.
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.SetBoolean(System.Int32,System.Boolean)">
             <summary>
                 Sets the specified boolean at the specified absolute <paramref name="index" /> in this buffer.
@@ -703,10 +805,32 @@
                 <c>index + 2</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetShortLE(System.Int32,System.Int32)">
+            <summary>
+                Sets the specified short at the specified absolute <paramref name="index" /> in this buffer
+                in the Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 2</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.SetUnsignedShort(System.Int32,System.UInt16)">
             <summary>
                 Sets the specified unsigned short at the specified absolute <paramref name="index" /> in this buffer.
                 This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 2</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetUnsignedShortLE(System.Int32,System.UInt16)">
+            <summary>
+                Sets the specified unsigned short at the specified absolute <paramref name="index" /> in this buffer
+                in the Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
                 if the specified <paramref name="index" /> is less than <c>0</c> or
@@ -723,6 +847,17 @@
                 <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetIntLE(System.Int32,System.Int32)">
+            <summary>
+                Sets the specified integer at the specified absolute <paramref name="index" /> in this buffer
+                in the Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.SetUnsignedInt(System.Int32,System.UInt32)">
             <summary>
                 Sets the specified unsigned integer at the specified absolute <paramref name="index" /> in this buffer.
@@ -733,14 +868,36 @@
                 <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetUnsignedIntLE(System.Int32,System.UInt32)">
+            <summary>
+                Sets the specified unsigned integer at the specified absolute <paramref name="index" /> in this buffer
+                in the Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or 
+                <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.SetMedium(System.Int32,System.Int32)">
             <summary>
-                Sets the specified 24-bit medium integer at the specified absolute <see cref="!:index" /> in this buffer.
+                Sets the specified 24-bit medium integer at the specified absolute <paramref name="index" /> in this buffer.
                 Note that the most significant byte is ignored in the specified value.
                 This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
-                if the specified <see cref="!:index" /> is less than <c>0</c> or
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 3</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetMediumLE(System.Int32,System.Int32)">
+            <summary>
+                Sets the specified 24-bit medium integer at the specified absolute <paramref name="index" /> in this buffer.
+                Note that the most significant byte is ignored in the specified value.
+                This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
                 <c>index + 3</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
             </exception>
         </member>
@@ -748,6 +905,17 @@
             <summary>
                 Sets the specified long integer at the specified absolute <paramref name="index" /> in this buffer.
                 This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 8</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetLongLE(System.Int32,System.Int64)">
+            <summary>
+                Sets the specified long integer at the specified absolute <paramref name="index" /> in this buffer
+                in the Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or 
+                <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
                 if the specified <paramref name="index" /> is less than <c>0</c> or
@@ -778,6 +946,28 @@
             <summary>
                 Sets the specified float at the specified absolute <paramref name="index" /> in this buffer.
                 This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetDoubleLE(System.Int32,System.Double)">
+            <summary>
+                Sets the specified float at the specified absolute <paramref name="index" /> in this buffer
+                in Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified <paramref name="index" /> is less than <c>0</c> or
+                <c>index + 4</c> greater than <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" />
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetFloatLE(System.Int32,System.Single)">
+            <summary>
+                Sets the specified float at the specified absolute <paramref name="index" /> in this buffer
+                in Little Endian Byte Order. This method does not directly modify <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">
                 if the specified <paramref name="index" /> is less than <c>0</c> or
@@ -858,6 +1048,32 @@
                 if <c>index + length</c> is greater than <c>this.capacity</c>
             </exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetZero(System.Int32,System.Int32)">
+            <summary>
+                Fills this buffer with NULL (0x00) starting at the specified
+                absolute index. This method does not modify reader index
+                or writer index of this buffer
+            </summary>
+            <param name="index">absolute index in this byte buffer to start writing to</param>
+            <param name="length">length the number of <tt>NUL</tt>s to write to the buffer</param>
+            <exception cref="T:System.IndexOutOfRangeException">
+                if the specified index is less than 0 or if index + length
+                is greater than capacity.
+            </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.SetString(System.Int32,System.String,System.Text.Encoding)">
+            <summary>
+                Writes the specified string at the current writer index and increases
+                the  writer index by the written bytes.
+            </summary>
+            <param name="index">Index on which the string should be written</param>
+            <param name="value">The string value.</param>
+            <param name="encoding">Encoding that should be used.</param>
+            <returns>The written number of bytes.</returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+               if writable bytes is not large enough to write the whole string.
+            </exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.ReadBoolean">
             <summary>
                 Gets a boolean at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />
@@ -879,10 +1095,24 @@
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>2</c></exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadShortLE">
+            <summary>
+                Gets a short at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order and increases 
+                the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>2</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>2</c></exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.ReadMedium">
             <summary>
                 Gets a 24-bit medium integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />
                 by <c>3</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>3</c></exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadMediumLE">
+            <summary>
+                Gets a 24-bit medium integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order and 
+                increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>3</c> in this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>3</c></exception>
         </member>
@@ -893,10 +1123,24 @@
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>3</c></exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadUnsignedMediumLE">
+            <summary>
+                Gets an unsigned 24-bit medium integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order 
+                and increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>3</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>3</c></exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.ReadUnsignedShort">
             <summary>
                 Gets an unsigned short at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />
                 by <c>2</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>2</c></exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadUnsignedShortLE">
+            <summary>
+                Gets an unsigned short at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order and 
+                increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>2</c> in this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>2</c></exception>
         </member>
@@ -907,10 +1151,38 @@
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadIntLE">
+            <summary>
+                Gets an integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order and increases 
+                the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />  by <c>4</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.ReadUnsignedInt">
             <summary>
                 Gets an unsigned integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />
                 by <c>4</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadUnsignedIntLE">
+            <summary>
+                Gets an unsigned integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order and
+                increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>4</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadLong">
+            <summary>
+                Gets an long at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> 
+                by <c>8</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadLongLE">
+            <summary>
+                Gets an long at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> in the Little Endian Byte Order and
+                increases the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>8</c> in this buffer.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
         </member>
@@ -930,11 +1202,25 @@
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>8</c></exception>
         </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadDoubleLE">
+            <summary>
+                Gets an 8-byte Decimaling integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the
+                <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>8</c> in this buffer in Little Endian Byte Order.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>8</c></exception>
+        </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.ReadFloat">
             <summary>
                 Gets an 4-byte Decimaling integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the
                 <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />
                 by <c>4</c> in this buffer.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadFloatLE">
+            <summary>
+                Gets an 4-byte Decimaling integer at the current <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and increases the
+                <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> by <c>4</c> in this buffer in Little Endian Byte Order.
             </summary>
             <exception cref="T:System.IndexOutOfRangeException">if <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" /> is less than <c>4</c></exception>
         </member>
@@ -956,6 +1242,15 @@
                 if <c>destination.<see cref="P:DotNetty.Buffers.IByteBuffer.WritableBytes" /></c> is greater than
                 <see cref="P:DotNetty.Buffers.IByteBuffer.ReadableBytes" />.
             </exception>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ReadString(System.Int32,System.Text.Encoding)">
+            <summary>
+                Gets a string with the given length at the current reader index
+                and increases the reader index by the given length.
+            </summary>
+            <param name="length">The length to read</param>
+            <param name="encoding">Encoding that should be used</param>
+            <returns>The string value</returns>
         </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.SkipBytes(System.Int32)">
             <summary>
@@ -1056,13 +1351,24 @@
             <summary>
                 Grabs the underlying byte array for this buffer
             </summary>
-            <value></value>
         </member>
-        <member name="M:DotNetty.Buffers.IByteBuffer.ToArray">
+        <member name="P:DotNetty.Buffers.IByteBuffer.HasMemoryAddress">
             <summary>
-                Converts the readable contents of the buffer into an array.
-                Does not affect the <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> or <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" /> of the <see cref="T:DotNetty.Buffers.IByteBuffer" />
+            Returns {@code true} if and only if this buffer has a reference to the low-level memory address that points
+            to the backing data.
             </summary>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.GetPinnableMemoryAddress">
+            <summary>
+             Returns the low-level memory address that point to the first byte of ths backing data.
+            </summary>
+            <returns>The low-level memory address</returns>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.AddressOfPinnedMemory">
+            <summary>
+            Returns the pointer address of the buffer if the memory is pinned.
+            </summary>
+            <returns>IntPtr.Zero if not pinned.</returns>
         </member>
         <member name="M:DotNetty.Buffers.IByteBuffer.Duplicate">
             <summary>
@@ -1074,47 +1380,55 @@
                 Unwraps a nested buffer
             </summary>
         </member>
-        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByte(DotNetty.Common.Utilities.ByteProcessor)">
+        <member name="M:DotNetty.Buffers.IByteBuffer.Copy">
+             <summary>
+                 Returns a copy of this buffer's readable bytes. Modifying the content of the 
+                 returned buffer or this buffer does not affect each other at all.This method is 
+                 identical to {@code buf.copy(buf.readerIndex(), buf.readableBytes())}.
+                 This method does not modify {@code readerIndex} or {@code writerIndex} of this buffer.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByte(DotNetty.Common.Utilities.IByteProcessor)">
             <summary>
                 Iterates over the readable bytes of this buffer with the specified <c>processor</c> in ascending order.
             </summary>
             <returns>
                 <c>-1</c> if the processor iterated to or beyond the end of the readable bytes.
-                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.ByteProcessor.Process(System.Byte)" /> returned <c>false</c>.
+                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.IByteProcessor.Process(System.Byte)" /> returned <c>false</c>.
             </returns>
             <param name="processor">Processor.</param>
         </member>
-        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByte(System.Int32,System.Int32,DotNetty.Common.Utilities.ByteProcessor)">
+        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByte(System.Int32,System.Int32,DotNetty.Common.Utilities.IByteProcessor)">
             <summary>
                 Iterates over the specified area of this buffer with the specified <paramref name="processor"/> in ascending order.
                 (i.e. <paramref name="index"/>, <c>(index + 1)</c>,  .. <c>(index + length - 1)</c>)
             </summary>
             <returns>
                 <c>-1</c> if the processor iterated to or beyond the end of the specified area.
-                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.ByteProcessor.Process(System.Byte)"/> returned <c>false</c>.
+                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.IByteProcessor.Process(System.Byte)"/> returned <c>false</c>.
             </returns>
             <param name="index">Index.</param>
             <param name="length">Length.</param>
             <param name="processor">Processor.</param>
         </member>
-        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByteDesc(DotNetty.Common.Utilities.ByteProcessor)">
+        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByteDesc(DotNetty.Common.Utilities.IByteProcessor)">
             <summary>
                 Iterates over the readable bytes of this buffer with the specified <paramref name="processor"/> in descending order.
             </summary>
             <returns>
                 <c>-1</c> if the processor iterated to or beyond the beginning of the readable bytes.
-                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.ByteProcessor.Process(System.Byte)"/> returned <c>false</c>.
+                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.IByteProcessor.Process(System.Byte)"/> returned <c>false</c>.
             </returns>
             <param name="processor">Processor.</param>
         </member>
-        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByteDesc(System.Int32,System.Int32,DotNetty.Common.Utilities.ByteProcessor)">
+        <member name="M:DotNetty.Buffers.IByteBuffer.ForEachByteDesc(System.Int32,System.Int32,DotNetty.Common.Utilities.IByteProcessor)">
             <summary>
                 Iterates over the specified area of this buffer with the specified <paramref name="processor"/> in descending order.
                 (i.e. <c>(index + length - 1)</c>, <c>(index + length - 2)</c>, ... <paramref name="index"/>)
             </summary>
             <returns>
                 <c>-1</c> if the processor iterated to or beyond the beginning of the specified area.
-                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.ByteProcessor.Process(System.Byte)"/> returned <c>false</c>.
+                The last-visited index If the <see cref="M:DotNetty.Common.Utilities.IByteProcessor.Process(System.Byte)"/> returned <c>false</c>.
             </returns>
             <param name="index">Index.</param>
             <param name="length">Length.</param>
@@ -1122,7 +1436,22 @@
         </member>
         <member name="T:DotNetty.Buffers.IByteBufferAllocator">
             <summary>
-                Thread-safe interface for allocating <see cref="T:DotNetty.Buffers.IByteBuffer" /> instances for use inside Helios reactive I/O
+                Thread-safe interface for allocating <see cref="T:DotNetty.Buffers.IByteBuffer" />/.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Buffers.IByteBufferAllocatorMetric.UsedHeapMemory">
+            <summary>
+            Returns the number of bytes of heap memory used by a {@link ByteBufAllocator} or {@code -1} if unknown.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Buffers.IByteBufferAllocatorMetric.UsedDirectMemory">
+            <summary>
+             Returns the number of bytes of direct memory used by a {@link ByteBufAllocator} or {@code -1} if unknown.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Buffers.IByteBufferAllocatorMetricProvider.Metric">
+            <summary>
+            Returns a <see cref="T:DotNetty.Buffers.IByteBufferAllocatorMetric"/> for a <see cref="T:DotNetty.Buffers.IByteBufferAllocator"/>
             </summary>
         </member>
         <member name="P:DotNetty.Buffers.IByteBufferHolder.Content">
@@ -1140,9 +1469,14 @@
                 Duplicate the {@link ByteBufHolder}. Be aware that this will not automatically call {@link #retain()}.
             </summary>
         </member>
-        <member name="T:DotNetty.Buffers.IllegalReferenceCountException">
+        <member name="M:DotNetty.Buffers.IByteBufferHolder.RetainedDuplicate">
             <summary>
-                Exception thrown during instances where a reference count is used incorrectly
+                Duplicates this {@link ByteBufHolder}. This method returns a retained duplicate unlike {@link #duplicate()}.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Buffers.IByteBufferHolder.Replace(DotNetty.Buffers.IByteBuffer)">
+            <summary>
+               Returns a new {@link ByteBufHolder} which contains the specified {@code content}.
             </summary>
         </member>
         <member name="P:DotNetty.Buffers.IPoolArenaMetric.NumThreadCaches">
@@ -1241,14 +1575,82 @@
         <member name="P:DotNetty.Buffers.IPoolSubpageMetric.PageSize">
             Return the size (in bytes) of this page.
         </member>
-        <!-- Badly formed XML comment ignored for member "T:DotNetty.Buffers.PoolChunk`1" -->
+        <member name="T:DotNetty.Buffers.PoolChunk`1">
+            <summary>
+                Description of algorithm for PageRun/PoolSubpage allocation from PoolChunk
+                Notation: The following terms are important to understand the code
+                > page  - a page is the smallest unit of memory chunk that can be allocated
+                > chunk - a chunk is a collection of pages
+                > in this code chunkSize = 2^{maxOrder} /// pageSize
+                To begin we allocate a byte array of size = chunkSize
+                Whenever a ByteBuf of given size needs to be created we search for the first position
+                in the byte array that has enough empty space to accommodate the requested size and
+                return a (long) handle that encodes this offset information, (this memory segment is then
+                marked as reserved so it is always used by exactly one ByteBuf and no more)
+                For simplicity all sizes are normalized according to PoolArena#normalizeCapacity method
+                This ensures that when we request for memory segments of size >= pageSize the normalizedCapacity
+                equals the next nearest power of 2
+                To search for the first offset in chunk that has at least requested size available we construct a
+                complete balanced binary tree and store it in an array (just like heaps) - memoryMap
+                The tree looks like this (the size of each node being mentioned in the parenthesis)
+                depth=0        1 node (chunkSize)
+                depth=1        2 nodes (chunkSize/2)
+                ..
+                ..
+                depth=d        2^d nodes (chunkSize/2^d)
+                ..
+                depth=maxOrder 2^maxOrder nodes (chunkSize/2^{maxOrder} = pageSize)
+                depth=maxOrder is the last level and the leafs consist of pages
+                With this tree available searching in chunkArray translates like this:
+                To allocate a memory segment of size chunkSize/2^k we search for the first node (from left) at height k
+                which is unused
+                Algorithm:
+                ----------
+                Encode the tree in memoryMap with the notation
+                memoryMap[id] = x => in the subtree rooted at id, the first node that is free to be allocated
+                is at depth x (counted from depth=0) i.e., at depths [depth_of_id, x), there is no node that is free
+                As we allocate and free nodes, we update values stored in memoryMap so that the property is maintained
+                Initialization -
+                In the beginning we construct the memoryMap array by storing the depth of a node at each node
+                i.e., memoryMap[id] = depth_of_id
+                Observations:
+                -------------
+                1) memoryMap[id] = depth_of_id  => it is free / unallocated
+                2) memoryMap[id] > depth_of_id  => at least one of its child nodes is allocated, so we cannot allocate it, but
+                some of its children can still be allocated based on their availability
+                3) memoryMap[id] = maxOrder + 1 => the node is fully allocated and thus none of its children can be allocated, it
+                is thus marked as unusable
+                Algorithm: [allocateNode(d) => we want to find the first node (from left) at height h that can be allocated]
+                ----------
+                1) start at root (i.e., depth = 0 or id = 1)
+                2) if memoryMap[1] > d => cannot be allocated from this chunk
+                3) if left node value &lt;= h; we can allocate from left subtree so move to left and repeat until found
+                4) else try in right subtree
+                Algorithm: [allocateRun(size)]
+                ----------
+                1) Compute d = log_2(chunkSize/size)
+                2) Return allocateNode(d)
+                Algorithm: [allocateSubpage(size)]
+                ----------
+                1) use allocateNode(maxOrder) to find an empty (i.e., unused) leaf (i.e., page)
+                2) use this handle to construct the PoolSubpage object or if it already exists just call init(normCapacity)
+                note that this PoolSubpage object is added to subpagesPool in the PoolArena when we init() it
+                Note:
+                -----
+                In the implementation for improving cache coherence,
+                we store 2 pieces of information (i.e, 2 byte vals) as a short value in memoryMap
+                memoryMap[id]= (depth_of_id, x)
+                where as per convention defined above
+                the second value (i.e, x) indicates that the first node which is free to be allocated is at depth x (from root)
+            </summary>
+        </member>
         <member name="F:DotNetty.Buffers.PoolChunk`1.subpageOverflowMask">
             Used to determine if the requested capacity is equal to or greater than pageSize. 
         </member>
         <member name="F:DotNetty.Buffers.PoolChunk`1.unusable">
             Used to mark memory as unusable 
         </member>
-        <member name="M:DotNetty.Buffers.PoolChunk`1.#ctor(DotNetty.Buffers.PoolArena{`0},`0,System.Int32,System.Boolean)">
+        <member name="M:DotNetty.Buffers.PoolChunk`1.#ctor(DotNetty.Buffers.PoolArena{`0},`0,System.Int32,System.Int32)">
             Creates a special chunk that is not pooled. 
         </member>
         <member name="M:DotNetty.Buffers.PoolChunk`1.UpdateParentsAlloc(System.Int32)">
@@ -1308,23 +1710,8 @@
         <member name="M:DotNetty.Buffers.PoolChunkList`1.Add0(DotNetty.Buffers.PoolChunk{`0})">
             Adds the {@link PoolChunk} to this {@link PoolChunkList}.
         </member>
-        <member name="M:DotNetty.Buffers.PooledByteBufferAllocator.NumHeapArenas">
-            Return the number of heap arenas.
-        </member>
-        <member name="M:DotNetty.Buffers.PooledByteBufferAllocator.HeapArenas">
-            Return a {@link List} of all heap {@link PoolArenaMetric}s that are provided by this pool.
-        </member>
-        <member name="M:DotNetty.Buffers.PooledByteBufferAllocator.NumThreadLocalCaches">
-            Return the number of thread local caches used by this {@link PooledByteBufferAllocator}.
-        </member>
-        <member name="P:DotNetty.Buffers.PooledByteBufferAllocator.TinyCacheSize">
-            Return the size of the tiny cache.
-        </member>
-        <member name="P:DotNetty.Buffers.PooledByteBufferAllocator.SmallCacheSize">
-            Return the size of the small cache.
-        </member>
-        <member name="P:DotNetty.Buffers.PooledByteBufferAllocator.NormalCacheSize">
-            Return the size of the normal cache.
+        <member name="M:DotNetty.Buffers.PooledByteBuffer`1.Reuse(System.Int32)">
+            Method must be called before reuse this {@link PooledByteBufAllocator}
         </member>
         <member name="M:DotNetty.Buffers.PooledByteBufferAllocator.DumpStats">
             Returns the status of the allocator (which contains all metrics) as string. Be aware this may be expensive
@@ -1336,7 +1723,7 @@
         <member name="M:DotNetty.Buffers.PoolSubpage`1.Allocate">
             Returns the bitmap index of the subpage allocation.
         </member>
-        <member name="M:DotNetty.Buffers.PoolSubpage`1.Free(System.Int32)">
+        <member name="M:DotNetty.Buffers.PoolSubpage`1.Free(DotNetty.Buffers.PoolSubpage{`0},System.Int32)">
             @return {@code true} if this subpage is in use.
                     {@code false} if this subpage is not used by its chunk and thus it's OK to be released.
         </member>
@@ -1391,11 +1778,6 @@
         <member name="M:DotNetty.Buffers.PoolThreadCache`1.MemoryRegionCache.Trim">
             Free up cached {@link PoolChunk}s if not allocated frequently enough.
         </member>
-        <member name="T:DotNetty.Buffers.SwappedByteBuffer">
-            <summary>
-                Wrapper which swaps the <see cref="T:DotNetty.Buffers.ByteOrder" /> of a <see cref="T:DotNetty.Buffers.IByteBuffer" />.
-            </summary>
-        </member>
         <member name="T:DotNetty.Buffers.Unpooled">
             <summary>
                 Utility class for managing and creating unpooled buffers
@@ -1403,8 +1785,15 @@
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(System.Byte[])">
             <summary>
-                Creates a new big-endian buffer which wraps the specified <see cref="!:array"/>.
+                Creates a new big-endian buffer which wraps the specified array.
                 A modification on the specified array's content will be visible to the returned buffer.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+                Creates a new big-endian buffer which wraps the sub-region of the
+                specified array. A modification on the specified array's content 
+                will be visible to the returned buffer.
             </summary>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(DotNetty.Buffers.IByteBuffer)">
@@ -1413,7 +1802,7 @@
                 A modification on the specified buffer's content will be visible to the returned buffer.
             </summary>
             <param name="buffer">The buffer to wrap. Reference count ownership of this variable is transfered to this method.</param>
-            <returns>The readable portion of the <see cref="!:buffer"/>, or an empty buffer if there is no readable portion.</returns>
+            <returns>The readable portion of the buffer, or an empty buffer if there is no readable portion.</returns>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(System.Byte[][])">
             <summary>
@@ -1427,7 +1816,13 @@
                 A modification on the content of the specified buffers will be visible to the returned buffer.
             </summary>
             <param name="buffers">The buffers to wrap. Reference count ownership of all variables is transfered to this method.</param>
-            <returns>The readable portion of the <see cref="!:buffers"/>. The caller is responsible for releasing this buffer.</returns>
+            <returns>The readable portion of the buffers. The caller is responsible for releasing this buffer.</returns>
+        </member>
+        <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(System.Int32,System.Byte[][])">
+            <summary>
+                Creates a new big-endian composite buffer which wraps the specified arrays without copying them.
+                A modification on the specified arrays' content will be visible to the returned buffer.
+            </summary>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(System.Int32,DotNetty.Buffers.IByteBuffer[])">
             <summary>
@@ -1436,45 +1831,29 @@
             </summary>
             <param name="maxNumComponents">Advisement as to how many independent buffers are allowed to exist before consolidation occurs.</param>
             <param name="buffers">The buffers to wrap. Reference count ownership of all variables is transfered to this method.</param>
-            <returns>The readable portion of the <see cref="!:buffers"/>. The caller is responsible for releasing this buffer.</returns>
-        </member>
-        <member name="M:DotNetty.Buffers.Unpooled.WrappedBuffer(System.Int32,System.Byte[][])">
-            <summary>
-                Creates a new big-endian composite buffer which wraps the specified arrays without copying them.
-                A modification on the specified arrays' content will be visible to the returned buffer.
-            </summary>
+            <returns>The readable portion of the buffers. The caller is responsible for releasing this buffer.</returns>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.CopiedBuffer(System.Byte[])">
             <summary>
-                Creates a new big-endian buffer whose content is a copy of the specified <see cref="!:array" />.
+                Creates a new big-endian buffer whose content is a copy of the specified array
                 The new buffer's <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
                 are <c>0</c> and <see cref="P:System.Array.Length" /> respectively.
             </summary>
             <param name="array">A buffer we're going to copy.</param>
-            <returns>The new buffer that copies the contents of <see cref="!:array" />.</returns>
-        </member>
-        <member name="M:DotNetty.Buffers.Unpooled.CopiedBuffer(System.Byte[][])">
-            <summary>
-                Creates a new big-endian buffer whose content is a merged copy of of the specified <see cref="!:arrays" />.
-                The new buffer's <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
-                are <c>0</c> and <see cref="P:System.Array.Length" /> respectively.
-            </summary>
-            <param name="arrays"></param>
-            <returns></returns>
+            <returns>The new buffer that copies the contents of array.</returns>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.CopiedBuffer(System.Byte[],System.Int32,System.Int32)">
             <summary>
-                Creates a new big-endian buffer whose content is a copy of the specified <see cref="!:array" />.
+                Creates a new big-endian buffer whose content is a copy of the specified array.
                 The new buffer's <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
                 are <c>0</c> and <see cref="P:System.Array.Length" /> respectively.
             </summary>
             <param name="array">A buffer we're going to copy.</param>
-            <param name="offset">The index offset from which we're going to read <see cref="!:array" />.</param>
+            <param name="offset">The index offset from which we're going to read array.</param>
             <param name="length">
-                The number of bytes we're going to read from <see cref="!:array" />
-                beginning from position <see cref="!:offset" />.
+                The number of bytes we're going to read from array beginning from position offset.
             </param>
-            <returns>The new buffer that copies the contents of <see cref="!:array" />.</returns>
+            <returns>The new buffer that copies the contents of array.</returns>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.CopiedBuffer(DotNetty.Buffers.IByteBuffer)">
             <summary>
@@ -1483,7 +1862,16 @@
                 are <c>0</c> and <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" /> respectively.
             </summary>
             <param name="buffer">A buffer we're going to copy.</param>
-            <returns>The new buffer that copies the contents of <see cref="!:buffer" />.</returns>
+            <returns>The new buffer that copies the contents of buffer.</returns>
+        </member>
+        <member name="M:DotNetty.Buffers.Unpooled.CopiedBuffer(System.Byte[][])">
+            <summary>
+                Creates a new big-endian buffer whose content is a merged copy of of the specified arrays.
+                The new buffer's <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" /> and <see cref="P:DotNetty.Buffers.IByteBuffer.WriterIndex" />
+                are <c>0</c> and <see cref="P:System.Array.Length" /> respectively.
+            </summary>
+            <param name="arrays"></param>
+            <returns></returns>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.CopiedBuffer(DotNetty.Buffers.IByteBuffer[])">
             <summary>
@@ -1492,7 +1880,7 @@
                 are <c>0</c> and <see cref="P:DotNetty.Buffers.IByteBuffer.Capacity" /> respectively.
             </summary>
             <param name="buffers">Buffers we're going to copy.</param>
-            <returns>The new buffer that copies the contents of <see cref="!:buffers" />.</returns>
+            <returns>The new buffer that copies the contents of buffers.</returns>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.CopyInt(System.Int32)">
             <summary>
@@ -1510,6 +1898,11 @@
             </summary>
         </member>
         <member name="M:DotNetty.Buffers.Unpooled.CopyShort(System.Int16[])">
+            <summary>
+                Create a new big-endian buffer that holds a sequence of the specified 16-bit integers.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Buffers.Unpooled.CopyShort(System.Int32[])">
             <summary>
                 Create a new big-endian buffer that holds a sequence of the specified 16-bit integers.
             </summary>
@@ -1564,29 +1957,22 @@
                 Create a new big-endian buffer that holds a sequence of the specified 64-bit floating point numbers.
             </summary>
         </member>
+        <member name="M:DotNetty.Buffers.Unpooled.UnreleasableBuffer(DotNetty.Buffers.IByteBuffer)">
+            <summary>
+                Return a unreleasable view on the given {@link ByteBuf} which will just ignore release and retain calls.
+            </summary>
+        </member>
         <member name="T:DotNetty.Buffers.UnpooledByteBufferAllocator">
             <summary>
                 Unpooled implementation of <see cref="T:DotNetty.Buffers.IByteBufferAllocator" />.
             </summary>
         </member>
-        <member name="F:DotNetty.Buffers.UnpooledByteBufferAllocator.Default">
-            <summary>
-                Default instance
-            </summary>
-        </member>
-        <member name="M:DotNetty.Buffers.UnpooledHeapByteBuffer.#ctor(DotNetty.Buffers.IByteBufferAllocator,System.Int32,System.Int32)">
-            <summary>
-                Creates a new heap buffer with a newly allocated byte array.
-                @param initialCapacity the initial capacity of the underlying byte array
-                @param maxCapacity the max capacity of the underlying byte array
-            </summary>
-        </member>
-        <member name="M:DotNetty.Buffers.UnpooledHeapByteBuffer.#ctor(DotNetty.Buffers.IByteBufferAllocator,System.Byte[],System.Int32)">
-            <summary>
-                Creates a new heap buffer with an existing byte array.
-                @param initialArray the initial underlying byte array
-                @param maxCapacity the max capacity of the underlying byte array
-            </summary>
+        <member name="T:DotNetty.Buffers.WrappedByteBuffer">
+            Wraps another <see cref="T:DotNetty.Buffers.IByteBuffer"/>.
+            
+            It's important that the {@link #readerIndex()} and {@link #writerIndex()} will not do any adjustments on the
+            indices on the fly because of internal optimizations made by {@link ByteBufUtil#writeAscii(ByteBuf, CharSequence)}
+            and {@link ByteBufUtil#writeUtf8(ByteBuf, CharSequence)}.
         </member>
     </members>
 </doc>

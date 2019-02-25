@@ -53,6 +53,132 @@
                 An <see cref="T:System.Exception" /> which is thrown by a codec.
             </summary>
         </member>
+        <member name="T:DotNetty.Codecs.Compression.Adler32">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/Adler32.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.CRC32">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/CRC32.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.Deflate">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/Deflate.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.Deflater">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/Deflater.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.GZIPException">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/GZIPException.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.GZIPHeader">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/GZIPHeader.java
+            
+            http://www.ietf.org/rfc/rfc1952.txt
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.InfBlocks">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/InfBlocks.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.InfCodes">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/InfCodes.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.Inflate">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/Inflate.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.Inflater">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/Inflater.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.InfTree">
+            <summary>
+             https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/InfTree.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.JZlib">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/JZlib.java
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Compression.JZlibEncoder.#ctor(DotNetty.Codecs.Compression.ZlibWrapper,System.Int32,System.Int32,System.Int32)">
+             Creates a new zlib encoder with the specified {@code compressionLevel},
+             the specified {@code windowBits}, the specified {@code memLevel}, and
+             the specified wrapper.
+            
+             @param compressionLevel
+                    {@code 1} yields the fastest compression and {@code 9} yields the
+                    best compression.  {@code 0} means no compression.  The default
+                    compression level is {@code 6}.
+             @param windowBits
+                    The base two logarithm of the size of the history buffer.  The
+                    value should be in the range {@code 9} to {@code 15} inclusive.
+                    Larger values result in better compression at the expense of
+                    memory usage.  The default value is {@code 15}.
+             @param memLevel
+                    How much memory should be allocated for the internal compression
+                    state.  {@code 1} uses minimum memory and {@code 9} uses maximum
+                    memory.  Larger values result in better and faster compression
+                    at the expense of memory usage.  The default value is {@code 8}
+            
+             @throws CompressionException if failed to initialize zlib
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.StaticTree">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/StaticTree.java
+            </summary>
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.Tree">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/Tree.java
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Compression.ZlibEncoder.CloseAsync">
+             Close this {@link ZlibEncoder} and so finish the encoding.
+            
+             The returned {@link ChannelFuture} will be notified once the
+             operation completes.
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.ZlibWrapper">
+            The container file formats that wrap the stream compressed by the DEFLATE
+            algorithm.
+        </member>
+        <member name="F:DotNetty.Codecs.Compression.ZlibWrapper.Zlib">
+            The ZLIB wrapper as specified in <a href="http://tools.ietf.org/html/rfc1950">RFC 1950</a>.
+        </member>
+        <member name="F:DotNetty.Codecs.Compression.ZlibWrapper.Gzip">
+            The GZIP wrapper as specified in <a href="http://tools.ietf.org/html/rfc1952">RFC 1952</a>.
+        </member>
+        <member name="F:DotNetty.Codecs.Compression.ZlibWrapper.None">
+            Raw DEFLATE stream only (no header and no footer).
+        </member>
+        <member name="F:DotNetty.Codecs.Compression.ZlibWrapper.ZlibOrNone">
+            Try {@link #ZLIB} first and then {@link #NONE} if the first attempt fails.
+            Please note that you can specify this wrapper type only when decompressing.
+        </member>
+        <member name="T:DotNetty.Codecs.Compression.ZStream">
+            <summary>
+            https://github.com/ymnk/jzlib/blob/master/src/main/java/com/jcraft/jzlib/ZStream.java
+            </summary>
+        </member>
+        <member name="M:DotNetty.Codecs.Compression.ZStream.End">
+            Those methods are expected to be override by Inflater and Deflater.
+            In the future, they will become abstract methods.
+        </member>
         <member name="T:DotNetty.Codecs.CorruptedFrameException">
             <summary>
                 A <see cref="T:DotNetty.Codecs.DecoderException" /> which is thrown when the received frame data could not
@@ -233,7 +359,7 @@
             <param name="buffer">The buffer we'll be extracting the frame length from.</param>
             <param name="offset">The offset from the absolute <see cref="P:DotNetty.Buffers.IByteBuffer.ReaderIndex" />.</param>
             <param name="length">The length of the framelenght field. Expected: 1, 2, 3, 4, or 8.</param>
-            <param name="order">The preferred <see cref="T:DotNetty.Buffers.ByteOrder" /> of <see cref="!:buffer" />.</param>
+            <param name="order">The preferred <see cref="T:DotNetty.Buffers.ByteOrder" /> of buffer.</param>
             <returns>A long integer that represents the unadjusted length of the next frame.</returns>
         </member>
         <member name="T:DotNetty.Codecs.LengthFieldPrepender">
@@ -270,7 +396,7 @@
             </summary>
             <param name="lengthFieldLength">
                 The length of the prepended length field.
-                Only 1, 2, 4, and 8 are allowed.
+                Only 1, 2, 3, 4, and 8 are allowed.
             </param>
         </member>
         <member name="M:DotNetty.Codecs.LengthFieldPrepender.#ctor(System.Int32,System.Boolean)">
@@ -279,7 +405,7 @@
             </summary>
             <param name="lengthFieldLength">
                 The length of the prepended length field.
-                Only 1, 2, 4, and 8 are allowed.
+                Only 1, 2, 3, 4, and 8 are allowed.
             </param>
             <param name="lengthFieldIncludesLengthFieldLength">
                 If <c>true</c>, the length of the prepended length field is added
@@ -292,7 +418,7 @@
             </summary>
             <param name="lengthFieldLength">
                 The length of the prepended length field.
-                Only 1, 2, 4, and 8 are allowed.
+                Only 1, 2, 3, 4, and 8 are allowed.
             </param>
             <param name="lengthAdjustment">The compensation value to add to the value of the length field.</param>
         </member>
@@ -302,7 +428,7 @@
             </summary>
             <param name="lengthFieldLength">
                 The length of the prepended length field.
-                Only 1, 2, 4, and 8 are allowed.
+                Only 1, 2, 3, 4, and 8 are allowed.
             </param>
             <param name="lengthFieldIncludesLengthFieldLength">
                 If <c>true</c>, the length of the prepended length field is added
@@ -317,7 +443,7 @@
             <param name="byteOrder">The <see cref="T:DotNetty.Buffers.ByteOrder" /> of the length field.</param>
             <param name="lengthFieldLength">
                 The length of the prepended length field.
-                Only 1, 2, 4, and 8 are allowed.
+                Only 1, 2, 3, 4, and 8 are allowed.
             </param>
             <param name="lengthFieldIncludesLengthFieldLength">
                 If <c>true</c>, the length of the prepended length field is added
@@ -380,6 +506,24 @@
             </summary>
             <param name="ctx">the {@link ChannelHandlerContext} which this {@link ByteToMessageDecoder} belongs to</param>
             <param name="buffer">the {@link ByteBuf} from which to read data</param>
+        </member>
+        <member name="T:DotNetty.Codecs.MessageAggregator`4">
+            <inheritdoc />
+            <summary>
+            An abstract <see cref="T:DotNetty.Transport.Channels.IChannelHandler" /> that aggregates a series of message objects 
+            into a single aggregated message.
+            'A series of messages' is composed of the following:
+            a single start message which optionally contains the first part of the content, and
+            1 or more content messages. The content of the aggregated message will be the merged 
+            content of the start message and its following content messages. If this aggregator 
+            encounters a content message where { @link #isLastContentMessage(ByteBufHolder)}
+            return true for, the aggregator will finish the aggregation and produce the aggregated 
+            message and expect another start message.
+            </summary>
+            <typeparam name="TMessage">The type that covers both start message and content message</typeparam>
+            <typeparam name="TStart">The type of the start message</typeparam>
+            <typeparam name="TContent">The type of the content message</typeparam>
+            <typeparam name="TOutput">The type of the aggregated message</typeparam>
         </member>
         <member name="T:DotNetty.Codecs.MessageToMessageDecoder`1">
             <summary>

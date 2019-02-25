@@ -7,26 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MetroFramework.Forms;
-using System.Data.Common;
 using System.Threading;
 using ZedGraph;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.IO;
 using MCMDB;
-using XMLRW;
 using System.Text.RegularExpressions;
-using EDAQ;
 using ManagedAudioLibrary;
-using DDS;
-using DDS.OpenSplice;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Data.SQLite;
-using Microsoft.Azure.Devices.Client;
-using System.Configuration;
-using System.Collections;
-using System.Threading.Tasks;
 using System.IO.Ports;
 using Modbus.Data;
 using Modbus.Device;
@@ -34,6 +23,8 @@ using Modbus.Serial;
 using System.Net;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using System.Collections.Concurrent;
+using Microsoft.Azure.Devices.Client;
 namespace WindowsFormsApplication1
 {
     public partial class Form1 : MetroForm
@@ -51,7 +42,7 @@ namespace WindowsFormsApplication1
         device_config daqcontrol = new device_config();
         spectrum_config spectrum = new spectrum_config();
         CallbackDelegate ai_buf_ready_cbdel;
-        Thread thdtrend;
+        Thread thdtrend, DataQueue;
         public delegate void DisplayInvoke();
         public delegate void DisplayTrend(double[] datadate, double[] OAvaluecolum, double warning, double alarm, string OAUnit);
         PointPairList userCursorsList = new PointPairList();
@@ -63,9 +54,9 @@ namespace WindowsFormsApplication1
         public StreamWriter txtWtr;
         ManagedAudioLibrary.Spectrum spectrumdata, anaspectrumdata;
         HanningWindow windowfunc;
-        IContinueScaleDataWriter fooDW;
-        EDAQ.ContinueScale my2405daq;
-        InstanceHandle myHandle;
+        //IContinueScaleDataWriter fooDW;
+        //EDAQ.ContinueScale my2405daq;
+        //InstanceHandle myHandle;
         JObject chname = new JObject();
         JObject chObject = new JObject();
         JObject topicName = new JObject();
@@ -104,6 +95,14 @@ namespace WindowsFormsApplication1
         StreamWriter csvWtrraw;
         Thread thdcombine;
         MqttClient mqtt_client;
+        ConcurrentQueue<Queuedata> myqueue = new ConcurrentQueue<Queuedata>();
+        Queuedata qindata = new Queuedata();
+        Queuedata qoutdata = new Queuedata();
+        public class Queuedata
+        {
+            public DateTime logtime;
+            public double[] RawData;          
+        }
         public class program_config
         {
             //Monitoring Setting DataGirdColumn
@@ -309,6 +308,7 @@ namespace WindowsFormsApplication1
             space = new DriveInfo("c");
             Config.Ch0alarm = false; Config.Ch1alarm = false; Config.Ch2alarm = false; Config.Ch3alarm = false;
             thdtrend = new Thread(trend);
+            DataQueue = new Thread(ProcessQueue);
             thdcombine = new Thread(filecount);
             Config.ConfigFileName = Config.ConfigFolder.Substring(Config.ConfigFolder.LastIndexOf("\\") + 1, (Config.ConfigFolder.IndexOf(".db") - Config.ConfigFolder.LastIndexOf("\\") - 1));
             CreateIfMissing("c:\\ADLINK\\MCM\\Data\\All FFTData\\" + Config.ConfigFileName + "\\" + DateTime.Now.ToString("yyyy-MM-dd"));
@@ -323,31 +323,18 @@ namespace WindowsFormsApplication1
             getBrokerIP();
             InitialProcess();
             MCMInitialOATrendArray();
-            if (this.checkBoxDDS.Checked)
-            {
-                IniDDS("beaglebone9", "ContinueScale");
-                my2405daq.bbg_id = 0;
-                
-            }
+            
             if (this.metroCheckBoxAzure.Checked)
             {
                 Azure();
-            }
-            if (this.metroCheckBoxModbus.Checked)
-            {
-                Comportconfigure();
-                IniModBus();
-            }
-            if (this.metroCheckBoxMqtt.Checked || this.metroCheckBoxMqttRaw.Checked)
-            {
-                IniMqtt();
-            }
+            }           
             UpateDeviceConfig();
             if ((Config.allchannelmemsize < Config.memsizereturn) && !(Config.DDSerror || Config.Azureerror || Config.Modbuserror || Config.Mqtterror))
             {
                 UpateSpectrumConfig();
                 Configuredaq();
                 thdtrend.Start();
+                DataQueue.Start();
 
             }
             else
@@ -530,7 +517,7 @@ namespace WindowsFormsApplication1
         private void UpdateAlarmLog()
         {
             Config.Ch0alarm = false; Config.Ch1alarm = false; Config.Ch2alarm = false; Config.Ch3alarm = false;
-            Config.Sysalarm = 0;Config.Syswarning = 0;Config.Sysnormal = 0;
+            Config.Sysalarm = 0; Config.Syswarning = 0; Config.Sysnormal = 0;
             for (int i = 0; i < Config.OAvalueParameter.GetLength(0); i++)
             {
                 if (Convert.ToDouble(Config.OAvalueParameter[i, 3]) > Convert.ToDouble(Config.OAvalueParameter[i, 5]))
@@ -576,7 +563,7 @@ namespace WindowsFormsApplication1
                 }
 
             }
-            
+
 
         }
         private void DIOcontrol()
@@ -702,23 +689,15 @@ namespace WindowsFormsApplication1
             this.radioButtonFFTCh3.CheckedChanged -= new System.EventHandler(this.radioButtonFFTCh3_CheckedChanged);
             this.checkBoxNormalDataRecord.CheckedChanged -= new System.EventHandler(this.checkBoxNormalDataRecord_CheckedChanged);
             this.checkBoxTextDataRecord.CheckedChanged -= new System.EventHandler(this.checkBoxTextDataRecord_CheckedChanged);
-            this.checkBoxDDS.CheckedChanged -= new System.EventHandler(this.checkBoxDDS_CheckedChanged);
-            this.metroCheckBoxAzure.CheckedChanged -= new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);
-            this.metroCheckBoxModbus.CheckedChanged -= new System.EventHandler(this.metroCheckBoxModbus_CheckedChanged);
-            this.metroCheckBoxMqtt.CheckedChanged -= new System.EventHandler(this.metroCheckBoxMqtt_CheckedChanged);
-            this.metroCheckBoxMqttRaw.CheckedChanged -= new System.EventHandler(this.metroCheckBoxMqttRaw_CheckedChanged);
+            
+            this.metroCheckBoxAzure.CheckedChanged -= new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);           
             this.TextBoxHDspace.TextChanged -= new System.EventHandler(this.TextBoxHDspace_TextChanged);
             this.TextBoxNormalAverages.TextChanged -= new System.EventHandler(this.TextBoxNormalAverages_TextChanged);
             this.TextBoxNormalSechedule.TextChanged -= new System.EventHandler(this.TextBoxNormalSechedule_TextChanged);
             this.ComboBoxBandWidth.SelectedIndexChanged -= new System.EventHandler(this.ComboBoxBandWidth_SelectedIndexChanged);
             this.ComboBoxFreqResolution.SelectedIndexChanged -= new System.EventHandler(this.ComboBoxFreqResolution_SelectedIndexChanged);
-            this.ipAddressControlText.TextChanged -= new System.EventHandler(this.ipAddressControlText_TextChanged);
-            this.textBoxMCMID.TextChanged -= new System.EventHandler(this.textBoxMCMID_TextChanged);
 
-            this.metroCheckBoxAzure.Checked = Convert.ToBoolean(Config.UIParameter[0]);
-            this.metroCheckBoxModbus.Checked = Convert.ToBoolean(Config.UIParameter[1]);
-            this.metroCheckBoxMqtt.Checked = Convert.ToBoolean(Config.UIParameter[2]);
-            this.metroCheckBoxMqttRaw.Checked = Convert.ToBoolean(Config.UIParameter[3]);
+            this.metroCheckBoxAzure.Checked = Convert.ToBoolean(Config.UIParameter[0]);          
             this.radioButtonFFTCh0.Checked = Convert.ToBoolean(Config.UIParameter[4]);
             this.radioButtonFFTCh1.Checked = Convert.ToBoolean(Config.UIParameter[5]);
             this.radioButtonFFTCh2.Checked = Convert.ToBoolean(Config.UIParameter[6]);
@@ -727,33 +706,22 @@ namespace WindowsFormsApplication1
             this.checkBoxTextDataRecord.Checked = Convert.ToBoolean(Config.UIParameter[9]);
             this.TextBoxNormalSechedule.Text = Config.UIParameter[10];
             this.TextBoxNormalAverages.Text = Config.UIParameter[11];
-            this.checkBoxDDS.Checked = Convert.ToBoolean(Config.UIParameter[12]);
             this.TextBoxHDspace.Text = Config.UIParameter[13];
-            this.ipAddressControlText.Text = Config.broker_ip;
-            this.textBoxMCMID.Text = Config.sysname;
             this.ComboBoxBandWidth.SelectedItem = Config.UIParameter[14];
             this.ComboBoxFreqResolution.SelectedItem = Config.UIParameter[15];
-
-
-
             this.radioButtonFFTCh0.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh0_CheckedChanged);
             this.radioButtonFFTCh1.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh1_CheckedChanged);
             this.radioButtonFFTCh2.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh2_CheckedChanged);
             this.radioButtonFFTCh3.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh3_CheckedChanged);
             this.checkBoxNormalDataRecord.CheckedChanged += new System.EventHandler(this.checkBoxNormalDataRecord_CheckedChanged);
             this.checkBoxTextDataRecord.CheckedChanged += new System.EventHandler(this.checkBoxTextDataRecord_CheckedChanged);
-            this.checkBoxDDS.CheckedChanged += new System.EventHandler(this.checkBoxDDS_CheckedChanged);
-            this.metroCheckBoxAzure.CheckedChanged += new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);
-            this.metroCheckBoxModbus.CheckedChanged += new System.EventHandler(this.metroCheckBoxModbus_CheckedChanged);
-            this.metroCheckBoxMqtt.CheckedChanged += new System.EventHandler(this.metroCheckBoxMqtt_CheckedChanged);
-            this.metroCheckBoxMqttRaw.CheckedChanged += new System.EventHandler(this.metroCheckBoxMqttRaw_CheckedChanged);
+           
+            this.metroCheckBoxAzure.CheckedChanged += new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);           
             this.TextBoxHDspace.TextChanged += new System.EventHandler(this.TextBoxHDspace_TextChanged);
             this.TextBoxNormalAverages.TextChanged += new System.EventHandler(this.TextBoxNormalAverages_TextChanged);
             this.TextBoxNormalSechedule.TextChanged += new System.EventHandler(this.TextBoxNormalSechedule_TextChanged);
             this.ComboBoxBandWidth.SelectedIndexChanged += new System.EventHandler(this.ComboBoxBandWidth_SelectedIndexChanged);
             this.ComboBoxFreqResolution.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFreqResolution_SelectedIndexChanged);
-            this.ipAddressControlText.TextChanged += new System.EventHandler(this.ipAddressControlText_TextChanged);
-            this.textBoxMCMID.TextChanged += new System.EventHandler(this.textBoxMCMID_TextChanged);
         }
         private void ConfigureAnalysis()
         {
@@ -993,9 +961,9 @@ namespace WindowsFormsApplication1
         {
             //Load Data From UI
             Config.UIParameter[0] = Convert.ToString(this.metroCheckBoxAzure.Checked);
-            Config.UIParameter[1] = Convert.ToString(this.metroCheckBoxModbus.Checked);
-            Config.UIParameter[2] = Convert.ToString(this.metroCheckBoxMqtt.Checked);
-            Config.UIParameter[3] = Convert.ToString(this.metroCheckBoxMqttRaw.Checked);
+            Config.UIParameter[1] = "False";//Convert.ToString(this.metroCheckBoxModbus.Checked);
+            Config.UIParameter[2] = "False";//Convert.ToString(this.metroCheckBoxMqtt.Checked);
+            Config.UIParameter[3] = "False";//Convert.ToString(this.metroCheckBoxMqttRaw.Checked);
             Config.UIParameter[4] = Convert.ToString(this.radioButtonFFTCh0.Checked);
             Config.UIParameter[5] = Convert.ToString(this.radioButtonFFTCh1.Checked);
             Config.UIParameter[6] = Convert.ToString(this.radioButtonFFTCh2.Checked);
@@ -1004,7 +972,7 @@ namespace WindowsFormsApplication1
             Config.UIParameter[9] = Convert.ToString(this.checkBoxTextDataRecord.Checked);
             Config.UIParameter[10] = this.TextBoxNormalSechedule.Text;
             Config.UIParameter[11] = this.TextBoxNormalAverages.Text;
-            Config.UIParameter[12] = Convert.ToString(this.checkBoxDDS.Checked);
+            Config.UIParameter[12] = "False";//Convert.ToString(this.checkBoxDDS.Checked);
             Config.UIParameter[13] = this.TextBoxHDspace.Text;
             Config.UIParameter[14] = Convert.ToString(this.ComboBoxBandWidth.SelectedItem);
             Config.UIParameter[15] = Convert.ToString(this.ComboBoxFreqResolution.SelectedItem);
@@ -1604,6 +1572,13 @@ namespace WindowsFormsApplication1
                         ProgramKill(@"C:\Program Files\nodejs\node.exe");
                     }
                     daqcontrol.result = USBDASK.UD_AI_AsyncClear(0, out daqcontrol.AccessCnt);
+                    if (DataQueue.IsAlive)
+                    {
+                        if (false == thdtrend.Join(200))
+                        {
+                            DataQueue.Abort();
+                        }
+                    }
                     if (thdtrend.IsAlive)
                     {
                         if (false == thdtrend.Join(200))
@@ -1629,7 +1604,7 @@ namespace WindowsFormsApplication1
                     }
                     if (Config.DDSenble)
                     {
-                        DisposeDDS();
+                        //DisposeDDS();
                     }
                     if (Config.Mqttenable)
                     {
@@ -1869,7 +1844,7 @@ namespace WindowsFormsApplication1
             daqcontrol.ch1data = new double[daqcontrol.perchanlength];
             daqcontrol.ch2data = new double[daqcontrol.perchanlength];
             daqcontrol.ch3data = new double[daqcontrol.perchanlength];
-            my2405daq.payload = new double[daqcontrol.perchanlength];
+            //my2405daq.payload = new double[daqcontrol.perchanlength];
             daqcontrol.dtx = new double[daqcontrol.perchanlength];
             daqcontrol.ch0averagedata = new double[daqcontrol.perchanlength * Convert.ToInt16(Config.UIParameter[11])];
             daqcontrol.ch1averagedata = new double[daqcontrol.perchanlength * Convert.ToInt16(Config.UIParameter[11])];
@@ -1970,6 +1945,8 @@ namespace WindowsFormsApplication1
         uint m_dwOverrunCnt = 0;
         void ai_buf_ready_cbfunc()
         {
+            qindata = new Queuedata();
+            qindata.logtime = DateTime.Now;
             daqcontrol.callbackindex++;
             daqcontrol.result = USBDASK.UD_AI_AsyncDblBufferTransfer32(0, daqcontrol.airowdata);
             if (daqcontrol.result != USBDASK.NoError)
@@ -1988,13 +1965,8 @@ namespace WindowsFormsApplication1
                 Process.GetCurrentProcess().Kill();
                 return;
             }
-            //Array.Copy(daqcontrol.aivoltagedata, daqcontrol.tempvoltagedata, daqcontrol.allchanlength);          
-            individualChannelData();
-            realtimespectrum();
-            DisplayInvoke displayInvoke = new DisplayInvoke(Displayaidata);
-            DisplayInvoke displayFFTInvoke = new DisplayInvoke(DisplayFFTdata);
-            BeginInvoke(displayInvoke);
-            BeginInvoke(displayFFTInvoke);
+            qindata.RawData = MVAFW.TestItemColls.GenericCopier<double[]>.DeepCopy(daqcontrol.aivoltagedata);
+            myqueue.Enqueue(qindata);
             MethodInvoker mi = new MethodInvoker(this.UpdateUI);
             ushort OverrunFlag;
             USBDASK.UD_AI_AsyncDblBufferHandled(0);
@@ -2007,17 +1979,13 @@ namespace WindowsFormsApplication1
                 this.BeginInvoke(mi, null);
             }
 
-            if (Config.averageenable)
-            {
-                averagedata();
-            }
+            
 
 
             this.BeginInvoke(mi, null);
         }
         private void UpdateUI()
         {
-
             textBox1daqtime.Text = Convert.ToString(m_dwOverrunCnt);
         }
         private void Displayaidata()
@@ -2371,23 +2339,23 @@ namespace WindowsFormsApplication1
                 {
                     if (daqcontrol.ai_chansenable[0] == 0)
                     {
-                        daqcontrol.ch0data[ch0index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[0, 4]));
+                        daqcontrol.ch0data[ch0index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[0, 4]));
 
                         ch0index++;
                     }
                     else if (daqcontrol.ai_chansenable[0] == 1)
                     {
-                        daqcontrol.ch1data[ch1index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[1, 4]));
+                        daqcontrol.ch1data[ch1index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[1, 4]));
                         ch1index++;
                     }
                     else if (daqcontrol.ai_chansenable[0] == 2)
                     {
-                        daqcontrol.ch2data[ch2index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[2, 4]));
+                        daqcontrol.ch2data[ch2index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[2, 4]));
                         ch2index++;
                     }
                     else
                     {
-                        daqcontrol.ch3data[ch3index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
+                        daqcontrol.ch3data[ch3index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
                         ch3index++;
                     }
 
@@ -2396,17 +2364,17 @@ namespace WindowsFormsApplication1
                 {
                     if (daqcontrol.ai_chansenable[1] == 1)
                     {
-                        daqcontrol.ch1data[ch1index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[1, 4]));
+                        daqcontrol.ch1data[ch1index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[1, 4]));
                         ch1index++;
                     }
                     else if (daqcontrol.ai_chansenable[1] == 2)
                     {
-                        daqcontrol.ch2data[ch2index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[2, 4]));
+                        daqcontrol.ch2data[ch2index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[2, 4]));
                         ch2index++;
                     }
                     else
                     {
-                        daqcontrol.ch3data[ch3index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
+                        daqcontrol.ch3data[ch3index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
                         ch3index++;
                     }
                 }
@@ -2414,18 +2382,18 @@ namespace WindowsFormsApplication1
                 {
                     if (daqcontrol.ai_chansenable[2] == 2)
                     {
-                        daqcontrol.ch2data[ch2index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[2, 4]));
+                        daqcontrol.ch2data[ch2index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[2, 4]));
                         ch2index++;
                     }
                     else
                     {
-                        daqcontrol.ch3data[ch3index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
+                        daqcontrol.ch3data[ch3index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
                         ch3index++;
                     }
                 }
                 else
                 {
-                    daqcontrol.ch3data[ch3index] = daqcontrol.aivoltagedata[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
+                    daqcontrol.ch3data[ch3index] = qoutdata.RawData[j] / (0.001 * Convert.ToDouble(Config.ChannelParameter[3, 4]));
                     ch3index++;
 
                 }
@@ -2454,7 +2422,14 @@ namespace WindowsFormsApplication1
 
                 for (int l = 0; l < spectrum.spectrumlength / 2; l++)
                 {
-                    spectrum.ch0spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch0spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    if (l == 0)
+                    {
+                        spectrum.ch0spectrumdata[l] = Math.Pow(spectrum.ch0spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
+                    else
+                    {
+                        spectrum.ch0spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch0spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
 
                 }
             }
@@ -2465,7 +2440,14 @@ namespace WindowsFormsApplication1
                 spectrumdata.GetPowerSpectrum(spectrum.ch1spectrumdata);
                 for (int l = 0; l < spectrum.spectrumlength / 2; l++)
                 {
-                    spectrum.ch1spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch1spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    if (l == 0)
+                    {
+                        spectrum.ch1spectrumdata[l] = Math.Pow(spectrum.ch1spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
+                    else
+                    {
+                        spectrum.ch1spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch1spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
 
                 }
 
@@ -2476,7 +2458,14 @@ namespace WindowsFormsApplication1
                 spectrumdata.GetPowerSpectrum(spectrum.ch2spectrumdata);
                 for (int l = 0; l < spectrum.spectrumlength / 2; l++)
                 {
-                    spectrum.ch2spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch2spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    if (l == 0)
+                    {
+                        spectrum.ch2spectrumdata[l] = Math.Pow(spectrum.ch2spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
+                    else
+                    {
+                        spectrum.ch2spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch2spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
 
                 }
             }//FFT变换
@@ -2486,7 +2475,15 @@ namespace WindowsFormsApplication1
                 spectrumdata.GetPowerSpectrum(spectrum.ch3spectrumdata);
                 for (int l = 0; l < spectrum.spectrumlength / 2; l++)
                 {
-                    spectrum.ch3spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch3spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    if (l == 0)
+                    {
+                        spectrum.ch3spectrumdata[l] = Math.Pow(spectrum.ch3spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
+                    else
+                    {
+                        spectrum.ch3spectrumdata[l] = Math.Pow(2, 0.5) * Math.Pow(spectrum.ch3spectrumdata[l], 0.5) / (spectrum.spectrumlength / 2);
+                    }
+
 
                 }
             }//FFT变换
@@ -2522,7 +2519,7 @@ namespace WindowsFormsApplication1
                     this.BeginInvoke(grid, null);
                     if (Convert.ToBoolean(Config.UIParameter[12]))
                     {
-                        WriteDDS(infodata("ChannelsInfo", Config.OAvalueParameter));
+                        //WriteDDS(infodata("ChannelsInfo", Config.OAvalueParameter));
 
                     }
                     if (Convert.ToBoolean(Config.UIParameter[0]))
@@ -2559,7 +2556,7 @@ namespace WindowsFormsApplication1
                 DIOcontrol();
                 if (Convert.ToBoolean(Config.UIParameter[12]))
                 {
-                    WriteDDS(OAdata(Config.DDSChannelname, Config.OAvalueParameter));
+                    //WriteDDS(OAdata(Config.DDSChannelname, Config.OAvalueParameter));
                 }
                 if (Convert.ToBoolean(Config.UIParameter[0]))
                 {
@@ -2584,6 +2581,30 @@ namespace WindowsFormsApplication1
                 }
 
             }
+        }
+
+        private void ProcessQueue()
+        {
+            while (true)
+            {
+                Thread.Sleep(10);
+                if (myqueue.Count > 0)
+                {
+                    myqueue.TryDequeue(out qoutdata);
+                    individualChannelData();
+                    realtimespectrum();
+                    DisplayInvoke displayInvoke = new DisplayInvoke(Displayaidata);
+                    DisplayInvoke displayFFTInvoke = new DisplayInvoke(DisplayFFTdata);
+                    BeginInvoke(displayInvoke);
+                    BeginInvoke(displayFFTInvoke);
+                    if (Config.averageenable)
+                    {
+                        averagedata();
+                    }
+
+                }
+            }
+
         }
         private void trend()
         {
@@ -2992,7 +3013,7 @@ namespace WindowsFormsApplication1
                 Config.HDspaces = (Convert.ToUInt32(Config.UIParameter[13]) * Config.gb);
                 if (Config.averageindex == 1)
                 {
-                    Config.TrendDateTime = Convert.ToDateTime(DateTime.Now);
+                    Config.TrendDateTime = qoutdata.logtime;// Convert.ToDateTime(DateTime.Now);
                     rawdata = new JObject();
                     ch0rawdataarray = new JArray();
                     ch1rawdataarray = new JArray();
@@ -3006,8 +3027,8 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    Config.StorageAlarm = true;                 
-                    
+                    Config.StorageAlarm = true;
+
                 }
                 if (Convert.ToBoolean(Config.ChannelParameter[0, 2]) && Config.MonitorParameterCh0.GetLength(0) > 0)
                 {
@@ -3161,43 +3182,30 @@ namespace WindowsFormsApplication1
                     MCMUIUpdate();
                     Config.OATrendCurRow = 0;
                     thdtrend = new Thread(trend);
+                    DataQueue = new Thread(ProcessQueue);
                     Config.averageindex = 0;
                     Config.averageenable = false;
                     Config.firstupdate = true;
                     //InitialProcess();
                     MCMInitialOATrendArray();
-                    
+
                     InitialDAQ();
                     Config.Modbuserror = false;
                     Config.DDSerror = false;
                     Config.Azureerror = false;
                     Config.Mqtterror = false;
-                    if (this.checkBoxDDS.Checked)
-                    {
-                        IniDDS("beaglebone9", "ContinueScale");
-                        my2405daq.bbg_id = 0;
-                        
-                    }
+                    
                     if (this.metroCheckBoxAzure.Checked)
                     {
                         Azure();
-                    }
-                    if (this.metroCheckBoxModbus.Checked)
-                    {
-                        Comportconfigure();
-                        IniModBus();
-                    }
-                    if ((this.metroCheckBoxMqtt.Checked || this.metroCheckBoxMqttRaw.Checked))
-                    {
-                        getBrokerIP();
-                        IniMqtt();
-                    }
+                    }                  
                     UpateDeviceConfig();
                     UpateSpectrumConfig();
 
                     if ((Config.allchannelmemsize < Config.memsizereturn) && !(Config.DDSerror || Config.Azureerror || Config.Modbuserror || Config.Mqtterror))
                     {
                         Configuredaq();
+                        DataQueue.Start();
                         thdtrend.Start();
                         //IniModBus();
                         if ((Config.monitorlength0 + Config.monitorlength1 + Config.monitorlength2 + Config.monitorlength3) == 0)
@@ -3242,6 +3250,13 @@ namespace WindowsFormsApplication1
 
                 daqcontrol.result = USBDASK.UD_Release_Card(0);
                 //slave.Dispose();
+                if (DataQueue.IsAlive)
+                {
+                    if (false == thdtrend.Join(200))
+                    {
+                        DataQueue.Abort();
+                    }
+                }
                 if (thdtrend.IsAlive)
                 {
                     if (false == thdtrend.Join(200))
@@ -3249,13 +3264,14 @@ namespace WindowsFormsApplication1
                         thdtrend.Abort();
                     }
                 }
+                
                 if (Config.Modbusenable)
                 {
                     slave.Dispose();
                 }
                 if (Config.DDSenble)
                 {
-                    DisposeDDS();
+                    //DisposeDDS();
                 }
                 if (Config.Mqttenable)
                 {
@@ -3728,46 +3744,46 @@ namespace WindowsFormsApplication1
         {
             try
             {
-            
-            FileInfo[] Alarmfiles;
-            DirectoryInfo diralarm;
-            CreateIfMissing("c:\\ADLINK\\MCM\\Data\\Alarm RAWData\\" + Config.ConfigFileName + "\\" + Config.TrendDateTime.ToString("yyyy-MM-dd"));
-            string destinationDirectory = "c:\\ADLINK\\MCM\\Data\\Alarm RAWData\\" + Config.ConfigFileName + "\\" + Config.TrendDateTime.ToString("yyyy-MM-dd") + "\\";
-            string sourceDirectory = "c:\\ADLINK\\MCM\\Data\\All RAWData\\" + Config.ConfigFileName + "\\" + Config.TrendDateTime.ToString("yyyy-MM-dd") + "\\";
-            string alramdatetime = Config.TrendDateTime.ToString("yyyy-MM-dd HH_mm_ss");
-            diralarm = new DirectoryInfo(sourceDirectory);
-            if (Config.Ch0alarm)
-            {
-                Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH0" + "*", SearchOption.AllDirectories);
-                for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+
+                FileInfo[] Alarmfiles;
+                DirectoryInfo diralarm;
+                CreateIfMissing("c:\\ADLINK\\MCM\\Data\\Alarm RAWData\\" + Config.ConfigFileName + "\\" + Config.TrendDateTime.ToString("yyyy-MM-dd"));
+                string destinationDirectory = "c:\\ADLINK\\MCM\\Data\\Alarm RAWData\\" + Config.ConfigFileName + "\\" + Config.TrendDateTime.ToString("yyyy-MM-dd") + "\\";
+                string sourceDirectory = "c:\\ADLINK\\MCM\\Data\\All RAWData\\" + Config.ConfigFileName + "\\" + Config.TrendDateTime.ToString("yyyy-MM-dd") + "\\";
+                string alramdatetime = Config.TrendDateTime.ToString("yyyy-MM-dd HH_mm_ss");
+                diralarm = new DirectoryInfo(sourceDirectory);
+                if (Config.Ch0alarm)
                 {
-                    File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH0" + "*", SearchOption.AllDirectories);
+                    for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                    {
+                        File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    }
                 }
-            }
-            if (Config.Ch1alarm)
-            {
-                Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH1" + "*", SearchOption.AllDirectories);
-                for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                if (Config.Ch1alarm)
                 {
-                    File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH1" + "*", SearchOption.AllDirectories);
+                    for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                    {
+                        File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    }
                 }
-            }
-            if (Config.Ch2alarm)
-            {
-                Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH2" + "*", SearchOption.AllDirectories);
-                for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                if (Config.Ch2alarm)
                 {
-                    File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH2" + "*", SearchOption.AllDirectories);
+                    for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                    {
+                        File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    }
                 }
-            }
-            if (Config.Ch3alarm)
-            {
-                Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH3" + "*", SearchOption.AllDirectories);
-                for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                if (Config.Ch3alarm)
                 {
-                    File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    Alarmfiles = diralarm.GetFiles(alramdatetime + "_" + ((daqcontrol.samplerate).ToString("f0")) + "_" + "CH3" + "*", SearchOption.AllDirectories);
+                    for (int i = 0; i < Alarmfiles.GetLength(0); i++)
+                    {
+                        File.Copy(sourceDirectory + Path.GetFileName(Alarmfiles[i].ToString()), destinationDirectory + Path.GetFileName(Alarmfiles[i].ToString()));
+                    }
                 }
-            }
             }
             catch
             {
@@ -3793,7 +3809,7 @@ namespace WindowsFormsApplication1
             metroButtonyears.Enabled = true;
             buttonAnalysisquery.Enabled = true;
         }
-        private void IniDDS(string partitionname, string Topicname)
+        /*private void IniDDS(string partitionname, string Topicname)
         {
             try
             {
@@ -3852,14 +3868,14 @@ namespace WindowsFormsApplication1
                 metroTabControl1.SelectedTab = Setting;
 
             }
-        }
+        }*/
 
         private void dataGridViewfileAnalysis_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void WriteDDS(string Chnameinfo)
+        /*private void WriteDDS(string Chnameinfo)
         {
             try
             {
@@ -3877,8 +3893,8 @@ namespace WindowsFormsApplication1
             {
 
             }
-        }
-        private void DisposeDDS()
+        }*/
+        /*private void DisposeDDS()
         {
             try
             {
@@ -3889,7 +3905,7 @@ namespace WindowsFormsApplication1
             {
 
             }
-        }
+        }*/
         private string infodata(string information, string[,] OAdata)
         {
             chname = new JObject();
@@ -4023,47 +4039,7 @@ namespace WindowsFormsApplication1
         }
         private void sendChannelsInfodemo()
         {
-            /* Combine JSON format with ChannelsInfodemo */
-            var jsonGen = new
-            {
-                ChannelsInfo = new
-                {
-                    CHO = new
-                    {
-                        X_1 = new
-                        {
-                            Unit = "g rms",
-                            StartBand = 10,
-                            EndBand = 1000
-                        }
-                    },
-                    CH1 = new
-                    {
-                        Y_2 = new
-                        {
-                            Unit = "g rms",
-                            StartBand = 10,
-                            EndBand = 1000
-                        }
-                    },
-                    CH2 = new
-                    {
-                        Z_3 = new
-                        {
-                            Unit = "g rms",
-                            StartBand = 10,
-                            EndBand = 1000
-                        }
-                    }
-                }
-            };
-            /* Trans to JSON format*/
-            var messageString = JsonConvert.SerializeObject(jsonGen);
-            /* Encode to ASCII and trans byte data*/
-            var message = new Microsoft.Azure.Devices.Client.Message(Encoding.ASCII.GetBytes(messageString));
-            /* Send to Iot Hub */
-            message.Properties.Add("msgType", "Telemetry");
-            _deviceClient.SendEventAsync(message);
+           
         }
         private static int getStatusStringToInt(string statusString)
         {
@@ -4098,81 +4074,14 @@ namespace WindowsFormsApplication1
         private void sendChannelsValuedemo(string OAunitvalue)
         {
 
-            /*for (int i = 0; i < OAunitvalue.GetLongLength(0); i++)
-            {
-                if (i == 0)
-                {
-                    x1_val = OAunitvalue[i, 3];
-                    x1_sts = Config.Status[i];
-                }
-                if (i == 1)
-                {
-                    y2_val = OAunitvalue[i, 3];
-                    y2_sts = Config.Status[i];
-                }
-                if (i == 2)
-                {
-                    z3_val = OAunitvalue[i, 3];
-                    z3_sts = Config.Status[i];
-                }
-            }
-
-            var jsonGen = new
-            {
-                ChannelsValue = new
-                {
-                    X_1 = new
-                    {
-                        Value = getValueStringToDouble(x1_val),
-                        Status = getStatusStringToInt(x1_sts)
-                    },
-                    Y_2 = new
-                    {
-                        Value = getValueStringToDouble(y2_val),
-                        Status = getStatusStringToInt(y2_sts)
-                    },
-                    Z_3 = new
-                    {
-                        Value = getValueStringToDouble(z3_val),
-                        Status = getStatusStringToInt(z3_sts),
-                    },
-                }
-            };
-           */
-            /* Trans to JSON format*/
-            var messageString = OAunitvalue;// JsonConvert.SerializeObject(jsonGen);
-            /* Encode to ASCII and trans byte data*/
-            var message = new Microsoft.Azure.Devices.Client.Message(Encoding.ASCII.GetBytes(messageString));
-            /* Send to Iot Hub */
-            message.Properties.Add("msgType", "Telemetry");
-            _deviceClient.SendEventAsync(message);
-            //Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+            
         }
         private void Azure()
         {
             // String containing Hostname, Device Id & Device Key in one of the following formats:
             //  "HostName=<iothub_host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"
 
-            try
-            {
-                /* Create the DeviceClient instance */
-                string deviceConnectionString = ConfigurationManager.AppSettings["DeviceConnectionString"];
-                _deviceClient = DeviceClient.CreateFromConnectionString(deviceConnectionString, Microsoft.Azure.Devices.Client.TransportType.Amqp);
-                Config.Azureenable = true;
-                Config.Azureerror = false;
-                // Testing data
-                /* Task for sending message of ChannelsInfodemo */
-                /* Task for sending message of ChannelsValuedemo */
-            }
-            catch
-            {
-                Config.Azureenable = false;
-                Config.Azureerror = true;
-                MessageBox.Show("Azure connect fail!!Please check Azure service or disable OA Value of Azure");
-                metroTabControl1.SelectedTab = Setting;
-            }
-
-            /* Wait for any key to terminate the console App */
+           
 
         }
         private void ModBusdata(string[,] OAdata)
@@ -4234,6 +4143,7 @@ namespace WindowsFormsApplication1
         {
             try
             {
+
                 slave_port = new SerialPort(Config.ComPort[0]); // "COM1"
                 slave_port.BaudRate = Convert.ToInt32(Config.ComPort[1]); // 9600;
                 slave_port.DataBits = Convert.ToInt32(Config.ComPort[2]); // 8;
@@ -4639,15 +4549,7 @@ namespace WindowsFormsApplication1
             }
         }
         #endregion
-
-        private void textBoxMCMID_TextChanged(object sender, EventArgs e)
-        {
-            UpdateMqttInfo();
-        }
-        private void ipAddressControlText_TextChanged(object sender, EventArgs e)
-        {
-            UpdateMqttInfo();
-        }
+       
 
         private void Comportconfigure()
         {
@@ -4725,8 +4627,8 @@ namespace WindowsFormsApplication1
         private void WriteMqtt(string topic, string data, bool retain)
         {
             try
-            { 
-            mqtt_client.Publish(topic, Encoding.UTF8.GetBytes(data), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, retain);
+            {
+                mqtt_client.Publish(topic, Encoding.UTF8.GetBytes(data), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, retain);
             }
             catch
             {
@@ -4763,14 +4665,7 @@ namespace WindowsFormsApplication1
             Process proc = Process.Start(path);
 
         }
-        private void UpdateMqttInfo()
-        {
-            txtWtr = new StreamWriter("C:\\ADLINK\\MCM\\INI\\MqttSettings.ini", false);
-            Config.sysname = textBoxMCMID.Text;
-            txtWtr.WriteLine("BrokerIP : " + ipAddressControlText.Text);
-            txtWtr.WriteLine("MCMID :" + textBoxMCMID.Text);
-            txtWtr.Close();
-        }
+       
     }
 }
 

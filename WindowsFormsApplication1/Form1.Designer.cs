@@ -46,17 +46,6 @@
             this.Setting = new MetroFramework.Controls.MetroTabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.metroCheckBoxAzure = new MetroFramework.Controls.MetroCheckBox();
-            this.groupBoxModbus = new System.Windows.Forms.GroupBox();
-            this.metroCheckBoxModbus = new MetroFramework.Controls.MetroCheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.textBoxMCMID = new System.Windows.Forms.TextBox();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.ipAddressControlText = new IPAddressControlLib.IPAddressControl();
-            this.metroCheckBoxMqttRaw = new MetroFramework.Controls.MetroCheckBox();
-            this.metroCheckBoxMqtt = new MetroFramework.Controls.MetroCheckBox();
-            this.groupBoxDDS = new System.Windows.Forms.GroupBox();
-            this.checkBoxDDS = new MetroFramework.Controls.MetroCheckBox();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxConfigfile = new MetroFramework.Controls.MetroTextBox();
             this.ComboBoxFreqResolution = new MetroFramework.Controls.MetroComboBox();
@@ -106,9 +95,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOATrend)).BeginInit();
             this.Setting.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBoxModbus.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBoxDDS.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMonitorSetting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChSetting)).BeginInit();
@@ -350,9 +336,6 @@
             // 
             this.Setting.BackColor = System.Drawing.SystemColors.Control;
             this.Setting.Controls.Add(this.groupBox1);
-            this.Setting.Controls.Add(this.groupBoxModbus);
-            this.Setting.Controls.Add(this.groupBox2);
-            this.Setting.Controls.Add(this.groupBoxDDS);
             this.Setting.Controls.Add(this.metroLabel2);
             this.Setting.Controls.Add(this.metroTextBoxConfigfile);
             this.Setting.Controls.Add(this.ComboBoxFreqResolution);
@@ -387,162 +370,24 @@
             this.groupBox1.BackColor = System.Drawing.SystemColors.Desktop;
             this.groupBox1.Controls.Add(this.metroCheckBoxAzure);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox1.Location = new System.Drawing.Point(736, 390);
+            this.groupBox1.Location = new System.Drawing.Point(719, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 58);
+            this.groupBox1.Size = new System.Drawing.Size(206, 472);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Azure";
+            this.groupBox1.Text = "DataConnectPro";
             // 
             // metroCheckBoxAzure
             // 
             this.metroCheckBoxAzure.AutoSize = true;
             this.metroCheckBoxAzure.Location = new System.Drawing.Point(6, 21);
             this.metroCheckBoxAzure.Name = "metroCheckBoxAzure";
-            this.metroCheckBoxAzure.Size = new System.Drawing.Size(57, 17);
+            this.metroCheckBoxAzure.Size = new System.Drawing.Size(118, 17);
             this.metroCheckBoxAzure.TabIndex = 24;
-            this.metroCheckBoxAzure.Text = "Azure";
+            this.metroCheckBoxAzure.Text = "DataConnectPro";
             this.metroCheckBoxAzure.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroCheckBoxAzure.UseSelectable = true;
             this.metroCheckBoxAzure.CheckedChanged += new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);
-            // 
-            // groupBoxModbus
-            // 
-            this.groupBoxModbus.BackColor = System.Drawing.SystemColors.Desktop;
-            this.groupBoxModbus.Controls.Add(this.metroCheckBoxModbus);
-            this.groupBoxModbus.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBoxModbus.Location = new System.Drawing.Point(736, 316);
-            this.groupBoxModbus.Name = "groupBoxModbus";
-            this.groupBoxModbus.Size = new System.Drawing.Size(206, 55);
-            this.groupBoxModbus.TabIndex = 29;
-            this.groupBoxModbus.TabStop = false;
-            this.groupBoxModbus.Text = "Modbus";
-            // 
-            // metroCheckBoxModbus
-            // 
-            this.metroCheckBoxModbus.AutoSize = true;
-            this.metroCheckBoxModbus.Location = new System.Drawing.Point(6, 21);
-            this.metroCheckBoxModbus.Name = "metroCheckBoxModbus";
-            this.metroCheckBoxModbus.Size = new System.Drawing.Size(78, 17);
-            this.metroCheckBoxModbus.TabIndex = 24;
-            this.metroCheckBoxModbus.Text = "OA Value";
-            this.metroCheckBoxModbus.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroCheckBoxModbus.UseSelectable = true;
-            this.metroCheckBoxModbus.CheckedChanged += new System.EventHandler(this.metroCheckBoxModbus_CheckedChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.SystemColors.Desktop;
-            this.groupBox2.Controls.Add(this.metroLabel4);
-            this.groupBox2.Controls.Add(this.textBoxMCMID);
-            this.groupBox2.Controls.Add(this.metroLabel3);
-            this.groupBox2.Controls.Add(this.ipAddressControlText);
-            this.groupBox2.Controls.Add(this.metroCheckBoxMqttRaw);
-            this.groupBox2.Controls.Add(this.metroCheckBoxMqtt);
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox2.Location = new System.Drawing.Point(736, 91);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 208);
-            this.groupBox2.TabIndex = 28;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "MQTT";
-            // 
-            // metroLabel4
-            // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(6, 151);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(63, 20);
-            this.metroLabel4.TabIndex = 34;
-            this.metroLabel4.Text = "Local ID";
-            this.metroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // textBoxMCMID
-            // 
-            this.textBoxMCMID.BackColor = System.Drawing.SystemColors.Desktop;
-            this.textBoxMCMID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxMCMID.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.textBoxMCMID.Location = new System.Drawing.Point(5, 174);
-            this.textBoxMCMID.Name = "textBoxMCMID";
-            this.textBoxMCMID.Size = new System.Drawing.Size(128, 22);
-            this.textBoxMCMID.TabIndex = 33;
-            this.textBoxMCMID.TextChanged += new System.EventHandler(this.textBoxMCMID_TextChanged);
-            // 
-            // metroLabel3
-            // 
-            this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(6, 105);
-            this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(127, 20);
-            this.metroLabel3.TabIndex = 24;
-            this.metroLabel3.Text = "Broker IP Address";
-            this.metroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // ipAddressControlText
-            // 
-            this.ipAddressControlText.AllowInternalTab = false;
-            this.ipAddressControlText.AutoHeight = true;
-            this.ipAddressControlText.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ipAddressControlText.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ipAddressControlText.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.ipAddressControlText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ipAddressControlText.Location = new System.Drawing.Point(6, 128);
-            this.ipAddressControlText.MinimumSize = new System.Drawing.Size(87, 22);
-            this.ipAddressControlText.Name = "ipAddressControlText";
-            this.ipAddressControlText.ReadOnly = false;
-            this.ipAddressControlText.Size = new System.Drawing.Size(127, 22);
-            this.ipAddressControlText.TabIndex = 32;
-            this.ipAddressControlText.Text = "...";
-            this.ipAddressControlText.TextChanged += new System.EventHandler(this.ipAddressControlText_TextChanged);
-            // 
-            // metroCheckBoxMqttRaw
-            // 
-            this.metroCheckBoxMqttRaw.AutoSize = true;
-            this.metroCheckBoxMqttRaw.Location = new System.Drawing.Point(6, 64);
-            this.metroCheckBoxMqttRaw.Name = "metroCheckBoxMqttRaw";
-            this.metroCheckBoxMqttRaw.Size = new System.Drawing.Size(79, 17);
-            this.metroCheckBoxMqttRaw.TabIndex = 31;
-            this.metroCheckBoxMqttRaw.Text = "Raw Data";
-            this.metroCheckBoxMqttRaw.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroCheckBoxMqttRaw.UseSelectable = true;
-            this.metroCheckBoxMqttRaw.CheckedChanged += new System.EventHandler(this.metroCheckBoxMqttRaw_CheckedChanged);
-            // 
-            // metroCheckBoxMqtt
-            // 
-            this.metroCheckBoxMqtt.AutoSize = true;
-            this.metroCheckBoxMqtt.Location = new System.Drawing.Point(6, 27);
-            this.metroCheckBoxMqtt.Name = "metroCheckBoxMqtt";
-            this.metroCheckBoxMqtt.Size = new System.Drawing.Size(78, 17);
-            this.metroCheckBoxMqtt.TabIndex = 27;
-            this.metroCheckBoxMqtt.Text = "OA Value";
-            this.metroCheckBoxMqtt.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroCheckBoxMqtt.UseSelectable = true;
-            this.metroCheckBoxMqtt.CheckedChanged += new System.EventHandler(this.metroCheckBoxMqtt_CheckedChanged);
-            // 
-            // groupBoxDDS
-            // 
-            this.groupBoxDDS.BackColor = System.Drawing.SystemColors.Desktop;
-            this.groupBoxDDS.Controls.Add(this.checkBoxDDS);
-            this.groupBoxDDS.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBoxDDS.Location = new System.Drawing.Point(736, 22);
-            this.groupBoxDDS.Name = "groupBoxDDS";
-            this.groupBoxDDS.Size = new System.Drawing.Size(200, 52);
-            this.groupBoxDDS.TabIndex = 22;
-            this.groupBoxDDS.TabStop = false;
-            this.groupBoxDDS.Text = "Web Service";
-            // 
-            // checkBoxDDS
-            // 
-            this.checkBoxDDS.AutoSize = true;
-            this.checkBoxDDS.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.checkBoxDDS.Location = new System.Drawing.Point(7, 21);
-            this.checkBoxDDS.Name = "checkBoxDDS";
-            this.checkBoxDDS.Size = new System.Drawing.Size(78, 17);
-            this.checkBoxDDS.TabIndex = 23;
-            this.checkBoxDDS.Text = "OA Value";
-            this.checkBoxDDS.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.checkBoxDDS.UseSelectable = true;
-            this.checkBoxDDS.CheckedChanged += new System.EventHandler(this.checkBoxDDS_CheckedChanged);
             // 
             // metroLabel2
             // 
@@ -1145,12 +990,6 @@
             this.Setting.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBoxModbus.ResumeLayout(false);
-            this.groupBoxModbus.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBoxDDS.ResumeLayout(false);
-            this.groupBoxDDS.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMonitorSetting)).EndInit();
@@ -1212,14 +1051,12 @@
         private MetroFramework.Controls.MetroButton metroButtonmonths;
         private MetroFramework.Controls.MetroButton metroButtonyears;
         private System.Windows.Forms.RichTextBox richTextBoxAlarm;
-        private MetroFramework.Controls.MetroCheckBox checkBoxDDS;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private System.Windows.Forms.RadioButton radioButtonFFTCh0;
         private System.Windows.Forms.RadioButton radioButtonFFTCh1;
         private System.Windows.Forms.RadioButton radioButtonFFTCh2;
         private System.Windows.Forms.RadioButton radioButtonFFTCh3;
         private MetroFramework.Controls.MetroCheckBox metroCheckBoxAzure;
-        private MetroFramework.Controls.MetroCheckBox metroCheckBoxModbus;
         private System.Windows.Forms.Button buttonfilecombine;
         private System.Windows.Forms.TextBox textBoxcount;
         private System.Windows.Forms.Label label2;
@@ -1227,16 +1064,7 @@
         private System.Windows.Forms.Button buttonmainwithharmonic;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroTextBox metroTextBoxConfigfile;
-        private MetroFramework.Controls.MetroCheckBox metroCheckBoxMqtt;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBoxModbus;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBoxDDS;
-        private MetroFramework.Controls.MetroCheckBox metroCheckBoxMqttRaw;
-        private IPAddressControlLib.IPAddressControl ipAddressControlText;
-        private MetroFramework.Controls.MetroLabel metroLabel4;
-        private System.Windows.Forms.TextBox textBoxMCMID;
-        private MetroFramework.Controls.MetroLabel metroLabel3;
     }
 }
 

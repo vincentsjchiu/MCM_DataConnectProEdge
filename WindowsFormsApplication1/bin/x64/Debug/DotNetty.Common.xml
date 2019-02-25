@@ -15,95 +15,98 @@
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.#ctor(DotNetty.Common.Concurrency.IEventExecutorGroup)">
             <summary>Creates an instance of <see cref="T:DotNetty.Common.Concurrency.AbstractEventExecutor"/>.</summary>
         </member>
-        <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.InEventLoop">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
         <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.IsShuttingDown">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutorGroup"/>
         </member>
         <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.TerminationCompletion">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutorGroup"/>
         </member>
-        <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.IsShutdown">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.IsTerminated">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.GetNext">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutorGroup"/>
         </member>
         <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.Parent">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+        </member>
+        <member name="P:DotNetty.Common.Concurrency.AbstractEventExecutor.InEventLoop">
             <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.IsInEventLoop(DotNetty.Common.Concurrency.XThread)">
             <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
         </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Execute(DotNetty.Common.Concurrency.IRunnable)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Execute(System.Action{System.Object},System.Object)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Execute(System.Action{System.Object,System.Object},System.Object,System.Object)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Execute(System.Action)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Schedule(DotNetty.Common.Concurrency.IRunnable,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Schedule(System.Action,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Schedule(System.Action{System.Object},System.Object,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.Schedule(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ScheduleAsync(System.Action,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ScheduleAsync(System.Action{System.Object},System.Object,System.TimeSpan,System.Threading.CancellationToken)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ScheduleAsync(System.Action{System.Object},System.Object,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ScheduleAsync(System.Action,System.TimeSpan,System.Threading.CancellationToken)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ScheduleAsync(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ScheduleAsync(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan,System.Threading.CancellationToken)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SubmitAsync``1(System.Func{``0})">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SubmitAsync``1(System.Func{``0},System.Threading.CancellationToken)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SubmitAsync``1(System.Func{System.Object,``0},System.Object)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SubmitAsync``1(System.Func{System.Object,``0},System.Object,System.Threading.CancellationToken)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object,System.Threading.CancellationToken)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ShutdownGracefullyAsync">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.ShutdownGracefullyAsync(System.TimeSpan,System.TimeSpan)">
-            <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IScheduledExecutorService"/>
         </member>
         <member name="M:DotNetty.Common.Concurrency.AbstractEventExecutor.SetCurrentExecutor(DotNetty.Common.Concurrency.IEventExecutor)">
             <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
+        </member>
+        <member name="P:DotNetty.Common.Concurrency.AbstractExecutorService.IsShutdown">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="P:DotNetty.Common.Concurrency.AbstractExecutorService.IsTerminated">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.SubmitAsync``1(System.Func{``0})">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.SubmitAsync``1(System.Func{``0},System.Threading.CancellationToken)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.SubmitAsync``1(System.Func{System.Object,``0},System.Object)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.SubmitAsync``1(System.Func{System.Object,``0},System.Object,System.Threading.CancellationToken)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object,System.Threading.CancellationToken)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutorService"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.Execute(DotNetty.Common.Concurrency.IRunnable)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutor"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.Execute(System.Action{System.Object},System.Object)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutor"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.Execute(System.Action{System.Object,System.Object},System.Object,System.Object)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutor"/>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.AbstractExecutorService.Execute(System.Action)">
+            <inheritdoc cref="T:DotNetty.Common.Concurrency.IExecutor"/>
         </member>
         <member name="T:DotNetty.Common.Concurrency.AbstractScheduledEventExecutor">
             <summary>
@@ -116,6 +119,11 @@
                 This method MUST be called only when <see cref="P:DotNetty.Common.Concurrency.IEventExecutor.InEventLoop" /> is <c>true</c>.
             </summary>
         </member>
+        <member name="P:DotNetty.Common.Concurrency.IEventExecutor.Parent">
+            <summary>
+            Parent <see cref="T:DotNetty.Common.Concurrency.IEventExecutorGroup"/>.
+            </summary>
+        </member>
         <member name="P:DotNetty.Common.Concurrency.IEventExecutor.InEventLoop">
             <summary>
                 Returns <c>true</c> if the current <see cref="T:DotNetty.Common.Concurrency.XThread" /> belongs to this event loop,
@@ -126,254 +134,20 @@
                 should be posted for execution to this executor instance explicitly to ensure execution in the loop.
             </remarks>
         </member>
-        <member name="P:DotNetty.Common.Concurrency.IEventExecutor.IsShuttingDown">
-            <summary>
-                Returns <c>true</c> if and only if this executor is being shut down via <see cref="M:DotNetty.Common.Concurrency.IEventExecutor.ShutdownGracefullyAsync" />.
-            </summary>
-        </member>
-        <member name="P:DotNetty.Common.Concurrency.IEventExecutor.TerminationCompletion">
-            <summary>
-                Gets a <see cref="T:System.Threading.Tasks.Task" /> object that represents the asynchronous completion of this executor's termination.
-            </summary>
-        </member>
-        <member name="P:DotNetty.Common.Concurrency.IEventExecutor.IsShutdown">
-            <summary>
-                Returns <c>true</c> if this executor has been shut down, <c>false</c> otherwise.
-            </summary>
-        </member>
-        <member name="P:DotNetty.Common.Concurrency.IEventExecutor.IsTerminated">
-            <summary>
-                Returns <c>true</c> if all tasks have completed following shut down.
-            </summary>
-            <remarks>
-                Note that <see cref="P:DotNetty.Common.Concurrency.IEventExecutor.IsTerminated" /> is never <c>true</c> unless <see cref="M:DotNetty.Common.Concurrency.IEventExecutor.ShutdownGracefullyAsync" /> was called first.
-            </remarks>
-        </member>
-        <member name="P:DotNetty.Common.Concurrency.IEventExecutor.Parent">
-            <summary>
-            Parent <see cref="T:DotNetty.Common.Concurrency.IEventExecutorGroup"/>.
-            </summary>
-        </member>
         <member name="M:DotNetty.Common.Concurrency.IEventExecutor.IsInEventLoop(DotNetty.Common.Concurrency.XThread)">
             <summary>
                 Returns <c>true</c> if the given <see cref="T:DotNetty.Common.Concurrency.XThread" /> belongs to this event loop,
                 <c>false></c> otherwise.
             </summary>
         </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Execute(DotNetty.Common.Concurrency.IRunnable)">
-            <summary>
-                Executes the given task.
-            </summary>
-            <remarks>Threading specifics are determined by <c>IEventExecutor</c> implementation.</remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Execute(System.Action{System.Object},System.Object)">
-            <summary>
-                Executes the given action.
-            </summary>
-            <remarks>
-                <paramref name="state" /> parameter is useful to when repeated execution of an action against
-                different objects is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Execute(System.Action)">
-            <summary>
-                Executes the given <paramref name="action" />.
-            </summary>
-            <remarks>Threading specifics are determined by <c>IEventExecutor</c> implementation.</remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Execute(System.Action{System.Object,System.Object},System.Object,System.Object)">
-            <summary>
-                Executes the given action.
-            </summary>
-            <remarks>
-                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
-                an action against different objects in different context is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Schedule(DotNetty.Common.Concurrency.IRunnable,System.TimeSpan)">
-            <summary>
-                Creates and executes a one-shot action that becomes enabled after the given delay.
-            </summary>
-            <param name="action">the task to execute</param>
-            <param name="delay">the time from now to delay execution</param>
-            <returns>an <see cref="T:DotNetty.Common.Concurrency.IScheduledTask" /> representing pending completion of the task.</returns>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Schedule(System.Action,System.TimeSpan)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Schedule(System.Action{System.Object},System.Object,System.TimeSpan)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <paramref name="state" /> parameter is useful to when repeated execution of an action against
-                different objects is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.Schedule(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
-                an action against different objects in different context is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ScheduleAsync(System.Action{System.Object},System.Object,System.TimeSpan,System.Threading.CancellationToken)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <paramref name="state" /> parameter is useful to when repeated execution of an action against
-                different objects is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ScheduleAsync(System.Action{System.Object},System.Object,System.TimeSpan)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <paramref name="state" /> parameter is useful to when repeated execution of an action against
-                different objects is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ScheduleAsync(System.Action,System.TimeSpan,System.Threading.CancellationToken)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ScheduleAsync(System.Action,System.TimeSpan)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ScheduleAsync(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
-                an action against different objects in different context is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ScheduleAsync(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan,System.Threading.CancellationToken)">
-            <summary>
-                Schedules the given action for execution after the specified delay would pass.
-            </summary>
-            <remarks>
-                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
-                an action against different objects in different context is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.SubmitAsync``1(System.Func{``0})">
-            <summary>
-                Executes the given function and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of
-                execution.
-            </summary>
-            <remarks>
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.SubmitAsync``1(System.Func{``0},System.Threading.CancellationToken)">
-            <summary>
-                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
-            </summary>
-            <remarks>
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.SubmitAsync``1(System.Func{System.Object,``0},System.Object)">
-            <summary>
-                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
-            </summary>
-            <remarks>
-                <paramref name="state" /> parameter is useful to when repeated execution of an action against
-                different objects is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.SubmitAsync``1(System.Func{System.Object,``0},System.Object,System.Threading.CancellationToken)">
-            <summary>
-                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
-            </summary>
-            <remarks>
-                <paramref name="state" /> parameter is useful to when repeated execution of an action against
-                different objects is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object)">
-            <summary>
-                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
-            </summary>
-            <remarks>
-                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
-                an action against different objects in different context is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object,System.Threading.CancellationToken)">
-            <summary>
-                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
-            </summary>
-            <remarks>
-                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
-                an action against different objects in different context is needed.
-                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
-            </remarks>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ShutdownGracefullyAsync">
-            <summary>
-                Shortcut method for <see cref="M:DotNetty.Common.Concurrency.IEventExecutor.ShutdownGracefullyAsync(System.TimeSpan,System.TimeSpan)" /> with sensible default values.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutor.ShutdownGracefullyAsync(System.TimeSpan,System.TimeSpan)">
-            <summary>
-                Signals this executor that the caller wants the executor to be shut down.  Once this method is called,
-                <see cref="P:DotNetty.Common.Concurrency.IEventExecutor.IsShuttingDown" /> starts to return <c>true</c>, and the executor prepares to shut itself down.
-                Graceful shutdown ensures that no tasks are submitted for <i>'the quiet period'</i>
-                (usually a couple seconds) before it shuts itself down.  If a task is submitted during the quiet period,
-                it is guaranteed to be accepted and the quiet period will start over.
-            </summary>
-            <param name="quietPeriod">the quiet period as described in the documentation.</param>
-            <param name="timeout">
-                the maximum amount of time to wait until the executor <see cref="P:DotNetty.Common.Concurrency.IEventExecutor.IsShutdown" />
-                regardless if a task was submitted during the quiet period.
-            </param>
-            <returns>the <see cref="P:DotNetty.Common.Concurrency.IEventExecutor.TerminationCompletion" /> task.</returns>
-        </member>
         <member name="T:DotNetty.Common.Concurrency.IEventExecutorGroup">
             <summary>
             Provides an access to a set of <see cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>s it manages.
             </summary>
         </member>
-        <member name="P:DotNetty.Common.Concurrency.IEventExecutorGroup.TerminationCompletion">
+        <member name="P:DotNetty.Common.Concurrency.IEventExecutorGroup.IsShuttingDown">
             <summary>
-            A <see cref="T:System.Threading.Tasks.Task"/> for completion of termination. <see cref="M:DotNetty.Common.Concurrency.IEventExecutorGroup.ShutdownGracefullyAsync"/>.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Common.Concurrency.IEventExecutorGroup.GetNext">
-            <summary>
-            Returns <see cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>.
+                Returns <c>true</c> if and only if this executor is being shut down via <see cref="M:DotNetty.Common.Concurrency.IEventExecutorGroup.ShutdownGracefullyAsync" />.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Concurrency.IEventExecutorGroup.ShutdownGracefullyAsync">
@@ -387,6 +161,210 @@
             Terminates this <see cref="T:DotNetty.Common.Concurrency.IEventExecutorGroup"/> and all its <see cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>s.
             </summary>
             <returns><see cref="T:System.Threading.Tasks.Task"/> for completion of termination.</returns>
+        </member>
+        <member name="P:DotNetty.Common.Concurrency.IEventExecutorGroup.TerminationCompletion">
+            <summary>
+            A <see cref="T:System.Threading.Tasks.Task"/> for completion of termination. <see cref="M:DotNetty.Common.Concurrency.IEventExecutorGroup.ShutdownGracefullyAsync"/>.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IEventExecutorGroup.GetNext">
+            <summary>
+            Returns <see cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutor.Execute(DotNetty.Common.Concurrency.IRunnable)">
+            <summary>
+                Executes the given task.
+            </summary>
+            <remarks>Threading specifics are determined by <c>IEventExecutor</c> implementation.</remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutor.Execute(System.Action{System.Object},System.Object)">
+            <summary>
+                Executes the given action.
+            </summary>
+            <remarks>
+                <paramref name="state" /> parameter is useful to when repeated execution of an action against
+                different objects is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutor.Execute(System.Action)">
+            <summary>
+                Executes the given <paramref name="action" />.
+            </summary>
+            <remarks>Threading specifics are determined by <c>IEventExecutor</c> implementation.</remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutor.Execute(System.Action{System.Object,System.Object},System.Object,System.Object)">
+            <summary>
+                Executes the given action.
+            </summary>
+            <remarks>
+                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
+                an action against different objects in different context is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="P:DotNetty.Common.Concurrency.IExecutorService.IsShutdown">
+            <summary>
+                Returns <c>true</c> if this executor has been shut down, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:DotNetty.Common.Concurrency.IExecutorService.IsTerminated">
+            <summary>
+                Returns <c>true</c> if all tasks have completed following shut down.
+            </summary>
+            <remarks>
+                Note that <see cref="P:DotNetty.Common.Concurrency.IExecutorService.IsTerminated" /> is never <c>true</c> unless <see cref="!:ShutdownGracefullyAsync()" /> was called first.
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutorService.SubmitAsync``1(System.Func{``0})">
+            <summary>
+                Executes the given function and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of
+                execution.
+            </summary>
+            <remarks>
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutorService.SubmitAsync``1(System.Func{``0},System.Threading.CancellationToken)">
+            <summary>
+                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
+            </summary>
+            <remarks>
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutorService.SubmitAsync``1(System.Func{System.Object,``0},System.Object)">
+            <summary>
+                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
+            </summary>
+            <remarks>
+                <paramref name="state" /> parameter is useful to when repeated execution of an action against
+                different objects is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutorService.SubmitAsync``1(System.Func{System.Object,``0},System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
+            </summary>
+            <remarks>
+                <paramref name="state" /> parameter is useful to when repeated execution of an action against
+                different objects is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutorService.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object)">
+            <summary>
+                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
+            </summary>
+            <remarks>
+                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
+                an action against different objects in different context is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IExecutorService.SubmitAsync``1(System.Func{System.Object,System.Object,``0},System.Object,System.Object,System.Threading.CancellationToken)">
+            <summary>
+                Executes the given action and returns <see cref="T:System.Threading.Tasks.Task`1" /> indicating completion status and result of execution.
+            </summary>
+            <remarks>
+                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
+                an action against different objects in different context is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.Schedule(DotNetty.Common.Concurrency.IRunnable,System.TimeSpan)">
+            <summary>
+                Creates and executes a one-shot action that becomes enabled after the given delay.
+            </summary>
+            <param name="action">the task to execute</param>
+            <param name="delay">the time from now to delay execution</param>
+            <returns>an <see cref="T:DotNetty.Common.Concurrency.IScheduledTask" /> representing pending completion of the task.</returns>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.Schedule(System.Action,System.TimeSpan)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.Schedule(System.Action{System.Object},System.Object,System.TimeSpan)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <paramref name="state" /> parameter is useful to when repeated execution of an action against
+                different objects is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.Schedule(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
+                an action against different objects in different context is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.ScheduleAsync(System.Action{System.Object},System.Object,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <paramref name="state" /> parameter is useful to when repeated execution of an action against
+                different objects is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.ScheduleAsync(System.Action{System.Object},System.Object,System.TimeSpan)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <paramref name="state" /> parameter is useful to when repeated execution of an action against
+                different objects is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.ScheduleAsync(System.Action,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.ScheduleAsync(System.Action,System.TimeSpan)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.ScheduleAsync(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
+                an action against different objects in different context is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.IScheduledExecutorService.ScheduleAsync(System.Action{System.Object,System.Object},System.Object,System.Object,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+                Schedules the given action for execution after the specified delay would pass.
+            </summary>
+            <remarks>
+                <paramref name="context" /> and <paramref name="state" /> parameters are useful when repeated execution of
+                an action against different objects in different context is needed.
+                <para>Threading specifics are determined by <c>IEventExecutor</c> implementation.</para>
+            </remarks>
         </member>
         <member name="T:DotNetty.Common.Concurrency.SingleThreadEventExecutor">
             <summary>
@@ -422,21 +400,36 @@
         <member name="M:DotNetty.Common.Concurrency.SingleThreadEventExecutor.Execute(DotNetty.Common.Concurrency.IRunnable)">
             <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
         </member>
+        <member name="M:DotNetty.Common.Concurrency.SingleThreadEventExecutor.AddShutdownHook(System.Action)">
+            <summary>
+            Adds an <see cref="T:System.Action"/> which will be executed on shutdown of this instance.
+            </summary>
+            <param name="action">The <see cref="T:System.Action"/> to run on shutdown.</param>
+        </member>
+        <member name="M:DotNetty.Common.Concurrency.SingleThreadEventExecutor.RemoveShutdownHook(System.Action)">
+            <summary>
+            Removes a previously added <see cref="T:System.Action"/> from the collection of <see cref="T:System.Action"/>s which will be
+            executed on shutdown of this instance.
+            </summary>
+            <param name="action">The <see cref="T:System.Action"/> to remove.</param>
+        </member>
         <member name="M:DotNetty.Common.Concurrency.SingleThreadEventExecutor.ShutdownGracefullyAsync(System.TimeSpan,System.TimeSpan)">
             <inheritdoc cref="T:DotNetty.Common.Concurrency.IEventExecutor"/>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal.RemoveAll">
             <summary>
-                Removes all {@link FastThreadLocal} variables bound to the current thread.  This operation is useful when you
+                Removes all <see cref="T:DotNetty.Common.FastThreadLocal"/> variables bound to the current thread.  This operation is useful when you
                 are in a container environment, and you don't want to leave the thread local variables in the threads you do not
                 manage.
             </summary>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal.Destroy">
-            Destroys the data structure that keeps all {@link FastThreadLocal} variables accessed from
-            non-{@link FastThreadLocalThread}s.  This operation is useful when you are in a container environment, and you
-            do not want to leave the thread local variables in the threads you do not manage.  Call this method when your
-            application is being unloaded from the container.
+            <summary>
+            Destroys the data structure that keeps all <see cref="T:DotNetty.Common.FastThreadLocal"/> variables accessed from
+            non-<see cref="T:DotNetty.Common.FastThreadLocal"/>s.  This operation is useful when you are in a container environment, and
+            you do not want to leave the thread local variables in the threads you do not manage.  Call this method when
+            your application is being unloaded from the container.
+            </summary>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal.Remove(DotNetty.Common.InternalThreadLocalMap)">
             <summary>
@@ -462,89 +455,140 @@
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal`1.Set(DotNetty.Common.InternalThreadLocalMap,`0)">
             <summary>
-                Set the value for the specified thread local map. The specified thread local map must be for the current thread.
+            Set the value for the specified thread local map. The specified thread local map must be for the current thread.
             </summary>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal`1.IsSet">
             <summary>
-                Returns {@code true} if and only if this thread-local variable is set.
+            Returns <c>true</c> if and only if this thread-local variable is set.
             </summary>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal`1.IsSet(DotNetty.Common.InternalThreadLocalMap)">
             <summary>
-                Returns {@code true} if and only if this thread-local variable is set.
-                The specified thread local map must be for the current thread.
+            Returns <c>true</c> if and only if this thread-local variable is set.
+            The specified thread local map must be for the current thread.
             </summary>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal`1.GetInitialValue">
             <summary>
-                Returns the initial value for this thread-local variable.
+            Returns the initial value for this thread-local variable.
             </summary>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal`1.Remove(DotNetty.Common.InternalThreadLocalMap)">
+            <summary>
             Sets the value to uninitialized for the specified thread local map;
-            a proceeding call to get() will trigger a call to GetInitialValue().
+            a proceeding call to <see cref="M:DotNetty.Common.FastThreadLocal`1.Get(DotNetty.Common.InternalThreadLocalMap)"/> will trigger a call to <see cref="M:DotNetty.Common.FastThreadLocal`1.GetInitialValue"/>.
             The specified thread local map must be for the current thread.
+            </summary>
+            <param name="threadLocalMap">
+            The <see cref="T:DotNetty.Common.InternalThreadLocalMap"/> from which this <see cref="T:DotNetty.Common.FastThreadLocal"/> should be removed.
+            </param>
         </member>
         <member name="M:DotNetty.Common.FastThreadLocal`1.OnRemoval(`0)">
             <summary>
-                Invoked when this thread local variable is removed by {@link #remove()}.
+            Invoked when this thread local variable is removed by <see cref="M:DotNetty.Common.FastThreadLocal`1.Remove"/>.
             </summary>
         </member>
         <member name="T:DotNetty.Common.InternalThreadLocalMap">
             <summary>
-                The internal data structure that stores the thread-local variables for Netty and all {@link FastThreadLocal}s.
-                Note that this class is for internal use only and is subject to change at any time.  Use {@link FastThreadLocal}
-                unless you know what you are doing.
+            The internal data structure that stores the thread-local variables for DotNetty and all
+            <see cref="T:DotNetty.Common.FastThreadLocal"/>s. Note that this class is for internal use only and is subject to change at any
+            time. Use <see cref="T:DotNetty.Common.FastThreadLocal"/> unless you know what you are doing.
             </summary>
         </member>
         <member name="F:DotNetty.Common.InternalThreadLocalMap.indexedVariables">
-            Used by {@link FastThreadLocal}
+            <summary>
+            Used by <see cref="T:DotNetty.Common.FastThreadLocal"/>.
+            </summary>
         </member>
         <member name="M:DotNetty.Common.InternalThreadLocalMap.SetIndexedVariable(System.Int32,System.Object)">
-            @return {@code true} if and only if a new thread-local variable has been created
+            <summary>
+            Sets a value at the given index in this <see cref="T:DotNetty.Common.InternalThreadLocalMap"/>.
+            </summary>
+            <param name="index">The desired index at which a value should be set.</param>
+            <param name="value">The value to set at the given index.</param>
+            <returns><c>true</c> if and only if a new thread-local variable has been created.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1" -->
+        <member name="M:DotNetty.Common.Internal.AppendableCharSequence.Reset">
+            <summary>
+            Resets the <see cref="T:DotNetty.Common.Internal.AppendableCharSequence"/>. Be aware this will only reset the current internal
+            position and not shrink the internal char array.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Common.Internal.AppendableCharSequence.SubStringUnsafe(System.Int32,System.Int32)">
+            <summary>
+            Create a new ascii string, this method assumes all chars has been sanitized to ascii chars when appending
+            to the array.
+            </summary>
+        </member>
+        <member name="T:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1">
+            Forked from
+            <a href="https://github.com/JCTools/JCTools">JCTools</a>
+            .
+            A concurrent access enabling class used by circular array based queues this class exposes an offset computation
+            method along with differently memory fenced load/store methods into the underlying array. The class is pre-padded and
+            the array is padded on either side to help with False sharing prvention. It is expected theat subclasses handle post
+            padding.
+            <p />
+            Offset calculation is separate from access to enable the reuse of a give compute offset.
+            <p />
+            Load/Store methods using a
+            <i>buffer</i>
+            parameter are provided to allow the prevention of field reload after a
+            LoadLoad barrier.
+            <p />
+        </member>
         <member name="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)">
-            @param index desirable element index
-            @return the offset in bytes within the array for a given index.
+            <summary>
+            Calculates an element offset based on a given array index.
+            </summary>
+            <param name="index">The desirable element index.</param>
+            <returns>The offset in bytes within the array for a given index.</returns>
         </member>
         <member name="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.SpElement(System.Int64,`0)">
-            A plain store (no ordering/fences) of an element to a given offset
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @param e a kitty
+            <summary>
+            A plain store (no ordering/fences) of an element to a given offset.
+            </summary>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/>.</param>
+            <param name="e">A kitty.</param>
         </member>
         <member name="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.SoElement(System.Int64,`0)">
-            An ordered store(store + StoreStore barrier) of an element to a given offset
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @param e an orderly kitty
+            <summary>
+            An ordered store(store + StoreStore barrier) of an element to a given offset.
+            </summary>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/>.</param>
+            <param name="e">An orderly kitty.</param>
         </member>
         <member name="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.LpElement(System.Int64)">
+            <summary>
             A plain load (no ordering/fences) of an element from a given offset.
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @return the element at the offset
+            </summary>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/>.</param>
+            <returns>The element at the offset.</returns>
         </member>
         <member name="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.LvElement(System.Int64)">
+            <summary>
             A volatile load (load + LoadLoad barrier) of an element from a given offset.
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @return the element at the offset
+            </summary>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/>.</param>
+            <returns>The element at the offset.</returns>
         </member>
         <member name="T:DotNetty.Common.Internal.Logging.AbstractInternalLogger">
             <summary>
-                A skeletal implementation of {@link IInternalLogger}.  This class implements
-                all methods that have a { @link InternalLogLevel } parameter by default to call
-                specific logger methods such as {@link #Info(String)} or {@link #isInfoEnabled()}.
+            A skeletal implementation of <see cref="T:DotNetty.Common.Internal.Logging.IInternalLogger"/>. This class implements
+            all methods that have a <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel"/> parameter by default to call
+            specific logger methods such as <see cref="M:DotNetty.Common.Internal.Logging.AbstractInternalLogger.Info(System.String)"/> or <see cref="P:DotNetty.Common.Internal.Logging.AbstractInternalLogger.InfoEnabled"/>.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.AbstractInternalLogger.#ctor(System.String)">
             <summary>
-                Creates a new instance.
+            Creates a new instance.
             </summary>
-            <param name="name"></param>
+            <param name="name">A friendly name for the new logger instance.</param>
         </member>
         <member name="T:DotNetty.Common.Internal.Logging.FormattingTuple">
             <summary>
-                Holds the results of formatting done by {@link MessageFormatter}.
+            Holds the results of formatting done by <see cref="T:DotNetty.Common.Internal.Logging.MessageFormatter"/>.
             </summary>
         </member>
         <member name="T:DotNetty.Common.Internal.Logging.IInternalLogger">
@@ -575,10 +619,10 @@
             <summary>
                 Log a message at level TRACE according to the specified format and
                 argument.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level TRACE.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arg">the argument</param>
@@ -587,10 +631,10 @@
             <summary>
                 Log a message at level TRACE according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level TRACE.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="argA">the first argument</param>
@@ -600,7 +644,7 @@
             <summary>
                 Log a message at level TRACE according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level TRACE. However, this variant incurs the hidden
                     (and relatively small) cost of creating an <c>object[]</c>
@@ -608,7 +652,7 @@
                     even if this logger is disabled for TRACE. The variants
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Trace(System.String,System.Object)" /> and <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Trace(System.String,System.Object,System.Object)" />
                     arguments exist solely to avoid this hidden cost.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arguments">an array of arguments</param>
@@ -642,10 +686,10 @@
             <summary>
                 Log a message at level DEBUG according to the specified format and
                 argument.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level DEBUG.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arg">the argument</param>
@@ -654,10 +698,10 @@
             <summary>
                 Log a message at level DEBUG according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level DEBUG.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="argA">the first argument</param>
@@ -667,7 +711,7 @@
             <summary>
                 Log a message at level DEBUG according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level DEBUG. However, this variant incurs the hidden
                     (and relatively small) cost of creating an <c>object[]</c>
@@ -675,7 +719,7 @@
                     even if this logger is disabled for DEBUG. The variants
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Debug(System.String,System.Object)" /> and <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Debug(System.String,System.Object,System.Object)" />
                     arguments exist solely to avoid this hidden cost.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arguments">an array of arguments</param>
@@ -709,10 +753,10 @@
             <summary>
                 Log a message at level INFO according to the specified format and
                 argument.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level INFO.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arg">the argument</param>
@@ -721,10 +765,10 @@
             <summary>
                 Log a message at level INFO according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level INFO.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="argA">the first argument</param>
@@ -734,7 +778,7 @@
             <summary>
                 Log a message at level INFO according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level INFO. However, this variant incurs the hidden
                     (and relatively small) cost of creating an <c>object[]</c>
@@ -742,7 +786,7 @@
                     even if this logger is disabled for INFO. The variants
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Info(System.String,System.Object)" /> and <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Info(System.String,System.Object,System.Object)" />
                     arguments exist solely to avoid this hidden cost.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arguments">an array of arguments</param>
@@ -776,10 +820,10 @@
             <summary>
                 Log a message at level WARN according to the specified format and
                 argument.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level WARN.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arg">the argument</param>
@@ -788,7 +832,7 @@
             <summary>
                 Log a message at level WARN according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level WARN. However, this variant incurs the hidden
                     (and relatively small) cost of creating an <c>object[]</c>
@@ -796,7 +840,7 @@
                     even if this logger is disabled for WARN. The variants
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Warn(System.String,System.Object)" /> and <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Warn(System.String,System.Object,System.Object)" />
                     arguments exist solely to avoid this hidden cost.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arguments">an array of arguments</param>
@@ -805,10 +849,10 @@
             <summary>
                 Log a message at level WARN according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level WARN.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="argA">the first argument</param>
@@ -843,10 +887,10 @@
             <summary>
                 Log a message at level ERROR according to the specified format and
                 argument.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level ERROR.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arg">the argument</param>
@@ -855,10 +899,10 @@
             <summary>
                 Log a message at level ERROR according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level ERROR.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="argA">the first argument</param>
@@ -868,7 +912,7 @@
             <summary>
                 Log a message at level ERROR according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
                     for level ERROR. However, this variant incurs the hidden
                     (and relatively small) cost of creating an <c>object[]</c>
@@ -876,7 +920,7 @@
                     even if this logger is disabled for ERROR. The variants
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Error(System.String,System.Object)" /> and <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Error(System.String,System.Object,System.Object)" />
                     arguments exist solely to avoid this hidden cost.
-                </p>
+                </para>
             </summary>
             <param name="format">the format string</param>
             <param name="arguments">an array of arguments</param>
@@ -896,26 +940,26 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.IsEnabled(DotNetty.Common.Internal.Logging.InternalLogLevel)">
             <summary>
-                Is the logger instance enabled for the specified {@code level}?
+                Is the logger instance enabled for the specified <paramref name="level"/>?
             </summary>
             <param name="level">log level</param>
-            <returns>true if this Logger is enabled for the specified {@code level}, false otherwise.</returns>
+            <returns>true if this Logger is enabled for the specified <paramref name="level"/>, false otherwise.</returns>
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String)">
             <summary>
-                Log a message object at a specified <see cref="!:level" />.
+                Log a message object at a specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" />.
             </summary>
             <param name="level">log level</param>
             <param name="msg">the message object to be logged</param>
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String,System.Object)">
             <summary>
-                Log a message at a specified <see cref="!:level" /> according to the specified format and
+                Log a message at a specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" /> according to the specified format and
                 argument.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
-                    for the specified <see cref="!:level" />.
-                </p>
+                    for the specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" />.
+                </para>
             </summary>
             <param name="level">log level</param>
             <param name="format">the format string</param>
@@ -923,12 +967,12 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String,System.Object,System.Object)">
             <summary>
-                Log a message at a specified <see cref="!:level" /> according to the specified format and
+                Log a message at a specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" /> according to the specified format and
                 arguments.
-                <p>
+                <para>
                     This form avoids superfluous object creation when the logger is disabled
-                    for the specified <see cref="!:level" />.
-                </p>
+                    for the specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" />.
+                </para>
             </summary>
             <param name="level">log level</param>
             <param name="format">the format string</param>
@@ -937,17 +981,17 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String,System.Object[])">
             <summary>
-                Log a message at the specified {@code level} according to the specified format
+                Log a message at the specified <paramref name="level"/> according to the specified format
                 and arguments.
-                <p>
+                <para>
                     This form avoids superfluous string concatenation when the logger
-                    is disabled for the specified {@code level}. However, this variant incurs the hidden
-                    (and relatively small) cost of creating an {@code Object[]} before invoking the method,
-                    even if this logger is disabled for the specified {@code level}. The variants
+                    is disabled for the specified <paramref name="level"/>. However, this variant incurs the hidden
+                    (and relatively small) cost of creating an <c>object[]</c> before invoking the method,
+                    even if this logger is disabled for the specified <paramref name="level"/>. The variants
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String,System.Object)" /> and
                     <see cref="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String,System.Object,System.Object)" /> arguments exist solely
                     in order to avoid this hidden cost.
-                </p>
+                </para>
             </summary>
             <param name="level">log level</param>
             <param name="format">the format string</param>
@@ -955,7 +999,7 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.String,System.Exception)">
             <summary>
-                Log an exception at the specified <see cref="!:level" /> with an
+                Log an exception at the specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" /> with an
                 accompanying message.
             </summary>
             <param name="level">log level</param>
@@ -964,7 +1008,7 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.IInternalLogger.Log(DotNetty.Common.Internal.Logging.InternalLogLevel,System.Exception)">
             <summary>
-                Log an exception at the specified <see cref="!:level" />.
+                Log an exception at the specified <see cref="T:DotNetty.Common.Internal.Logging.InternalLogLevel" />.
             </summary>
             <param name="level">log level</param>
             <param name="t">the exception to log</param>
@@ -1010,7 +1054,9 @@
             <returns>logger instance</returns>
         </member>
         <member name="T:DotNetty.Common.Internal.Logging.InternalLogLevel">
-            <summary>The log level that {@link IInternalLogger} can log at.</summary>
+            <summary>
+            The log level that <see cref="T:DotNetty.Common.Internal.Logging.IInternalLogger"/> can log at.
+            </summary>
         </member>
         <member name="F:DotNetty.Common.Internal.Logging.InternalLogLevel.TRACE">
             <summary>
@@ -1039,81 +1085,65 @@
         </member>
         <member name="T:DotNetty.Common.Internal.Logging.MessageFormatter">
             <summary>
-                Formats messages according to very simple substitution rules. Substitutions
-                can be made 1, 2 or more arguments.
-                <p />
-                <p />
-                For example,
-                <p />
-                <pre>
-                    MessageFormatter.Format(&quot;Hi {}.&quot;, &quot;there&quot;)
-                </pre>
-                <p />
-                will return the string "Hi there.".
-                <p />
-                The {} pair is called the <em>formatting anchor</em>. It serves to designate
-                the location where arguments need to be substituted within the message
-                pattern.
-                <p />
-                In case your message contains the '{' or the '}' character, you do not have
-                to do anything special unless the '}' character immediately follows '{'. For
-                example,
-                <p />
-                <pre>
-                    MessageFormatter.Format(&quot;Set {1,2,3} is not equal to {}.&quot;, &quot;1,2&quot;);
-                </pre>
-                <p />
-                will return the string "Set {1,2,3} is not equal to 1,2.".
-                <p />
-                <p />
-                If for whatever reason you need to place the string "{}" in the message
-                without its <em>formatting anchor</em> meaning, then you need to escape the
-                '{' character with '\', that is the backslash character. Only the '{'
-                character should be escaped. There is no need to escape the '}' character.
-                For example,
-                <p />
-                <pre>
-                    MessageFormatter.Format(&quot;Set \\{} is not equal to {}.&quot;, &quot;1,2&quot;);
-                </pre>
-                <p />
-                will return the string "Set {} is not equal to 1,2.".
-                <p />
-                <p />
-                The escaping behavior just described can be overridden by escaping the escape
-                character '\'. Calling
-                <p />
-                <pre>
-                    MessageFormatter.Format(&quot;File name is C:\\\\{}.&quot;, &quot;file.zip&quot;);
-                </pre>
-                <p />
-                will return the string "File name is C:\file.zip".
-                <p />
-                <p />
-                The formatting conventions are different than those of {@link MessageFormat}
-                which ships with the Java platform. This is justified by the fact that
-                SLF4J's implementation is 10 times faster than that of {@link MessageFormat}.
-                This local performance difference is both measurable and significant in the
-                larger context of the complete logging processing chain.
-                <p />
-                <p />
-                <seealso cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object)" />
-                <seealso cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object,System.Object)" />
-                <seealso cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.ArrayFormat(System.String,System.Object[])" />
+            Formats messages according to very simple substitution rules. Substitutions can be made 1, 2 or more arguments.
+            <para>For example,</para>
+            <code>
+            MessageFormatter.Format(&quot;Hi {}.&quot;, &quot;there&quot;)
+            </code>
+            <para>
+            will return the string "Hi there.".
+            </para>
+            <para>
+            The {} pair is called the <em>formatting anchor</em>. It serves to designate the location where arguments need
+            to be substituted within the message pattern.
+            </para>
+            <para>
+            In case your message contains the '{' or the '}' character, you do not have to do anything special unless the
+            '}' character immediately follows '{'. For example,
+            </para>
+            <code>
+            MessageFormatter.Format(&quot;Set {1,2,3} is not equal to {}.&quot;, &quot;1,2&quot;);
+            </code>
+            <para>
+            will return the string "Set {1,2,3} is not equal to 1,2.".
+            </para>
+            <para>
+            If for whatever reason you need to place the string "{}" in the message without its <em>formatting anchor</em>
+            meaning, then you need to escape the '{' character with '\', that is the backslash character. Only the '{'
+            character should be escaped. There is no need to escape the '}' character. For example,
+            </para>
+            <code>
+            MessageFormatter.Format(&quot;Set \\{} is not equal to {}.&quot;, &quot;1,2&quot;);
+            </code>
+            <para>
+            will return the string "Set {} is not equal to 1,2.".
+            </para>
+            <para>
+            The escaping behavior just described can be overridden by escaping the escape character '\'. Calling
+            </para>
+            <code>
+            MessageFormatter.Format(&quot;File name is C:\\\\{}.&quot;, &quot;file.zip&quot;);
+            </code>
+            <para>
+            will return the string "File name is C:\file.zip".
+            </para>
+            <seealso cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object)" />
+            <seealso cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object,System.Object)" />
+            <seealso cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.ArrayFormat(System.String,System.Object[])" />
             </summary>
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object)">
             <summary>
-                Performs single argument substitution for the 'messagePattern' passed as
-                parameter.
-                <p />
-                For example,
-                <p />
-                <pre>
-                    MessageFormatter.Format(&quot;Hi {}.&quot;, &quot;there&quot;);
-                </pre>
-                <p />
-                will return the string "Hi there.".
-                <p />
+            Performs single argument substitution for the given <paramref name="messagePattern"/>.
+            <para>
+            For example,
+            </para>
+            <code>
+            MessageFormatter.Format(&quot;Hi {}.&quot;, &quot;there&quot;);
+            </code>
+            <para>
+            will return the string "Hi there.".
+            </para>
             </summary>
             <param name="messagePattern">The message pattern which will be parsed and formatted</param>
             <param name="arg">The argument to be substituted in place of the formatting anchor</param>
@@ -1121,16 +1151,16 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object,System.Object)">
             <summary>
-                Performs a two argument substitution for the 'messagePattern' passed as
-                parameter.
-                <p />
-                For example,
-                <p />
-                <pre>
-                    MessageFormatter.Format(&quot;Hi {}. My name is {}.&quot;, &quot;Alice&quot;, &quot;Bob&quot;);
-                </pre>
-                <p />
-                will return the string "Hi Alice. My name is Bob.".
+            Performs a two argument substitution for the given <paramref name="messagePattern"/>.
+            <para>
+            For example,
+            </para>
+            <code>
+            MessageFormatter.Format(&quot;Hi {}. My name is {}.&quot;, &quot;Alice&quot;, &quot;Bob&quot;);
+            </code>
+            <para>
+            will return the string "Hi Alice. My name is Bob.".
+            </para>
             </summary>
             <param name="messagePattern">The message pattern which will be parsed and formatted</param>
             <param name="argA">The argument to be substituted in place of the first formatting anchor</param>
@@ -1139,9 +1169,8 @@
         </member>
         <member name="M:DotNetty.Common.Internal.Logging.MessageFormatter.ArrayFormat(System.String,System.Object[])">
             <summary>
-                Same principle as the {@link #Format(String, Object)} and
-                {@link #Format(String, Object, Object)} methods except that any number of
-                arguments can be passed in an array.
+            Same principle as the <see cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object)"/> and <see cref="M:DotNetty.Common.Internal.Logging.MessageFormatter.Format(System.String,System.Object,System.Object)"/>
+            methods, except that any number of arguments can be passed in an array.
             </summary>
             <param name="messagePattern">The message pattern which will be parsed and formatted</param>
             <param name="argArray">An array of arguments to be substituted in place of formatting anchors</param>
@@ -1167,82 +1196,124 @@
             <returns>positive - current is better, 0 - cannot tell, negative - candidate is better</returns>
         </member>
         <member name="T:DotNetty.Common.Internal.MpscArrayQueue`1">
-            Forked from
-            <a href="https://github.com/JCTools/JCTools">JCTools</a>
-            .
-            A Multi-Producer-Single-Consumer queue based on a {@link ConcurrentCircularArrayQueue}. This implies that
-            any thread may call the offer method, but only a single thread may call poll/peek for correctness to
+            <summary>
+            Forked from <a href="https://github.com/JCTools/JCTools">JCTools</a>.
+            A Multi-Producer-Single-Consumer queue based on a <see cref="T:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1"/>. This implies
+            that any thread may call the Enqueue methods, but only a single thread may call poll/peek for correctness to
             maintained.
-            <br />
+            <para>
             This implementation follows patterns documented on the package level for False Sharing protection.
-            <br />
-            This implementation is using the
-            <a href="http://sourceforge.net/projects/mc-fastflow/">Fast Flow</a>
+            </para>
+            <para>
+            This implementation is using the <a href="http://sourceforge.net/projects/mc-fastflow/">Fast Flow</a>
             method for polling from the queue (with minor change to correctly publish the index) and an extension of
             the Leslie Lamport concurrent queue algorithm (originated by Martin Thompson) on the producer side.
-            <br />
+            </para>
+            </summary>
+            <typeparam name="T">The type of each item in the queue.</typeparam>
         </member>
         <member name="M:DotNetty.Common.Internal.MpscArrayQueue`1.TryEnqueue(`0)">
-            {@inheritDoc}
-            <br />
-            IMPLEMENTATION NOTES:
-            <br />
-            Lock free offer using a single CAS. As class name suggests access is permitted to many threads
-            concurrently.
-            @see java.util.Queue#offer(java.lang.Object)
+            <summary>
+            Lock free Enqueue operation, using a single compare-and-swap. As the class name suggests, access is
+            permitted to many threads concurrently.
+            </summary>
+            <param name="e">The item to enqueue.</param>
+            <returns><c>true</c> if the item was added successfully, otherwise <c>false</c>.</returns>
+            <seealso cref="M:DotNetty.Common.Internal.IQueue`1.TryEnqueue(`0)"/>
         </member>
         <member name="M:DotNetty.Common.Internal.MpscArrayQueue`1.WeakEnqueue(`0)">
-            A wait free alternative to offer which fails on CAS failure.
-            @param e new element, not null
-            @return 1 if next element cannot be filled, -1 if CAS failed, 0 if successful
+            <summary>
+            A wait-free alternative to <see cref="M:DotNetty.Common.Internal.MpscArrayQueue`1.TryEnqueue(`0)"/>, which fails on compare-and-swap failure.
+            </summary>
+            <param name="e">The item to enqueue.</param>
+            <returns><c>1</c> if next element cannot be filled, <c>-1</c> if CAS failed, and <c>0</c> if successful.</returns>
         </member>
         <member name="M:DotNetty.Common.Internal.MpscArrayQueue`1.TryDequeue(`0@)">
-            {@inheritDoc}
-            <p />
-            IMPLEMENTATION NOTES:
-            <br />
-            Lock free poll using ordered loads/stores. As class name suggests access is limited to a single thread.
-            @see java.util.Queue#poll()
+            <summary>
+            Lock free poll using ordered loads/stores. As class name suggests, access is limited to a single thread.
+            </summary>
+            <param name="item">The dequeued item.</param>
+            <returns><c>true</c> if an item was retrieved, otherwise <c>false</c>.</returns>
+            <seealso cref="M:DotNetty.Common.Internal.IQueue`1.TryDequeue(`0@)"/>
         </member>
         <member name="M:DotNetty.Common.Internal.MpscArrayQueue`1.TryPeek(`0@)">
-            {@inheritDoc}
-            <p />
-            IMPLEMENTATION NOTES:
-            <br />
+            <summary>
             Lock free peek using ordered loads. As class name suggests access is limited to a single thread.
-            @see java.util.Queue#poll()
+            </summary>
+            <param name="item">The peeked item.</param>
+            <returns><c>true</c> if an item was retrieved, otherwise <c>false</c>.</returns>
+            <seealso cref="M:DotNetty.Common.Internal.IQueue`1.TryPeek(`0@)"/>
         </member>
         <member name="P:DotNetty.Common.Internal.MpscArrayQueue`1.Count">
-            {@inheritDoc}
+            <summary>
+            Returns the number of items in this <see cref="T:DotNetty.Common.Internal.MpscArrayQueue`1"/>.
+            </summary>
         </member>
         <member name="M:DotNetty.Common.Internal.RefArrayAccessUtil.SpElement``1(``0[],System.Int64,``0)">
-            A plain store (no ordering/fences) of an element to a given offset
-            @param buffer this.buffer
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @param e an orderly kitty
+            <summary>
+            A plain store (no ordering/fences) of an element to a given offset.
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/></param>
+            <param name="e">An orderly kitty.</param>
         </member>
         <member name="M:DotNetty.Common.Internal.RefArrayAccessUtil.SoElement``1(``0[],System.Int64,``0)">
-            An ordered store(store + StoreStore barrier) of an element to a given offset
-            @param buffer this.buffer
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @param e an orderly kitty
+            <summary>
+            An ordered store(store + StoreStore barrier) of an element to a given offset.
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/></param>
+            <param name="e"></param>
         </member>
         <member name="M:DotNetty.Common.Internal.RefArrayAccessUtil.LpElement``1(``0[],System.Int64)">
+            <summary>
             A plain load (no ordering/fences) of an element from a given offset.
-            @param buffer this.buffer
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @return the element at the offset
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/></param>
+            <returns>The element at the given <paramref name="offset"/> in the given <paramref name="buffer"/>.</returns>
         </member>
         <member name="M:DotNetty.Common.Internal.RefArrayAccessUtil.LvElement``1(``0[],System.Int64)">
+            <summary>
             A volatile load (load + LoadLoad barrier) of an element from a given offset.
-            @param buffer this.buffer
-            @param offset computed via {@link ConcurrentCircularArrayQueue#calcElementOffset(long)}
-            @return the element at the offset
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="offset">Computed via <see cref="M:DotNetty.Common.Internal.ConcurrentCircularArrayQueue`1.CalcElementOffset(System.Int64)"/></param>
+            <returns>The element at the given <paramref name="offset"/> in the given <paramref name="buffer"/>.</returns>
         </member>
         <member name="M:DotNetty.Common.Internal.RefArrayAccessUtil.CalcElementOffset(System.Int64,System.Int64)">
-            @param index desirable element index
-            @param mask
-            @return the offset in bytes within the array for a given index.
+            <summary>
+            Gets the offset in bytes within the array for a given index.
+            </summary>
+            <param name="index">The desired element index.</param>
+            <param name="mask">Mask for the index.</param>
+            <returns>The offset (in bytes) within the array for a given index.</returns>
+        </member>
+        <member name="M:DotNetty.Common.Internal.BaseLinkedQueuePad0`1.Offer(`0)">
+            <summary>
+            Called from a producer thread subject to the restrictions appropriate to the implementation and
+            according to the <see cref="M:DotNetty.Common.Internal.ILinkedQueue`1.Offer(`0)"/> interface.
+            </summary>
+            <param name="e">The element to enqueue.</param>
+            <returns><c>true</c> if the element was inserted, <c>false</c> iff the queue is full.</returns>
+        </member>
+        <member name="M:DotNetty.Common.Internal.BaseLinkedQueuePad0`1.Poll">
+            <summary>
+            Called from the consumer thread subject to the restrictions appropriate to the implementation and
+            according to the <see cref="M:DotNetty.Common.Internal.ILinkedQueue`1.Poll"/> interface.
+            </summary>
+            <returns>A message from the queue if one is available, <c>null</c> iff the queue is empty.</returns>
+        </member>
+        <member name="M:DotNetty.Common.Internal.BaseLinkedQueuePad0`1.Peek">
+            <summary>
+            Called from the consumer thread subject to the restrictions appropriate to the implementation and
+            according to the <see cref="M:DotNetty.Common.Internal.ILinkedQueue`1.Peek"/> interface.
+            </summary>
+            <returns>A message from the queue if one is available, <c>null</c> iff the queue is empty.</returns>
         </member>
         <member name="T:DotNetty.Common.Internal.SystemPropertyUtil">
             <summary>
@@ -1326,7 +1397,7 @@
         </member>
         <member name="M:DotNetty.Common.IReferenceCounted.Retain(System.Int32)">
             <summary>
-                Increases the reference count by <see cref="!:increment" />.
+                Increases the reference count by <paramref name="increment" />
             </summary>
         </member>
         <member name="M:DotNetty.Common.IReferenceCounted.Touch">
@@ -1353,31 +1424,10 @@
         </member>
         <member name="M:DotNetty.Common.IReferenceCounted.Release(System.Int32)">
             <summary>
-                Decreases the reference count by <see cref="!:decrement" /> and deallocates this object if the reference count
+                Decreases the reference count by <paramref name="decrement" /> and deallocates this object if the reference count
                 reaches 0.
             </summary>
             <returns>true if and only if the reference count is 0 and this object has been deallocated</returns>
-        </member>
-        <member name="M:DotNetty.Common.IResourceLeak.Record">
-            <summary>
-                Records the caller's current stack trace so that the <see cref="T:DotNetty.Common.ResourceLeakDetector" /> can tell where the
-                leaked
-                resource was accessed lastly. This method is a shortcut to <see cref="M:DotNetty.Common.IResourceLeak.Record(System.Object)" /> with <c>null</c> as an
-                argument.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Common.IResourceLeak.Record(System.Object)">
-            <summary>
-                Records the caller's current stack trace and the specified additional arbitrary information
-                so that the <see cref="T:DotNetty.Common.ResourceLeakDetector" /> can tell where the leaked resource was accessed lastly.
-            </summary>
-            <param name="hint"></param>
-        </member>
-        <member name="M:DotNetty.Common.IResourceLeak.Close">
-            <summary>
-                Close the leak so that <see cref="T:DotNetty.Common.ResourceLeakDetector" /> does not warn about leaked resources.
-            </summary>
-            <returns><c>true</c> if called first time, <c>false</c> if called already</returns>
         </member>
         <member name="T:DotNetty.Common.IResourceLeakHint">
             <summary>
@@ -1390,8 +1440,31 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:DotNetty.Common.IResourceLeakTracker.Record">
+            <summary>
+                Records the caller's current stack trace so that the <see cref="T:DotNetty.Common.ResourceLeakDetector" /> can tell where the
+                leaked
+                resource was accessed lastly. This method is a shortcut to <see cref="M:DotNetty.Common.IResourceLeakTracker.Record(System.Object)" /> with <c>null</c> as an
+                argument.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Common.IResourceLeakTracker.Record(System.Object)">
+            <summary>
+                Records the caller's current stack trace and the specified additional arbitrary information
+                so that the <see cref="T:DotNetty.Common.ResourceLeakDetector" /> can tell where the leaked resource was accessed lastly.
+            </summary>
+            <param name="hint"></param>
+        </member>
+        <member name="M:DotNetty.Common.IResourceLeakTracker.Close(System.Object)">
+            <summary>
+                Close the leak so that <see cref="T:DotNetty.Common.ResourceLeakDetector" /> does not warn about leaked resources.
+            </summary>
+            <returns><c>true</c> if called first time, <c>false</c> if called already</returns>
+        </member>
         <member name="T:DotNetty.Common.ResourceLeakDetector.DetectionLevel">
-            Represents the level of resource leak detection.
+            <summary>
+               Represents the level of resource leak detection.
+            </summary>
         </member>
         <member name="F:DotNetty.Common.ResourceLeakDetector.DetectionLevel.Disabled">
             <summary>
@@ -1416,42 +1489,42 @@
                 at the cost of the highest possible overhead (for testing purposes only).
             </summary>
         </member>
+        <member name="P:DotNetty.Common.ResourceLeakDetector.Enabled">
+            Returns <c>true</c> if resource leak detection is enabled.
+        </member>
         <member name="P:DotNetty.Common.ResourceLeakDetector.Level">
             <summary>
                 Gets or sets resource leak detection level
             </summary>
         </member>
-        <member name="P:DotNetty.Common.ResourceLeakDetector.Enabled">
-            Returns <c>true</c> if resource leak detection is enabled.
-        </member>
-        <member name="M:DotNetty.Common.ResourceLeakDetector.Open(System.Object)">
+        <member name="M:DotNetty.Common.ResourceLeakDetector.Track(System.Object)">
             <summary>
-                Creates a new <see cref="T:DotNetty.Common.IResourceLeak" /> which is expected to be closed via <see cref="M:DotNetty.Common.IResourceLeak.Close" />
+                Creates a new <see cref="T:DotNetty.Common.IResourceLeakTracker" /> which is expected to be closed
                 when the
                 related resource is deallocated.
             </summary>
-            <returns>the <see cref="T:DotNetty.Common.IResourceLeak" /> or <c>null</c></returns>
+            <returns>the <see cref="T:DotNetty.Common.IResourceLeakTracker" /> or <c>null</c></returns>
         </member>
         <member name="M:DotNetty.Common.ThreadDeathWatcher.Watch(DotNetty.Common.Concurrency.XThread,System.Action)">
-            Schedules the specified {@code task} to run when the specified {@code thread} dies.
-            
-            @param thread the {@link Thread} to watch
-            @param task the {@link Runnable} to run when the {@code thread} dies
-            
-            @throws IllegalArgumentException if the specified {@code thread} is not alive
+            <summary>
+            Schedules the specified <see cref="T:System.Action"/> to run when the specified <see cref="T:DotNetty.Common.Concurrency.XThread"/> dies.
+            </summary>
         </member>
         <member name="M:DotNetty.Common.ThreadDeathWatcher.Unwatch(DotNetty.Common.Concurrency.XThread,System.Action)">
-            Cancels the task scheduled via {@link #watch(Thread, Runnable)}.
+            <summary>
+            Cancels the task scheduled via <see cref="M:DotNetty.Common.ThreadDeathWatcher.Watch(DotNetty.Common.Concurrency.XThread,System.Action)"/>.
+            </summary>
         </member>
         <member name="M:DotNetty.Common.ThreadDeathWatcher.AwaitInactivity(System.TimeSpan)">
+            <summary>
             Waits until the thread of this watcher has no threads to watch and terminates itself.
-            Because a new watcher thread will be started again on {@link #watch(Thread, Runnable)},
+            Because a new watcher thread will be started again on <see cref="M:DotNetty.Common.ThreadDeathWatcher.Watch(DotNetty.Common.Concurrency.XThread,System.Action)"/>,
             this operation is only useful when you want to ensure that the watcher thread is terminated
-            <strong>after</strong>
-            your application is shut down and there's no chance of calling
-            {@link #watch(Thread, Runnable)} afterwards.
-            
-            @return {@code true} if and only if the watcher thread has been terminated
+            <strong>after</strong> your application is shut down and there's no chance of calling <see cref="M:DotNetty.Common.ThreadDeathWatcher.Watch(DotNetty.Common.Concurrency.XThread,System.Action)"/>
+            afterwards.
+            </summary>
+            <param name="timeout"></param>
+            <returns><c>true</c> if and only if the watcher thread has been terminated.</returns>
         </member>
         <member name="T:DotNetty.Common.Utilities.AbstractConstant`1">
             <summary>Base implementation of <see cref="T:DotNetty.Common.Utilities.IConstant" />.</summary>
@@ -1467,6 +1540,12 @@
         <member name="M:DotNetty.Common.Utilities.ArrayExtensions.CombineBytes(System.Byte[][])">
             <summary>
                 Merge the byte arrays into one byte array.
+            </summary>
+        </member>
+        <member name="M:DotNetty.Common.Utilities.AsciiString.ArrayChanged">
+            <summary>
+            During normal use cases the AsciiString should be immutable, but if the
+            underlying array is shared, and changes then this needs to be called.
             </summary>
         </member>
         <member name="T:DotNetty.Common.Utilities.AtomicReference`1">
@@ -1491,9 +1570,9 @@
         </member>
         <member name="M:DotNetty.Common.Utilities.AtomicReference`1.CompareAndSet(`0,`0)">
             <summary>
-                If <see cref="P:DotNetty.Common.Utilities.AtomicReference`1.Value" /> equals <see cref="!:expected" />, then set the Value to
-                <see cref="!:newValue" />.
-                Returns true if <see cref="!:newValue" /> was set, false otherwise.
+                If <see cref="P:DotNetty.Common.Utilities.AtomicReference`1.Value" /> equals <paramref name="expected"/>, then set the Value to
+                <paramref name="newValue"/>
+                Returns true if  <paramref name="newValue"/> was set, false otherwise.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.AtomicReference`1.op_Implicit(DotNetty.Common.Utilities.AtomicReference{`0})~`0">
@@ -1531,69 +1610,74 @@
                 <see cref="T:System.ArgumentException" /> if a <see cref="T:DotNetty.Common.Utilities.AttributeKey`1" /> for the given <c>name</c> exists.
             </summary>
         </member>
-        <member name="T:DotNetty.Common.Utilities.ByteProcessor">
+        <member name="T:DotNetty.Common.Utilities.IByteProcessor">
             <summary>
                 Provides a mechanism to iterate over a collection of bytes.
             </summary>
         </member>
-        <member name="T:DotNetty.Common.Utilities.ByteProcessor.IndexOfProcessor">
-            <summary>
-                A <see cref="T:DotNetty.Common.Utilities.ByteProcessor" /> which finds the first appearance of a specific byte.
-            </summary>
-        </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_NUL">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindNul">
             <summary>
                 Aborts on a <c>NUL (0x00)</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_NON_NUL">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindNonNul">
             <summary>
-                Aborts on a non-{@code NUL (0x00)}.
+                Aborts on a non-<c>NUL (0x00)</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_CR">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindCR">
             <summary>
-                Aborts on a {@code CR ('\r')}.
+                Aborts on a <c>CR ('\r')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_NON_CR">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindNonCR">
             <summary>
-                Aborts on a non-{@code CR ('\r')}.
+                Aborts on a non-<c>CR ('\r')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_LF">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindLF">
             <summary>
-                Aborts on a {@code LF ('\n')}.
+                Aborts on a <c>LF ('\n')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_NON_LF">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindNonLF">
             <summary>
-                Aborts on a non-{@code LF ('\n')}.
+                Aborts on a non-<c>LF ('\n')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_SEMI_COLON">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindSemicolon">
             <summary>
-                Aborts on a {@code CR (';')}.
+                Aborts on a <c>CR (';')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_CRLF">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindComma">
             <summary>
-                Aborts on a {@code CR ('\r')} or a {@code LF ('\n')}.
+                Aborts on a comma <c>(',')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_NON_CRLF">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindAsciiSpace">
             <summary>
-                Aborts on a byte which is neither a {@code CR ('\r')} nor a {@code LF ('\n')}.
+                Aborts on a ascii space character (<c>' '</c>).
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_LINEAR_WHITESPACE">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindCrlf">
             <summary>
-                Aborts on a linear whitespace (a ({@code ' '} or a {@code '\t'}).
+                Aborts on a <c>CR ('\r')</c> or a <c>LF ('\n')</c>.
             </summary>
         </member>
-        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FIND_NON_LINEAR_WHITESPACE">
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindNonCrlf">
             <summary>
-                Aborts on a byte which is not a linear whitespace (neither {@code ' '} nor {@code '\t'}).
+                Aborts on a byte which is neither a <c>CR ('\r')</c> nor a <c>LF ('\n')</c>.
+            </summary>
+        </member>
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindLinearWhitespace">
+            <summary>
+                Aborts on a linear whitespace (a <c>' '</c> or a <c>'\t'</c>).
+            </summary>
+        </member>
+        <member name="F:DotNetty.Common.Utilities.ByteProcessor.FindNonLinearWhitespace">
+            <summary>
+                Aborts on a byte which is not a linear whitespace (neither <c>' '</c> nor <c>'\t'</c>).
             </summary>
         </member>
         <member name="T:DotNetty.Common.Utilities.ConstantPool">
@@ -1666,7 +1750,7 @@
         </member>
         <member name="M:DotNetty.Common.Utilities.HashedWheelTimer.HashedWheelBucket.AddTimeout(DotNetty.Common.Utilities.HashedWheelTimer.HashedWheelTimeout)">
             <summary>
-            Add {@link HashedWheelTimeout} to this bucket.
+            Add a <see cref="T:DotNetty.Common.Utilities.HashedWheelTimer.HashedWheelTimeout"/> to this bucket.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.HashedWheelTimer.HashedWheelBucket.ExpireTimeouts(System.TimeSpan)">
@@ -1748,6 +1832,10 @@
                 <see cref="T:DotNetty.Common.Utilities.IAttributeMap" />.
             </summary>
         </member>
+        <member name="M:DotNetty.Common.Utilities.ICharSequence.SubSequence(System.Int32,System.Int32)">
+            Start is the inclusive start index to begin the subsequence.
+            End is the exclusive end index to end the subsequence.
+        </member>
         <member name="T:DotNetty.Common.Utilities.IConstant">
             <summary>
                 A singleton which is safe to compare via the <c>==</c> operator. Created and managed by
@@ -1759,6 +1847,12 @@
         </member>
         <member name="P:DotNetty.Common.Utilities.IConstant.Name">
             <summary>Returns the name of this <see cref="T:DotNetty.Common.Utilities.IConstant" />.</summary>
+        </member>
+        <member name="T:DotNetty.Common.Utilities.IllegalReferenceCountException">
+            <inheritdoc />
+            <summary>
+                Exception thrown during instances where a reference count is used incorrectly
+            </summary>
         </member>
         <member name="T:DotNetty.Common.Utilities.ITimeout">
             <summary>
@@ -1778,7 +1872,7 @@
         </member>
         <member name="P:DotNetty.Common.Utilities.ITimeout.Expired">
             <summary>
-            Returns {@code true} if and only if the <see cref="T:DotNetty.Common.Utilities.ITimerTask"/> associated
+            Returns <c>true</c> if and only if the <see cref="T:DotNetty.Common.Utilities.ITimerTask"/> associated
             with this handle has been expired.
             </summary>
         </member>
@@ -1789,13 +1883,12 @@
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ITimeout.Cancel">
-             <summary>
-             Attempts to cancel the <see cref="T:DotNetty.Common.Utilities.ITimerTask"/> associated with this handle.
-             If the task has been executed or canceled already, it will return with
-             no side effect.
-            
-             @return True if the cancellation completed successfully, otherwise false
-             </summary>
+            <summary>
+            Attempts to cancel the <see cref="T:DotNetty.Common.Utilities.ITimerTask"/> associated with this handle.
+            If the task has been executed or canceled already, it will return with
+            no side effect.
+            </summary>
+            <returns><c>true</c> if the cancellation completed successfully, otherwise <c>false</c>.</returns>
         </member>
         <member name="T:DotNetty.Common.Utilities.ITimer">
             <summary>
@@ -1814,7 +1907,7 @@
         </member>
         <member name="M:DotNetty.Common.Utilities.ITimer.StopAsync">
             <summary>
-            Releases all resources acquired by this {@link Timer} and cancels all
+            Releases all resources acquired by this <see cref="T:DotNetty.Common.Utilities.ITimer"/> and cancels all
             tasks which were scheduled but not executed yet.
             </summary>
             <returns>the handles associated with the tasks which were canceled by
@@ -1835,72 +1928,78 @@
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.Retain``1(``0)">
             <summary>
-                Try to call {@link ReferenceCounted#retain()} if the specified message implements {@link ReferenceCounted}.
-                If the specified message doesn't implement {@link ReferenceCounted}, this method does nothing.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Retain"/> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>, this method does nothing.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.Retain``1(``0,System.Int32)">
             <summary>
-                Try to call {@link ReferenceCounted#retain(int)} if the specified message implements {@link ReferenceCounted}.
-                If the specified message doesn't implement {@link ReferenceCounted}, this method does nothing.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Retain(System.Int32)"/> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>, this method does nothing.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.Touch``1(``0)">
             <summary>
-                Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Touch" /> if the specified message implements
-                <see cref="T:DotNetty.Common.IReferenceCounted" />.
-                If the specified message doesn't implement <see cref="T:DotNetty.Common.IReferenceCounted" />, this method does nothing.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Touch" /> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted" />.
+            If the specified message doesn't implement <see cref="T:DotNetty.Common.IReferenceCounted" />, this method does nothing.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.Touch``1(``0,System.Object)">
             <summary>
-                Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Touch(System.Object)" /> if the specified message implements
-                <see cref="T:DotNetty.Common.IReferenceCounted" />. If the specified message doesn't implement <see cref="T:DotNetty.Common.IReferenceCounted" />,
-                this method does nothing.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Touch(System.Object)" /> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted" />. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted" />, this method does nothing.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.Release(System.Object)">
             <summary>
-                Try to call {@link ReferenceCounted#release()} if the specified message implements {@link ReferenceCounted}.
-                If the specified message doesn't implement {@link ReferenceCounted}, this method does nothing.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Release" /> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>, this method does nothing.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.Release(System.Object,System.Int32)">
             <summary>
-                Try to call {@link ReferenceCounted#release(int)} if the specified message implements {@link ReferenceCounted}.
-                If the specified message doesn't implement {@link ReferenceCounted}, this method does nothing.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Release(System.Int32)" /> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>, this method does nothing.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.SafeRelease(System.Object)">
             <summary>
-                Try to call {@link ReferenceCounted#release()} if the specified message implements {@link ReferenceCounted}.
-                If the specified message doesn't implement {@link ReferenceCounted}, this method does nothing.
-                Unlike {@link #release(Object)} this method catches an exception raised by {@link ReferenceCounted#release()}
-                and logs it, rather than rethrowing it to the caller.  It is usually recommended to use {@link #release(Object)}
-                instead, unless you absolutely need to swallow an exception.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Release" /> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>, this method does nothing. Unlike <see cref="M:DotNetty.Common.Utilities.ReferenceCountUtil.Release(System.Object)"/>, this
+            method catches an exception raised by <see cref="M:DotNetty.Common.IReferenceCounted.Release" /> and logs it, rather than
+            rethrowing it to the caller. It is usually recommended to use <see cref="M:DotNetty.Common.Utilities.ReferenceCountUtil.Release(System.Object)"/> instead, unless
+            you absolutely need to swallow an exception.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.SafeRelease(System.Object,System.Int32)">
             <summary>
-                Try to call {@link ReferenceCounted#release(int)} if the specified message implements {@link ReferenceCounted}.
-                If the specified message doesn't implement {@link ReferenceCounted}, this method does nothing.
-                Unlike {@link #release(Object)} this method catches an exception raised by {@link ReferenceCounted#release(int)}
-                and logs it, rather than rethrowing it to the caller.  It is usually recommended to use
-                {@link #release(Object, int)} instead, unless you absolutely need to swallow an exception.
+            Tries to call <see cref="M:DotNetty.Common.IReferenceCounted.Release(System.Int32)" /> if the specified message implements
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>. If the specified message doesn't implement
+            <see cref="T:DotNetty.Common.IReferenceCounted"/>, this method does nothing. Unlike <see cref="M:DotNetty.Common.Utilities.ReferenceCountUtil.Release(System.Object)"/>, this
+            method catches an exception raised by <see cref="M:DotNetty.Common.IReferenceCounted.Release(System.Int32)" /> and logs it, rather
+            than rethrowing it to the caller. It is usually recommended to use <see cref="M:DotNetty.Common.Utilities.ReferenceCountUtil.Release(System.Object,System.Int32)"/>
+            instead, unless you absolutely need to swallow an exception.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.ReleaseLater``1(``0)">
             <summary>
-                Schedules the specified object to be released when the caller thread terminates. Note that this operation is
-                intended to simplify reference counting of ephemeral objects during unit tests. Do not use it beyond the
-                intended use case.
+            Schedules the specified object to be released when the caller thread terminates. Note that this operation
+            is intended to simplify reference counting of ephemeral objects during unit tests. Do not use it beyond the
+            intended use case.
             </summary>
         </member>
         <member name="M:DotNetty.Common.Utilities.ReferenceCountUtil.ReleaseLater``1(``0,System.Int32)">
             <summary>
-                Schedules the specified object to be released when the caller thread terminates. Note that this operation is
-                intended to simplify reference counting of ephemeral objects during unit tests. Do not use it beyond the
-                intended use case.
+            Schedules the specified object to be released when the caller thread terminates. Note that this operation
+            is intended to simplify reference counting of ephemeral objects during unit tests. Do not use it beyond the
+            intended use case.
             </summary>
         </member>
         <member name="T:DotNetty.Common.Utilities.StringUtil">
@@ -1911,27 +2010,6 @@
         <member name="F:DotNetty.Common.Utilities.StringUtil.CsvNumberEscapeCharacters">
             2 - Quote character at beginning and end.
             5 - Extra allowance for anticipated escape characters that may be added.
-        </member>
-        <member name="M:DotNetty.Common.Utilities.StringUtil.Split(System.String,System.Char,System.Int32)">
-            <summary>
-                Splits the specified {@link String} with the specified delimiter in maxParts maximum parts.
-                This operation is a simplified and optimized
-                version of {@link String#split(String, int)}.
-            </summary>
-            <param name="value"></param>
-            <param name="delim"></param>
-            <param name="maxParts"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNetty.Common.Utilities.StringUtil.SubstringAfter(System.String,System.Char)">
-            <summary>
-                Get the item after one char delim if the delim is found (else null).
-                This operation is a simplified and optimized
-                version of {@link String#split(String, int)}.
-            </summary>
-            <param name="value"></param>
-            <param name="delim"></param>
-            <returns></returns>
         </member>
         <member name="M:DotNetty.Common.Utilities.StringUtil.ByteToHexStringPadded(System.Int32)">
             <summary>
@@ -1953,22 +2031,6 @@
                 Converts the specified byte value into a hexadecimal integer.
             </summary>
         </member>
-        <member name="M:DotNetty.Common.Utilities.StringUtil.ToHexString(System.Text.StringBuilder,System.Byte[],System.Int32,System.Int32)">
-            <summary>
-                Converts the specified byte array into a hexadecimal value and appends it to the specified buffer.
-            </summary>
-        </member>
-        <member name="M:DotNetty.Common.Utilities.StringUtil.EscapeCsv(System.String)">
-            <summary>
-                Escapes the specified value, if necessary according to
-                <a href="https://tools.ietf.org/html/rfc4180#section-2">RFC-4180</a>.
-            </summary>
-            <param name="value">
-                The value which will be escaped according to
-                <a href="https://tools.ietf.org/html/rfc4180#section-2">RFC-4180</a>
-            </param>
-            <returns>the escaped value if necessary, or the value unchanged</returns>
-        </member>
         <member name="M:DotNetty.Common.Utilities.StringUtil.SimpleClassName(System.Object)">
             <summary>
                 The shortcut to <see cref="M:DotNetty.Common.Utilities.StringUtil.SimpleClassName(System.Type)">SimpleClassName(o.GetType())</see>.
@@ -1985,6 +2047,21 @@
                 fine
                 with anonymous classes.
             </summary>
+        </member>
+        <member name="M:DotNetty.Common.Utilities.StringUtil.EscapeCsv(DotNetty.Common.Utilities.ICharSequence,System.Boolean)">
+            <summary>
+                Escapes the specified value, if necessary according to
+                <a href="https://tools.ietf.org/html/rfc4180#section-2">RFC-4180</a>.
+            </summary>
+            <param name="value">
+                The value which will be escaped according to
+                <a href="https://tools.ietf.org/html/rfc4180#section-2">RFC-4180</a>
+            </param>
+            <param name="trimWhiteSpace">
+                The value will first be trimmed of its optional white-space characters, according to 
+                <a href= "https://tools.ietf.org/html/rfc7230#section-7" >RFC-7230</a>
+            </param>
+            <returns>the escaped value if necessary, or the value unchanged</returns>
         </member>
         <member name="T:DotNetty.Common.Utilities.TimeUtil">
             <summary>
