@@ -1068,5 +1068,7 @@ public class USBDASK
     public static extern short UD_AI_AsyncDblBufferTransfer32(ushort CardNumber, uint[] Buffer);
     [DllImport(UDDASK_DLL_FILE_NAME)]
     public static extern short UD_AI_ContVScale32(ushort CardNumber, ushort AdRange, ushort inType, IntPtr readingArray, double[] voltageArray, int count);
+    [DllImport(UDDASK_DLL_FILE_NAME)]
+    public static extern short UD_Serial_Number_Read(ushort CardNumber, byte[] SerialNum);
 
 }

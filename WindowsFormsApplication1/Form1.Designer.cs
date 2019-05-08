@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.machinestatus = new MetroFramework.Controls.MetroTabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.richTextBoxAlarm = new System.Windows.Forms.RichTextBox();
             this.radioButtonFFTCh3 = new System.Windows.Forms.RadioButton();
             this.radioButtonFFTCh2 = new System.Windows.Forms.RadioButton();
             this.radioButtonFFTCh1 = new System.Windows.Forms.RadioButton();
@@ -45,6 +47,20 @@
             this.zedGraphhistory = new ZedGraph.ZedGraphControl();
             this.Setting = new MetroFramework.Controls.MetroTabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.metroComboBoxCH3EquipmentID = new MetroFramework.Controls.MetroComboBox();
+            this.metroComboBoxCH2EquipmentID = new MetroFramework.Controls.MetroComboBox();
+            this.metroComboBoxCH1EquipmentID = new MetroFramework.Controls.MetroComboBox();
+            this.metroComboBoxCH0EquipmentID = new MetroFramework.Controls.MetroComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.metroTextUsername = new MetroFramework.Controls.MetroTextBox();
+            this.metroTextPassword = new MetroFramework.Controls.MetroTextBox();
+            this.metroTextDeviceID = new MetroFramework.Controls.MetroTextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.metroCheckBoxAzure = new MetroFramework.Controls.MetroCheckBox();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroTextBoxConfigfile = new MetroFramework.Controls.MetroTextBox();
@@ -75,8 +91,6 @@
             this.buttonmainwithharmonic = new System.Windows.Forms.Button();
             this.metroTextBoxmainFreq = new MetroFramework.Controls.MetroTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxcount = new System.Windows.Forms.TextBox();
-            this.buttonfilecombine = new System.Windows.Forms.Button();
             this.metroButtonhours = new MetroFramework.Controls.MetroButton();
             this.metroButtondays = new MetroFramework.Controls.MetroButton();
             this.metroButtonmonths = new MetroFramework.Controls.MetroButton();
@@ -88,7 +102,6 @@
             this.dataGridViewfileAnalysis = new System.Windows.Forms.DataGridView();
             this.dataGridViewOATrendAnalysis = new System.Windows.Forms.DataGridView();
             this.textBox1daqtime = new System.Windows.Forms.TextBox();
-            this.richTextBoxAlarm = new System.Windows.Forms.RichTextBox();
             this.metroTabControl1.SuspendLayout();
             this.machinestatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlarmLog)).BeginInit();
@@ -125,6 +138,8 @@
             // machinestatus
             // 
             this.machinestatus.BackColor = System.Drawing.SystemColors.WindowText;
+            this.machinestatus.Controls.Add(this.label12);
+            this.machinestatus.Controls.Add(this.richTextBoxAlarm);
             this.machinestatus.Controls.Add(this.radioButtonFFTCh3);
             this.machinestatus.Controls.Add(this.radioButtonFFTCh2);
             this.machinestatus.Controls.Add(this.radioButtonFFTCh1);
@@ -150,6 +165,30 @@
             this.machinestatus.VerticalScrollbarBarColor = true;
             this.machinestatus.VerticalScrollbarHighlightOnWheel = false;
             this.machinestatus.VerticalScrollbarSize = 10;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.SystemColors.Desktop;
+            this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label12.Location = new System.Drawing.Point(-2, 300);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 12);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Alarm Log";
+            // 
+            // richTextBoxAlarm
+            // 
+            this.richTextBoxAlarm.BackColor = System.Drawing.Color.Black;
+            this.richTextBoxAlarm.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBoxAlarm.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxAlarm.Location = new System.Drawing.Point(0, 263);
+            this.richTextBoxAlarm.Name = "richTextBoxAlarm";
+            this.richTextBoxAlarm.Size = new System.Drawing.Size(266, 29);
+            this.richTextBoxAlarm.TabIndex = 23;
+            this.richTextBoxAlarm.Text = "";
+            this.richTextBoxAlarm.ZoomFactor = 1.5F;
             // 
             // radioButtonFFTCh3
             // 
@@ -227,10 +266,10 @@
             this.dataGridViewAlarmLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewAlarmLog.BackgroundColor = System.Drawing.SystemColors.Desktop;
             this.dataGridViewAlarmLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAlarmLog.Location = new System.Drawing.Point(0, 258);
+            this.dataGridViewAlarmLog.Location = new System.Drawing.Point(0, 315);
             this.dataGridViewAlarmLog.Name = "dataGridViewAlarmLog";
             this.dataGridViewAlarmLog.RowTemplate.Height = 24;
-            this.dataGridViewAlarmLog.Size = new System.Drawing.Size(266, 195);
+            this.dataGridViewAlarmLog.Size = new System.Drawing.Size(265, 138);
             this.dataGridViewAlarmLog.TabIndex = 21;
             // 
             // dataGridViewOATrend
@@ -242,7 +281,7 @@
             this.dataGridViewOATrend.Location = new System.Drawing.Point(0, 30);
             this.dataGridViewOATrend.Name = "dataGridViewOATrend";
             this.dataGridViewOATrend.RowTemplate.Height = 24;
-            this.dataGridViewOATrend.Size = new System.Drawing.Size(266, 212);
+            this.dataGridViewOATrend.Size = new System.Drawing.Size(266, 210);
             this.dataGridViewOATrend.TabIndex = 17;
             this.dataGridViewOATrend.SelectionChanged += new System.EventHandler(this.dataGridViewOATrend_SelectionChanged);
             // 
@@ -263,11 +302,11 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.SystemColors.Desktop;
             this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label13.Location = new System.Drawing.Point(-2, 243);
+            this.label13.Location = new System.Drawing.Point(-2, 246);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(52, 12);
+            this.label13.Size = new System.Drawing.Size(61, 12);
             this.label13.TabIndex = 14;
-            this.label13.Text = "Alarm log";
+            this.label13.Text = "Information";
             // 
             // zedGraphtime
             // 
@@ -368,14 +407,191 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Desktop;
+            this.groupBox1.Controls.Add(this.metroComboBoxCH3EquipmentID);
+            this.groupBox1.Controls.Add(this.metroComboBoxCH2EquipmentID);
+            this.groupBox1.Controls.Add(this.metroComboBoxCH1EquipmentID);
+            this.groupBox1.Controls.Add(this.metroComboBoxCH0EquipmentID);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.metroTextUsername);
+            this.groupBox1.Controls.Add(this.metroTextPassword);
+            this.groupBox1.Controls.Add(this.metroTextDeviceID);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.metroCheckBoxAzure);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.groupBox1.Location = new System.Drawing.Point(719, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 472);
+            this.groupBox1.Size = new System.Drawing.Size(296, 390);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "DataConnectPro";
+            // 
+            // metroComboBoxCH3EquipmentID
+            // 
+            this.metroComboBoxCH3EquipmentID.FormattingEnabled = true;
+            this.metroComboBoxCH3EquipmentID.ItemHeight = 24;
+            this.metroComboBoxCH3EquipmentID.Location = new System.Drawing.Point(102, 339);
+            this.metroComboBoxCH3EquipmentID.Name = "metroComboBoxCH3EquipmentID";
+            this.metroComboBoxCH3EquipmentID.Size = new System.Drawing.Size(184, 30);
+            this.metroComboBoxCH3EquipmentID.TabIndex = 43;
+            this.metroComboBoxCH3EquipmentID.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroComboBoxCH3EquipmentID.UseSelectable = true;
+            this.metroComboBoxCH3EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH3EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH3EquipmentID.MouseDown += new System.Windows.Forms.MouseEventHandler(this.metroComboBoxCH3EquipmentID_MouseDown);
+            // 
+            // metroComboBoxCH2EquipmentID
+            // 
+            this.metroComboBoxCH2EquipmentID.FormattingEnabled = true;
+            this.metroComboBoxCH2EquipmentID.ItemHeight = 24;
+            this.metroComboBoxCH2EquipmentID.Location = new System.Drawing.Point(104, 295);
+            this.metroComboBoxCH2EquipmentID.Name = "metroComboBoxCH2EquipmentID";
+            this.metroComboBoxCH2EquipmentID.Size = new System.Drawing.Size(182, 30);
+            this.metroComboBoxCH2EquipmentID.TabIndex = 42;
+            this.metroComboBoxCH2EquipmentID.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroComboBoxCH2EquipmentID.UseSelectable = true;
+            this.metroComboBoxCH2EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH2EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH2EquipmentID.MouseDown += new System.Windows.Forms.MouseEventHandler(this.metroComboBoxCH2EquipmentID_MouseDown);
+            // 
+            // metroComboBoxCH1EquipmentID
+            // 
+            this.metroComboBoxCH1EquipmentID.FormattingEnabled = true;
+            this.metroComboBoxCH1EquipmentID.ItemHeight = 24;
+            this.metroComboBoxCH1EquipmentID.Location = new System.Drawing.Point(104, 251);
+            this.metroComboBoxCH1EquipmentID.Name = "metroComboBoxCH1EquipmentID";
+            this.metroComboBoxCH1EquipmentID.Size = new System.Drawing.Size(182, 30);
+            this.metroComboBoxCH1EquipmentID.TabIndex = 41;
+            this.metroComboBoxCH1EquipmentID.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroComboBoxCH1EquipmentID.UseSelectable = true;
+            this.metroComboBoxCH1EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH1EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH1EquipmentID.MouseDown += new System.Windows.Forms.MouseEventHandler(this.metroComboBoxCH1EquipmentID_MouseDown);
+            // 
+            // metroComboBoxCH0EquipmentID
+            // 
+            this.metroComboBoxCH0EquipmentID.FormattingEnabled = true;
+            this.metroComboBoxCH0EquipmentID.ItemHeight = 24;
+            this.metroComboBoxCH0EquipmentID.Location = new System.Drawing.Point(104, 200);
+            this.metroComboBoxCH0EquipmentID.Name = "metroComboBoxCH0EquipmentID";
+            this.metroComboBoxCH0EquipmentID.Size = new System.Drawing.Size(182, 30);
+            this.metroComboBoxCH0EquipmentID.TabIndex = 31;
+            this.metroComboBoxCH0EquipmentID.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroComboBoxCH0EquipmentID.UseSelectable = true;
+            this.metroComboBoxCH0EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH0EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH0EquipmentID.MouseDown += new System.Windows.Forms.MouseEventHandler(this.metroComboBoxCH0EquipmentID_MouseDown);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 342);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 12);
+            this.label10.TabIndex = 40;
+            this.label10.Text = "CH3 EquipmentID";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 298);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(93, 12);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "CH2 EquipmentID";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 257);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(93, 12);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "CH1 EquipmentID";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(5, 208);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(93, 12);
+            this.label8.TabIndex = 36;
+            this.label8.Text = "CH0 EquipmentID";
+            // 
+            // metroTextUsername
+            // 
+            this.metroTextUsername.Lines = new string[0];
+            this.metroTextUsername.Location = new System.Drawing.Point(60, 93);
+            this.metroTextUsername.MaxLength = 32767;
+            this.metroTextUsername.Name = "metroTextUsername";
+            this.metroTextUsername.PasswordChar = '\0';
+            this.metroTextUsername.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.metroTextUsername.SelectedText = "";
+            this.metroTextUsername.Size = new System.Drawing.Size(226, 23);
+            this.metroTextUsername.TabIndex = 33;
+            this.metroTextUsername.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroTextUsername.UseSelectable = true;
+            this.metroTextUsername.TextChanged += new System.EventHandler(this.metroTextUsername_TextChanged);
+            this.metroTextUsername.Validating += new System.ComponentModel.CancelEventHandler(this.metroTextUsername_Validating);
+            // 
+            // metroTextPassword
+            // 
+            this.metroTextPassword.Lines = new string[0];
+            this.metroTextPassword.Location = new System.Drawing.Point(60, 138);
+            this.metroTextPassword.MaxLength = 32767;
+            this.metroTextPassword.Name = "metroTextPassword";
+            this.metroTextPassword.PasswordChar = '●';
+            this.metroTextPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.metroTextPassword.SelectedText = "";
+            this.metroTextPassword.Size = new System.Drawing.Size(226, 23);
+            this.metroTextPassword.TabIndex = 32;
+            this.metroTextPassword.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroTextPassword.UseSelectable = true;
+            this.metroTextPassword.UseSystemPasswordChar = true;
+            this.metroTextPassword.TextChanged += new System.EventHandler(this.metroTextPassword_TextChanged);
+            this.metroTextPassword.Validating += new System.ComponentModel.CancelEventHandler(this.metroTextPassword_Validating);
+            // 
+            // metroTextDeviceID
+            // 
+            this.metroTextDeviceID.Lines = new string[0];
+            this.metroTextDeviceID.Location = new System.Drawing.Point(61, 51);
+            this.metroTextDeviceID.MaxLength = 32767;
+            this.metroTextDeviceID.Name = "metroTextDeviceID";
+            this.metroTextDeviceID.PasswordChar = '\0';
+            this.metroTextDeviceID.ReadOnly = true;
+            this.metroTextDeviceID.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.metroTextDeviceID.SelectedText = "";
+            this.metroTextDeviceID.Size = new System.Drawing.Size(225, 23);
+            this.metroTextDeviceID.TabIndex = 31;
+            this.metroTextDeviceID.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroTextDeviceID.UseSelectable = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 97);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 12);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Email";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 132);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 24);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "\nPassword";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 12);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Device ID";
             // 
             // metroCheckBoxAzure
             // 
@@ -409,7 +625,7 @@
             this.metroTextBoxConfigfile.ReadOnly = true;
             this.metroTextBoxConfigfile.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.metroTextBoxConfigfile.SelectedText = "";
-            this.metroTextBoxConfigfile.Size = new System.Drawing.Size(387, 23);
+            this.metroTextBoxConfigfile.Size = new System.Drawing.Size(184, 23);
             this.metroTextBoxConfigfile.TabIndex = 25;
             this.metroTextBoxConfigfile.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTextBoxConfigfile.UseSelectable = true;
@@ -537,7 +753,7 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(213, 135);
+            this.metroLabel1.Location = new System.Drawing.Point(245, 135);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(28, 20);
             this.metroLabel1.TabIndex = 21;
@@ -547,7 +763,7 @@
             // metroLabel22
             // 
             this.metroLabel22.AutoSize = true;
-            this.metroLabel22.Location = new System.Drawing.Point(217, 38);
+            this.metroLabel22.Location = new System.Drawing.Point(249, 37);
             this.metroLabel22.Name = "metroLabel22";
             this.metroLabel22.Size = new System.Drawing.Size(15, 20);
             this.metroLabel22.TabIndex = 21;
@@ -559,15 +775,15 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(6, 139);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(78, 12);
+            this.label16.Size = new System.Drawing.Size(97, 12);
             this.label16.TabIndex = 16;
-            this.label16.Text = "Keep HD Space";
+            this.label16.Text = "Keep Storage Space";
             // 
             // TextBoxHDspace
             // 
             this.TextBoxHDspace.Lines = new string[] {
         "5"};
-            this.TextBoxHDspace.Location = new System.Drawing.Point(89, 134);
+            this.TextBoxHDspace.Location = new System.Drawing.Point(120, 134);
             this.TextBoxHDspace.MaxLength = 32767;
             this.TextBoxHDspace.Name = "TextBoxHDspace";
             this.TextBoxHDspace.PasswordChar = '\0';
@@ -585,7 +801,7 @@
             // 
             this.TextBoxNormalAverages.Lines = new string[] {
         "10"};
-            this.TextBoxNormalAverages.Location = new System.Drawing.Point(89, 84);
+            this.TextBoxNormalAverages.Location = new System.Drawing.Point(119, 83);
             this.TextBoxNormalAverages.MaxLength = 32767;
             this.TextBoxNormalAverages.Name = "TextBoxNormalAverages";
             this.TextBoxNormalAverages.PasswordChar = '\0';
@@ -603,7 +819,7 @@
             // 
             this.TextBoxNormalSechedule.Lines = new string[] {
         "60"};
-            this.TextBoxNormalSechedule.Location = new System.Drawing.Point(89, 36);
+            this.TextBoxNormalSechedule.Location = new System.Drawing.Point(119, 36);
             this.TextBoxNormalSechedule.MaxLength = 32767;
             this.TextBoxNormalSechedule.Name = "TextBoxNormalSechedule";
             this.TextBoxNormalSechedule.PasswordChar = '\0';
@@ -713,8 +929,6 @@
             this.Analysis.Controls.Add(this.buttonmainwithharmonic);
             this.Analysis.Controls.Add(this.metroTextBoxmainFreq);
             this.Analysis.Controls.Add(this.label2);
-            this.Analysis.Controls.Add(this.textBoxcount);
-            this.Analysis.Controls.Add(this.buttonfilecombine);
             this.Analysis.Controls.Add(this.metroButtonhours);
             this.Analysis.Controls.Add(this.metroButtondays);
             this.Analysis.Controls.Add(this.metroButtonmonths);
@@ -754,8 +968,7 @@
             // 
             this.metroTextBoxmainFreq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroTextBoxmainFreq.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.metroTextBoxmainFreq.Lines = new string[] {
-        "1"};
+            this.metroTextBoxmainFreq.Lines = new string[0];
             this.metroTextBoxmainFreq.Location = new System.Drawing.Point(415, 501);
             this.metroTextBoxmainFreq.MaxLength = 32767;
             this.metroTextBoxmainFreq.Name = "metroTextBoxmainFreq";
@@ -764,7 +977,6 @@
             this.metroTextBoxmainFreq.SelectedText = "";
             this.metroTextBoxmainFreq.Size = new System.Drawing.Size(45, 23);
             this.metroTextBoxmainFreq.TabIndex = 27;
-            this.metroTextBoxmainFreq.Text = "1";
             this.metroTextBoxmainFreq.Theme = MetroFramework.MetroThemeStyle.Light;
             this.metroTextBoxmainFreq.UseSelectable = true;
             this.metroTextBoxmainFreq.Validating += new System.ComponentModel.CancelEventHandler(this.metroTextBoxmainFreq_Validating);
@@ -777,30 +989,8 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(463, 506);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 12);
+            this.label2.Size = new System.Drawing.Size(0, 12);
             this.label2.TabIndex = 26;
-            this.label2.Text = "Hz";
-            // 
-            // textBoxcount
-            // 
-            this.textBoxcount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxcount.BackColor = System.Drawing.SystemColors.Desktop;
-            this.textBoxcount.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBoxcount.Location = new System.Drawing.Point(177, 247);
-            this.textBoxcount.Name = "textBoxcount";
-            this.textBoxcount.Size = new System.Drawing.Size(54, 22);
-            this.textBoxcount.TabIndex = 13;
-            // 
-            // buttonfilecombine
-            // 
-            this.buttonfilecombine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonfilecombine.Location = new System.Drawing.Point(72, 247);
-            this.buttonfilecombine.Name = "buttonfilecombine";
-            this.buttonfilecombine.Size = new System.Drawing.Size(100, 23);
-            this.buttonfilecombine.TabIndex = 12;
-            this.buttonfilecombine.Text = "File Combination";
-            this.buttonfilecombine.UseVisualStyleBackColor = true;
-            this.buttonfilecombine.Click += new System.EventHandler(this.buttonfilecombine_Click);
             // 
             // metroButtonhours
             // 
@@ -863,7 +1053,7 @@
             this.buttonAnalysisquery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAnalysisquery.Location = new System.Drawing.Point(1, 247);
             this.buttonAnalysisquery.Name = "buttonAnalysisquery";
-            this.buttonAnalysisquery.Size = new System.Drawing.Size(70, 23);
+            this.buttonAnalysisquery.Size = new System.Drawing.Size(222, 23);
             this.buttonAnalysisquery.TabIndex = 7;
             this.buttonAnalysisquery.Text = "Search";
             this.buttonAnalysisquery.UseVisualStyleBackColor = true;
@@ -955,27 +1145,16 @@
             this.textBox1daqtime.Size = new System.Drawing.Size(54, 22);
             this.textBox1daqtime.TabIndex = 21;
             // 
-            // richTextBoxAlarm
-            // 
-            this.richTextBoxAlarm.BackColor = System.Drawing.Color.YellowGreen;
-            this.richTextBoxAlarm.Location = new System.Drawing.Point(23, 25);
-            this.richTextBoxAlarm.Name = "richTextBoxAlarm";
-            this.richTextBoxAlarm.Size = new System.Drawing.Size(165, 32);
-            this.richTextBoxAlarm.TabIndex = 23;
-            this.richTextBoxAlarm.Text = "";
-            this.richTextBoxAlarm.ZoomFactor = 1.5F;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 631);
-            this.Controls.Add(this.richTextBoxAlarm);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.textBox1daqtime);
             this.Name = "Form1";
             this.Style = MetroFramework.MetroColorStyle.Purple;
-            this.Text = "Machine Condition Monitoring";
+            this.Text = "Vibration Condition Monitoring";
             this.TextAlign = MetroFramework.Forms.MetroFormTextAlign.Center;
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.TransparencyKey = System.Drawing.Color.LawnGreen;
@@ -1039,17 +1218,6 @@
         private System.Windows.Forms.Button buttonquery;
         private MetroFramework.Controls.MetroComboBox ComboBoxFreqResolution;
         private System.Windows.Forms.Label label1;
-        private MetroFramework.Controls.MetroTabPage Analysis;
-        private ZedGraph.ZedGraphControl zedGraphtimeAnalysis;
-        private ZedGraph.ZedGraphControl zedGraphfftAnalysis;
-        private ZedGraph.ZedGraphControl zedGraphAnalysishistory;
-        private System.Windows.Forms.DataGridView dataGridViewfileAnalysis;
-        private System.Windows.Forms.DataGridView dataGridViewOATrendAnalysis;
-        private System.Windows.Forms.Button buttonAnalysisquery;
-        private MetroFramework.Controls.MetroButton metroButtonhours;
-        private MetroFramework.Controls.MetroButton metroButtondays;
-        private MetroFramework.Controls.MetroButton metroButtonmonths;
-        private MetroFramework.Controls.MetroButton metroButtonyears;
         private System.Windows.Forms.RichTextBox richTextBoxAlarm;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private System.Windows.Forms.RadioButton radioButtonFFTCh0;
@@ -1057,14 +1225,38 @@
         private System.Windows.Forms.RadioButton radioButtonFFTCh2;
         private System.Windows.Forms.RadioButton radioButtonFFTCh3;
         private MetroFramework.Controls.MetroCheckBox metroCheckBoxAzure;
-        private System.Windows.Forms.Button buttonfilecombine;
-        private System.Windows.Forms.TextBox textBoxcount;
-        private System.Windows.Forms.Label label2;
-        private MetroFramework.Controls.MetroTextBox metroTextBoxmainFreq;
-        private System.Windows.Forms.Button buttonmainwithharmonic;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroTextBox metroTextBoxConfigfile;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private MetroFramework.Controls.MetroTextBox metroTextUsername;
+        private MetroFramework.Controls.MetroTextBox metroTextPassword;
+        private MetroFramework.Controls.MetroTextBox metroTextDeviceID;
+        private System.Windows.Forms.Label label8;
+        private MetroFramework.Controls.MetroTabPage Analysis;
+        private System.Windows.Forms.Button buttonmainwithharmonic;
+        private MetroFramework.Controls.MetroTextBox metroTextBoxmainFreq;
+        private System.Windows.Forms.Label label2;
+        private MetroFramework.Controls.MetroButton metroButtonhours;
+        private MetroFramework.Controls.MetroButton metroButtondays;
+        private MetroFramework.Controls.MetroButton metroButtonmonths;
+        private MetroFramework.Controls.MetroButton metroButtonyears;
+        private System.Windows.Forms.Button buttonAnalysisquery;
+        private ZedGraph.ZedGraphControl zedGraphtimeAnalysis;
+        private ZedGraph.ZedGraphControl zedGraphfftAnalysis;
+        private ZedGraph.ZedGraphControl zedGraphAnalysishistory;
+        private System.Windows.Forms.DataGridView dataGridViewfileAnalysis;
+        private System.Windows.Forms.DataGridView dataGridViewOATrendAnalysis;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
+        private MetroFramework.Controls.MetroComboBox metroComboBoxCH0EquipmentID;
+        private MetroFramework.Controls.MetroComboBox metroComboBoxCH1EquipmentID;
+        private MetroFramework.Controls.MetroComboBox metroComboBoxCH2EquipmentID;
+        private MetroFramework.Controls.MetroComboBox metroComboBoxCH3EquipmentID;
+        private System.Windows.Forms.Label label12;
     }
 }
 

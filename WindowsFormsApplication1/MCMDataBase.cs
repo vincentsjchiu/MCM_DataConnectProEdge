@@ -69,7 +69,7 @@ namespace MCMDB
             cmd = new SQLiteCommand(cmdString, db);
             cmd.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch
             {
 
             }
@@ -377,10 +377,10 @@ namespace MCMDB
                 if (iniFilename == "UI")
                 {
 
-                    INI.IniWriteValue("ColumnName", "Column1", "RowCh0");
-                    INI.IniWriteValue("ColumnName", "Column2", "RowCh1");
-                    INI.IniWriteValue("ColumnName", "Column3", "RowCh2");
-                    INI.IniWriteValue("ColumnName", "Column4", "RowCh3");
+                    INI.IniWriteValue("ColumnName", "Column1", "Azure");
+                    INI.IniWriteValue("ColumnName", "Column2", "Username");
+                    INI.IniWriteValue("ColumnName", "Column3", "Password");
+                    INI.IniWriteValue("ColumnName", "Column4", "CH0EquipmentID");
                     INI.IniWriteValue("ColumnName", "Column5", "FFTCh0");
                     INI.IniWriteValue("ColumnName", "Column6", "FFTCh1");
                     INI.IniWriteValue("ColumnName", "Column7", "FFTCh2");
@@ -389,10 +389,13 @@ namespace MCMDB
                     INI.IniWriteValue("ColumnName", "Column10", "TextDataRecord");
                     INI.IniWriteValue("ColumnName", "Column11", "NormalSechedule");
                     INI.IniWriteValue("ColumnName", "Column12", "NormalAverages");
-                    INI.IniWriteValue("ColumnName", "Column13", "DDS");
+                    INI.IniWriteValue("ColumnName", "Column13", "DeviceID");
                     INI.IniWriteValue("ColumnName", "Column14", "HDSpaces");
                     INI.IniWriteValue("ColumnName", "Column15", "BandWidth");
                     INI.IniWriteValue("ColumnName", "Column16", "Resolution");
+                    INI.IniWriteValue("ColumnName", "Column17", "CH1EquipmentID");
+                    INI.IniWriteValue("ColumnName", "Column18", "CH2EquipmentID");
+                    INI.IniWriteValue("ColumnName", "Column19", "CH3EquipmentID");
                     INI.IniWriteValue("ColumnType", "Type1", "VARCHAR");
                     INI.IniWriteValue("ColumnType", "Type2", "VARCHAR");
                     INI.IniWriteValue("ColumnType", "Type3", "VARCHAR");
@@ -409,6 +412,9 @@ namespace MCMDB
                     INI.IniWriteValue("ColumnType", "Type14", "VARCHAR");
                     INI.IniWriteValue("ColumnType", "Type15", "VARCHAR");
                     INI.IniWriteValue("ColumnType", "Type16", "VARCHAR");
+                    INI.IniWriteValue("ColumnType", "Type17", "VARCHAR");
+                    INI.IniWriteValue("ColumnType", "Type18", "VARCHAR");
+                    INI.IniWriteValue("ColumnType", "Type19", "VARCHAR");
                 }
                 if (iniFilename == "Channel")
                 {
@@ -500,7 +506,7 @@ namespace MCMDB
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
 

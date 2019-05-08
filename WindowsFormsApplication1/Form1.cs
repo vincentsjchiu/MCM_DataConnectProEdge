@@ -15,14 +15,13 @@ using System.IO;
 using MCMDB;
 using System.Text.RegularExpressions;
 using ManagedAudioLibrary;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO.Ports;
 using Modbus.Data;
 using Modbus.Device;
 using Modbus.Serial;
 using System.Net;
-using uPLibrary.Networking.M2Mqtt;
-using uPLibrary.Networking.M2Mqtt.Messages;
 using System.Collections.Concurrent;
 using Microsoft.Azure.Devices.Client;
 namespace WindowsFormsApplication1
@@ -32,7 +31,7 @@ namespace WindowsFormsApplication1
         Form2 myForm2;
         public DateTime currentstartdate, startdate, enddate;
         BindingSource _Source = new BindingSource();
-        program_config Config = new program_config();
+        public static program_config Config = new program_config();
         program_config Analyze = new program_config();
         MCMDataBase database = new MCMDataBase();
         MCMDataBase configdatabase = new MCMDataBase();
@@ -59,17 +58,17 @@ namespace WindowsFormsApplication1
         //InstanceHandle myHandle;
         JObject chname = new JObject();
         JObject chObject = new JObject();
-        JObject topicName = new JObject();
+        JObject json;
+        public static JObject topicName = new JObject();
         JObject chValue = new JObject();
         JObject chValues = new JObject();
         JObject rawdata = new JObject();
+        JsonReader reader;
         JArray ch0rawdataarray = new JArray();
         JArray ch1rawdataarray = new JArray();
         JArray ch2rawdataarray = new JArray();
         JArray ch3rawdataarray = new JArray();
-        private static DeviceClient _deviceClient;
-        const int SENDING_CHANNELVALUEDEMO_TIMER = 5000; // ChannelValuedemo data sending timer, default 5 seconds
-        string x1_val = "0.0000", x1_sts = "Normal", y2_val = "0.0000", y2_sts = "Normal", z3_val = "0.0000", z3_sts = "Normal";
+        const int SENDING_CHANNELVALUEDEMO_TIMER = 5000; // ChannelValuedemo data sending timer, default 5 seconds     
         static SerialPort slave_port;
         static ModbusSlave slave;
         static byte unitId = 1; // UID shoule be designd by reading from INI/Config file
@@ -78,34 +77,31 @@ namespace WindowsFormsApplication1
         const ushort line_unit_offset = 33;
         const ushort line_oa_offset = 41;
         const ushort line_sts_offset = 45;
-
-        string RawDatafolderPath;
-        string OutputDatafolderPath;
-
-        DirectoryInfo dirRaw;
-        List<string> filenames;
-        string[] line;
-        string[] totalline;
-        string[] frequency;
-        string[] unitname;
-        string[] data;
-        string nm;
-        int count = 0;
-        FileStream outputchraw;
-        StreamWriter csvWtrraw;
         Thread thdcombine;
-        MqttClient mqtt_client;
+        Thread thddelete;
         ConcurrentQueue<Queuedata> myqueue = new ConcurrentQueue<Queuedata>();
         Queuedata qindata = new Queuedata();
         Queuedata qoutdata = new Queuedata();
+        Gateway gateway;
+        CDSHelper cdsHelper;
+        public static string APIURL;      // Change to Your API URL
+        public static string GatewayID;                         // Change to Your IoTDeviceID
+        public static string GatewayPW;
+        public static int CompanyId;                    // Change to your company ID
+        public static string EquipmentID0, EquipmentID1, EquipmentID2, EquipmentID3;
+        public static int MessageCatalogId;
+        public static double MessageSendInterval;
+        public static string MessageName;
+        public static string username;
+        static string password;
+        public static List<string> eqId = new List<string>();
         public class Queuedata
         {
             public DateTime logtime;
-            public double[] RawData;          
+            public double[] RawData;
         }
         public class program_config
         {
-            //Monitoring Setting DataGirdColumn
             public string MonitorName { get; set; }
             public string MonitorStartFreq { get; set; }
             public string MonitorEndFreq { get; set; }
@@ -126,6 +122,7 @@ namespace WindowsFormsApplication1
             public string[,] MonitorParameterCh2;
             public string[,] MonitorParameterCh3;
             public string[] MonitorInsertparameter;
+            public string[] MonitorInsertInitial;
             public string[] MonitorRow;
             public string[] MonitorColumnName;
             public string[] MonitorColumnNameWithType;
@@ -184,10 +181,15 @@ namespace WindowsFormsApplication1
             public bool DDSerror;
             public bool Azureenable;
             public bool Azureerror;
+            public bool Senddataerror;
             public bool Mqttenable;
             public bool Mqtterror;
             public string sysname;
             public string broker_ip;
+            public string[] eqidlist;
+            public List<List<string>> EqIds;
+            public List<string> Chs;
+            public int senderrorindex;
         }
         public class device_config
         {
@@ -216,7 +218,11 @@ namespace WindowsFormsApplication1
             public double[] ch3averagedata;
             public double[] dtx;
             public int callbackindex;
-
+            public byte[] Read_SN_char = new byte[16];
+            public string SN_str;
+            public string dio;
+            public uint DO0;
+            public uint DO1;
         }
         public class spectrum_config
         {
@@ -258,14 +264,7 @@ namespace WindowsFormsApplication1
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (ProgramIsRunning(@"C:\mcm\mcm.exe"))
-            {
-                ProgramKill(@"C:\mcm\mcm.exe");
-            }
-            if (ProgramIsRunning(@"C:\Program Files\nodejs\node.exe"))
-            {
-                ProgramKill(@"C:\Program Files\nodejs\node.exe");
-            }
+
             //ProgramRun(@"C:\mcm\mcm.exe");
             //this.Location = new Point(0, 0);
             //this.Size = Screen.PrimaryScreen.WorkingArea.Size;          
@@ -282,7 +281,7 @@ namespace WindowsFormsApplication1
             windowfunc = new HanningWindow();
             spectrumdata.SetWindowFunction(windowfunc);
             anaspectrumdata.SetWindowFunction(windowfunc);
-            richTextBoxAlarm.BackColor = Color.YellowGreen;
+            richTextBoxAlarm.BackColor = Color.Black;
             Config.StorageAlarm = false;
             sw = Stopwatch.StartNew();
             ai_buf_ready_cbdel = new CallbackDelegate(ai_buf_ready_cbfunc);
@@ -292,7 +291,7 @@ namespace WindowsFormsApplication1
             if (!filecheck)
             {
                 txtWtr = new StreamWriter("c:\\ADLINK\\MCM\\INI\\DBPath.ini", false);
-                txtWtr.Write("c:\\ADLINK\\MCM\\DataBase\\MCM.db");
+                txtWtr.Write("C:\\ADLINK\\MCM\\DataBase\\MCM.db");
                 txtWtr.Close();
                 Config.ConfigFolder = File.ReadAllText("c:\\ADLINK\\MCM\\INI\\DBPath.ini", Encoding.UTF8);
             }
@@ -310,6 +309,7 @@ namespace WindowsFormsApplication1
             thdtrend = new Thread(trend);
             DataQueue = new Thread(ProcessQueue);
             thdcombine = new Thread(filecount);
+            thddelete = new Thread(filedelete);
             Config.ConfigFileName = Config.ConfigFolder.Substring(Config.ConfigFolder.LastIndexOf("\\") + 1, (Config.ConfigFolder.IndexOf(".db") - Config.ConfigFolder.LastIndexOf("\\") - 1));
             CreateIfMissing("c:\\ADLINK\\MCM\\Data\\All FFTData\\" + Config.ConfigFileName + "\\" + DateTime.Now.ToString("yyyy-MM-dd"));
             CreateIfMissing("c:\\ADLINK\\MCM\\Data\\All RAWData\\" + Config.ConfigFileName + "\\" + DateTime.Now.ToString("yyyy-MM-dd"));
@@ -320,22 +320,24 @@ namespace WindowsFormsApplication1
             Config.firstupdate = true;
             Config.firsttime = true;
             metroTabControl1.SelectedTab = machinestatus;
+            this.metroTabControl1.Controls.Remove(this.Analysis);
             getBrokerIP();
             InitialProcess();
             MCMInitialOATrendArray();
-            
+
             if (this.metroCheckBoxAzure.Checked)
             {
                 Azure();
-            }           
+
+            }
             UpateDeviceConfig();
-            if ((Config.allchannelmemsize < Config.memsizereturn) && !(Config.DDSerror || Config.Azureerror || Config.Modbuserror || Config.Mqtterror))
+            if ((Config.allchannelmemsize < Config.memsizereturn) && !(Config.Azureerror))
             {
                 UpateSpectrumConfig();
                 Configuredaq();
                 thdtrend.Start();
                 DataQueue.Start();
-
+                thddelete.Start();
             }
             else
             {
@@ -343,6 +345,10 @@ namespace WindowsFormsApplication1
                 {
                     MessageBox.Show("Please increase buffer allocated of USB-2405 to 8192KB by USBUtil.exe(C:\\ADLINK\\UDASK\\Utility\\USBUtil.exe) then reboot your computer");
                     Process.GetCurrentProcess().Kill();
+                }
+                if (Config.Azureerror)
+                {
+                    MessageBox.Show("Fail to connect to DataConnectPro! \nPlease Check Email or Password of DataConnectPro Or your connection of internet");
                 }
                 metroTabControl1.SelectedTab = Setting;
             }
@@ -417,7 +423,7 @@ namespace WindowsFormsApplication1
                 Array.Copy(database.ColumnNamelist, Config.AlarmColumnName, database.ColumnNamelist.GetLongLength(0));
                 Array.Copy(database.ColumnNameWithType, Config.AlarmColumnNameWithType, database.ColumnNamelist.GetLongLength(0));
 
-                Config.MonitorInsertparameter = new string[6] { "New", "g rms", "10", "1000", "1", "2" };
+                Config.MonitorInsertparameter = new string[6] { "OA", "mm/s rms", "10", "1000", "1", "2" };
 
                 //Initial Table if ConfigureDB doesn't exist 
                 if (database.filecheck == false)
@@ -427,7 +433,7 @@ namespace WindowsFormsApplication1
                     Config.UIParameter = new string[]
                    {
 
-                    "False","False","False","False","True","False","False","False","False","False","60","1","True","10","10K","4Hz"
+                    "False","","","","True","False","False","False","False","False","10","1","","10","10K","1Hz","","",""
 
                    };
                     //Initial UI Table when Table is empty
@@ -436,11 +442,13 @@ namespace WindowsFormsApplication1
                     database.CreateTable(Config.ConfigTableName[1], Config.ChannelColumnNameWithType);
                     Config.ChannelParameter = new string[,]
                     {
-                    {"CH0","True","Accelermeter","1000","0.00","AC" },{"CH1","False","Accelermeter","1000","0.00","AC"},{"CH2","False","Accelermeter","1000","0.00","AC" },{"CH3","False","Accelermeter","1000","0.00","AC"}
+                    {"CH0","True","Accelermeter","100","0.00","IEPE" },{"CH1","False","Accelermeter","100","0.00","IEPE"},{"CH2","False","Accelermeter","100","0.00","IEPE" },{"CH3","False","Accelermeter","100","0.00","IEPE"}
                     };
                     database.InsertTable2D(Config.ConfigTableName[1], Config.ChannelColumnName, Config.ChannelParameter);
                     //Initial Monitor Table when Table is empty
                     database.CreateTable(Config.ConfigTableName[2], Config.MonitorColumnNameWithType);
+                    Config.MonitorInsertInitial = new string[7] { "CH0_OA_0", "OA", "mm/s rms", "10", "1000", "1", "2" };
+                    database.InsertTable(Config.ConfigTableName[2], Config.MonitorColumnName, Config.MonitorInsertInitial);
                     //Initial Monitor Table when Table is empty
                     database.CreateTable(Config.ConfigTableName[3], Config.MonitorColumnNameWithType);
                     //Initial Monitor Table when Table is empty
@@ -449,8 +457,11 @@ namespace WindowsFormsApplication1
                     database.CreateTable(Config.ConfigTableName[5], Config.MonitorColumnNameWithType);
                     //Initial OA Table when Table is empty
                     database.CreateTable(Config.ConfigTableName[6], Config.OATableColumnNameWithType);
+                    database.InsertTable(Config.ConfigTableName[6], Config.OATableColumnName, new string[1] { "CH0_OA_0" });
                     //Initial AlarmLog Table when Table is empty
                     database.CreateTable(Config.ConfigTableName[7], Config.AlarmColumnNameWithType);
+
+                    database.CreateTable("CH0_OA_0", Config.OATreandColumnNameWithType);
 
                 }
                 UpdateUIArray();
@@ -510,8 +521,6 @@ namespace WindowsFormsApplication1
 
                     dataGridViewOATrend.Rows[i].Cells[2].Style.BackColor = Color.YellowGreen;
                 }
-
-
             }
         }
         private void UpdateAlarmLog()
@@ -565,6 +574,12 @@ namespace WindowsFormsApplication1
             }
 
 
+        }
+        private void DIOcontrolFromCloud(uint do0, uint do1)
+        {
+
+            daqcontrol.result = USBDASK.UD_DO_WritePort(0, 0, do0);
+            daqcontrol.result = USBDASK.UD_DO_WritePort(0, 1, do1);
         }
         private void DIOcontrol()
         {
@@ -689,15 +704,25 @@ namespace WindowsFormsApplication1
             this.radioButtonFFTCh3.CheckedChanged -= new System.EventHandler(this.radioButtonFFTCh3_CheckedChanged);
             this.checkBoxNormalDataRecord.CheckedChanged -= new System.EventHandler(this.checkBoxNormalDataRecord_CheckedChanged);
             this.checkBoxTextDataRecord.CheckedChanged -= new System.EventHandler(this.checkBoxTextDataRecord_CheckedChanged);
-            
-            this.metroCheckBoxAzure.CheckedChanged -= new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);           
+
+            this.metroCheckBoxAzure.CheckedChanged -= new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);
             this.TextBoxHDspace.TextChanged -= new System.EventHandler(this.TextBoxHDspace_TextChanged);
             this.TextBoxNormalAverages.TextChanged -= new System.EventHandler(this.TextBoxNormalAverages_TextChanged);
+            this.metroTextPassword.TextChanged -= new System.EventHandler(this.metroTextPassword_TextChanged);
+            this.metroTextUsername.TextChanged -= new System.EventHandler(this.metroTextUsername_TextChanged);
+            this.metroComboBoxCH0EquipmentID.SelectedIndexChanged -= new System.EventHandler(this.metroComboBoxCH0EquipmentID_SelectedIndexChanged);
             this.TextBoxNormalSechedule.TextChanged -= new System.EventHandler(this.TextBoxNormalSechedule_TextChanged);
             this.ComboBoxBandWidth.SelectedIndexChanged -= new System.EventHandler(this.ComboBoxBandWidth_SelectedIndexChanged);
             this.ComboBoxFreqResolution.SelectedIndexChanged -= new System.EventHandler(this.ComboBoxFreqResolution_SelectedIndexChanged);
+            this.metroComboBoxCH1EquipmentID.SelectedIndexChanged -= new System.EventHandler(this.metroComboBoxCH1EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH2EquipmentID.SelectedIndexChanged -= new System.EventHandler(this.metroComboBoxCH2EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH3EquipmentID.SelectedIndexChanged -= new System.EventHandler(this.metroComboBoxCH3EquipmentID_SelectedIndexChanged);
 
-            this.metroCheckBoxAzure.Checked = Convert.ToBoolean(Config.UIParameter[0]);          
+            this.metroCheckBoxAzure.Checked = Convert.ToBoolean(Config.UIParameter[0]);
+            this.metroTextUsername.Text = Config.UIParameter[1];
+            this.metroTextPassword.Text = Config.UIParameter[2];
+            this.metroComboBoxCH0EquipmentID.Items.Add(Config.UIParameter[3]);
+            this.metroComboBoxCH0EquipmentID.SelectedItem = Config.UIParameter[3];
             this.radioButtonFFTCh0.Checked = Convert.ToBoolean(Config.UIParameter[4]);
             this.radioButtonFFTCh1.Checked = Convert.ToBoolean(Config.UIParameter[5]);
             this.radioButtonFFTCh2.Checked = Convert.ToBoolean(Config.UIParameter[6]);
@@ -706,22 +731,37 @@ namespace WindowsFormsApplication1
             this.checkBoxTextDataRecord.Checked = Convert.ToBoolean(Config.UIParameter[9]);
             this.TextBoxNormalSechedule.Text = Config.UIParameter[10];
             this.TextBoxNormalAverages.Text = Config.UIParameter[11];
+            this.metroTextDeviceID.Text = daqcontrol.SN_str;
             this.TextBoxHDspace.Text = Config.UIParameter[13];
             this.ComboBoxBandWidth.SelectedItem = Config.UIParameter[14];
             this.ComboBoxFreqResolution.SelectedItem = Config.UIParameter[15];
+            this.metroComboBoxCH1EquipmentID.Items.Add(Config.UIParameter[16]);
+            this.metroComboBoxCH1EquipmentID.SelectedItem = Config.UIParameter[16];
+            this.metroComboBoxCH2EquipmentID.Items.Add(Config.UIParameter[17]);
+            this.metroComboBoxCH2EquipmentID.SelectedItem = Config.UIParameter[17];
+            this.metroComboBoxCH3EquipmentID.Items.Add(Config.UIParameter[18]);
+            this.metroComboBoxCH3EquipmentID.SelectedItem = Config.UIParameter[18];
+
             this.radioButtonFFTCh0.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh0_CheckedChanged);
             this.radioButtonFFTCh1.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh1_CheckedChanged);
             this.radioButtonFFTCh2.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh2_CheckedChanged);
             this.radioButtonFFTCh3.CheckedChanged += new System.EventHandler(this.radioButtonFFTCh3_CheckedChanged);
             this.checkBoxNormalDataRecord.CheckedChanged += new System.EventHandler(this.checkBoxNormalDataRecord_CheckedChanged);
             this.checkBoxTextDataRecord.CheckedChanged += new System.EventHandler(this.checkBoxTextDataRecord_CheckedChanged);
-           
-            this.metroCheckBoxAzure.CheckedChanged += new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);           
+
+            this.metroCheckBoxAzure.CheckedChanged += new System.EventHandler(this.metroCheckBoxAzure_CheckedChanged);
             this.TextBoxHDspace.TextChanged += new System.EventHandler(this.TextBoxHDspace_TextChanged);
             this.TextBoxNormalAverages.TextChanged += new System.EventHandler(this.TextBoxNormalAverages_TextChanged);
+            this.metroTextPassword.TextChanged += new System.EventHandler(this.metroTextPassword_TextChanged);
+            this.metroTextUsername.TextChanged += new System.EventHandler(this.metroTextUsername_TextChanged);
+            this.metroComboBoxCH0EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH0EquipmentID_SelectedIndexChanged);
             this.TextBoxNormalSechedule.TextChanged += new System.EventHandler(this.TextBoxNormalSechedule_TextChanged);
             this.ComboBoxBandWidth.SelectedIndexChanged += new System.EventHandler(this.ComboBoxBandWidth_SelectedIndexChanged);
             this.ComboBoxFreqResolution.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFreqResolution_SelectedIndexChanged);
+            this.metroComboBoxCH1EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH1EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH2EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH2EquipmentID_SelectedIndexChanged);
+            this.metroComboBoxCH3EquipmentID.SelectedIndexChanged += new System.EventHandler(this.metroComboBoxCH3EquipmentID_SelectedIndexChanged);
+
         }
         private void ConfigureAnalysis()
         {
@@ -961,9 +1001,9 @@ namespace WindowsFormsApplication1
         {
             //Load Data From UI
             Config.UIParameter[0] = Convert.ToString(this.metroCheckBoxAzure.Checked);
-            Config.UIParameter[1] = "False";//Convert.ToString(this.metroCheckBoxModbus.Checked);
-            Config.UIParameter[2] = "False";//Convert.ToString(this.metroCheckBoxMqtt.Checked);
-            Config.UIParameter[3] = "False";//Convert.ToString(this.metroCheckBoxMqttRaw.Checked);
+            Config.UIParameter[1] = this.metroTextUsername.Text;
+            Config.UIParameter[2] = this.metroTextPassword.Text;
+            Config.UIParameter[3] = Convert.ToString(this.metroComboBoxCH0EquipmentID.SelectedItem);
             Config.UIParameter[4] = Convert.ToString(this.radioButtonFFTCh0.Checked);
             Config.UIParameter[5] = Convert.ToString(this.radioButtonFFTCh1.Checked);
             Config.UIParameter[6] = Convert.ToString(this.radioButtonFFTCh2.Checked);
@@ -972,10 +1012,13 @@ namespace WindowsFormsApplication1
             Config.UIParameter[9] = Convert.ToString(this.checkBoxTextDataRecord.Checked);
             Config.UIParameter[10] = this.TextBoxNormalSechedule.Text;
             Config.UIParameter[11] = this.TextBoxNormalAverages.Text;
-            Config.UIParameter[12] = "False";//Convert.ToString(this.checkBoxDDS.Checked);
+            //Config.UIParameter[12] = this.metroTextDeviceID.Text;
             Config.UIParameter[13] = this.TextBoxHDspace.Text;
             Config.UIParameter[14] = Convert.ToString(this.ComboBoxBandWidth.SelectedItem);
             Config.UIParameter[15] = Convert.ToString(this.ComboBoxFreqResolution.SelectedItem);
+            Config.UIParameter[16] = Convert.ToString(this.metroComboBoxCH1EquipmentID.SelectedItem);
+            Config.UIParameter[17] = Convert.ToString(this.metroComboBoxCH2EquipmentID.SelectedItem);
+            Config.UIParameter[18] = Convert.ToString(this.metroComboBoxCH3EquipmentID.SelectedItem);
             //Update Data From UI
             database.UpdateTable(Config.ConfigTableName[0], Config.UIColumnName, Config.UIParameter, 1);
 
@@ -1493,9 +1536,8 @@ namespace WindowsFormsApplication1
         }
         private void buttonAddMonitor_Click(object sender, EventArgs e)
         {
-
-            this.dataGridViewMonitorSetting.Rows.Add(Config.MonitorInsertparameter);
             CombinOATableName();
+            this.dataGridViewMonitorSetting.Rows.Add(Config.MonitorInsertparameter);
             if (Config.ChanneCurRow == 0)
             {
                 if (Config.MonitorParameterCh0.GetLongLength(0) == 0)
@@ -1525,7 +1567,6 @@ namespace WindowsFormsApplication1
                 UpdateMonitorCh3Array();
             }
 
-
             database.InsertTable(Config.ConfigTableName[6], Config.OATableColumnName, Config.OATableName);
             UpdateOANameArray();
             database.CreateTable(Config.OATableName[0], Config.OATreandColumnNameWithType);
@@ -1533,22 +1574,26 @@ namespace WindowsFormsApplication1
         }
         private void CombinOATableName()
         {
-            Config.MonitorRow = new string[7] { "", "New", "g rms", "10", "1000", "1", "2" };
-            if (Config.OATableParameter.GetLength(0) == 0)
+            Config.MonitorRow = new string[7] { "", "OA", "mm/s rms", "10", "1000", "1", "2" };
+            if (Config.OATableParameter.GetLength(0) == 0 || this.dataGridViewMonitorSetting.RowCount == 0)
             {
+                Config.MonitorRow[1] = "OA";
+                Config.MonitorInsertparameter[0] = "OA";
                 Config.OATableName = new string[1] { (string)this.dataGridViewChSetting.Rows[dataGridViewChSetting.CurrentRow.Index].Cells[0].Value+"_"+
                 Config.MonitorInsertparameter[0]+"_"+
-                Convert.ToString(1) };
+                Convert.ToString(0) };
                 database.ResetTableIndex(Config.ConfigTableName[6]);
 
             }
             else
             {
+                Config.MonitorRow[1] = "PIB" + (this.dataGridViewMonitorSetting.RowCount - 1);
+                Config.MonitorInsertparameter[0] = "PIB" + (this.dataGridViewMonitorSetting.RowCount - 1);
                 Config.OATableName = new string[1] { (string)this.dataGridViewChSetting.Rows[dataGridViewChSetting.CurrentRow.Index].Cells[0].Value+"_"+
                 Config.MonitorInsertparameter[0]+"_"+
-                Convert.ToString(Convert.ToInt16(Config.OATableParameter[Config.OATableParameter.GetLength(0)-1, 0])+1) };
+                Convert.ToString(Convert.ToInt16(Config.OATableParameter[Config.OATableParameter.GetLength(0)-1, 0])/*+1*/) };
             }
-
+            int index = this.dataGridViewMonitorSetting.RowCount;
             Config.MonitorRow[0] = Config.OATableName[0];
 
         }
@@ -1563,14 +1608,8 @@ namespace WindowsFormsApplication1
             {
                 try
                 {
-                    if (ProgramIsRunning(@"C:\mcm\mcm.exe"))
-                    {
-                        ProgramKill(@"C:\mcm\mcm.exe");
-                    }
-                    if (ProgramIsRunning(@"C:\Program Files\nodejs\node.exe"))
-                    {
-                        ProgramKill(@"C:\Program Files\nodejs\node.exe");
-                    }
+
+                    daqcontrol.result = USBDASK.UD_AI_EventCallBack_x64(0, 0/*add*/, USBDASK.DBEvent/*EventType*/, ai_buf_ready_cbdel);
                     daqcontrol.result = USBDASK.UD_AI_AsyncClear(0, out daqcontrol.AccessCnt);
                     if (DataQueue.IsAlive)
                     {
@@ -1593,6 +1632,13 @@ namespace WindowsFormsApplication1
                             thdcombine.Abort();
                         }
                     }
+                    if (thddelete.IsAlive)
+                    {
+                        if (false == thddelete.Join(200))
+                        {
+                            thddelete.Abort();
+                        }
+                    }
                     daqcontrol.result = USBDASK.UD_Release_Card(0);
                     txtWtr = new StreamWriter("c:\\ADLINK\\MCM\\INI\\DBPath.ini", false);
                     txtWtr.WriteLine(Config.ConfigFolder);
@@ -1610,7 +1656,7 @@ namespace WindowsFormsApplication1
                     {
                         try
                         {
-                            mqtt_client.Disconnect();
+                            //mqtt_client.Disconnect();
                         }
                         catch
                         {
@@ -1658,9 +1704,9 @@ namespace WindowsFormsApplication1
             else
             {
                 txtWtr = new StreamWriter("c:\\ADLINK\\MCM\\INI\\DBPath.ini", false);
-                txtWtr.WriteLine("c:\\ADLINK\\MCM\\DataBase\\MCM.db");
+                txtWtr.WriteLine("C:\\ADLINK\\MCM\\DataBase\\MCM.db");
                 txtWtr.Close();
-                Config.ConfigFolder = "c:\\ADLINK\\MCM\\DataBase\\MCM.db";
+                Config.ConfigFolder = "C:\\ADLINK\\MCM\\DataBase\\MCM.db";
                 MessageBox.Show("The Default configuation C:\\ADLINK\\MCM\\DataBase\\MCM.db will be used");
                 return null;
             }
@@ -1765,6 +1811,7 @@ namespace WindowsFormsApplication1
             daqcontrol.numbchans = 0;
             daqcontrol.Chconfig = new ushort[Config.ChannelParameter.GetLength(0)];
             daqcontrol.ai_chansenable = new ushort[Config.ChannelParameter.GetLength(0)];
+            Config.senderrorindex = 0;
             for (ushort i = 0; i < Config.ChannelParameter.GetLength(0); i++)
             {
                 if (Convert.ToBoolean(Config.ChannelParameter[i, 2]))
@@ -1897,10 +1944,13 @@ namespace WindowsFormsApplication1
             if (daqcontrol.result != USBDASK.NoError)
             {
                 MessageBox.Show("UD_DIO_2405_Config Fail, Code:" + daqcontrol.result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Process.GetCurrentProcess().Kill();
                 return;
             }
+
+            /*
             daqcontrol.result = USBDASK.UD_DO_WritePort(0, 1, 0);
-            daqcontrol.result = USBDASK.UD_DO_WritePort(0, 0, 1);
+            daqcontrol.result = USBDASK.UD_DO_WritePort(0, 0, 1);*/
             daqcontrol.result = USBDASK.UD_AI_2405_Chan_Config(0, daqcontrol.Chconfig[0], daqcontrol.Chconfig[1], daqcontrol.Chconfig[2], daqcontrol.Chconfig[3]);
             if (daqcontrol.result != USBDASK.NoError)
             {
@@ -1979,7 +2029,7 @@ namespace WindowsFormsApplication1
                 this.BeginInvoke(mi, null);
             }
 
-            
+
 
 
             this.BeginInvoke(mi, null);
@@ -2517,20 +2567,6 @@ namespace WindowsFormsApplication1
 
                     MethodInvoker grid = new MethodInvoker(this.MCMInitialOATrend);
                     this.BeginInvoke(grid, null);
-                    if (Convert.ToBoolean(Config.UIParameter[12]))
-                    {
-                        //WriteDDS(infodata("ChannelsInfo", Config.OAvalueParameter));
-
-                    }
-                    if (Convert.ToBoolean(Config.UIParameter[0]))
-                    {
-                        sendChannelsInfodemo();
-                    }
-                    if (Convert.ToBoolean(Config.UIParameter[2]))
-                    {
-                        WriteMqtt("ChannelsInfo", infodata("ChannelsInfo", Config.OAvalueParameter), true);
-
-                    }
                     Config.firstupdate = false;
 
                 }
@@ -2545,7 +2581,7 @@ namespace WindowsFormsApplication1
                 {
                     enddate = Convert.ToDateTime(database.reader[0]);
                 }
-                currentstartdate = enddate.AddHours(-24);
+                currentstartdate = enddate.AddHours(-1);
                 database.reader.Close();
                 Updatetrenddata(Config.OAvalueParameter[Config.OATrendCurRow, 0]);
 
@@ -2553,28 +2589,39 @@ namespace WindowsFormsApplication1
                 DisplayTrend displaytrendInvoke = new DisplayTrend(DiaplayTrendData);
                 BeginInvoke(displaytrendInvoke, new object[] { Config.datadate, Config.OAvaluecolum, Config.warning, Config.alarm, Config.OAUnit });
                 UpdateAlarmLog();
-                DIOcontrol();
-                if (Convert.ToBoolean(Config.UIParameter[12]))
-                {
-                    //WriteDDS(OAdata(Config.DDSChannelname, Config.OAvalueParameter));
-                }
+                //DIOcontrol();
+
                 if (Convert.ToBoolean(Config.UIParameter[0]))
                 {
-                    //sendChannelsValuedemo(Config.OAvalueParameter);
-                    sendChannelsValuedemo(OAdata(Config.DDSChannelname, Config.OAvalueParameter));
+                    for (int i = 0; i < Config.EqIds.Count; i++)
+                    {
+                        if (Config.EqIds[i][0].ToString() != "")
+                        {
+                            Config.Senddataerror = gateway.Run(connectprodatabyeqid(Config.OAvalueParameter, Config.EqIds[i][0].ToString(), Config.EqIds[i].ToArray()));
+                            if (Config.Senddataerror)
+                            {
+                                Config.senderrorindex++;
+                                if (Config.senderrorindex > 5)
+                                {
+                                    this.Invoke((MethodInvoker)delegate
+                                {
+                                    metroTabControl1.SelectedTab = Setting;
+                                    MessageBox.Show("Fail to send data to DataConnectPro! \nPlease Check your connection of internet or System Datetime");
+
+                                });
+                                }
+                            }
+                            else
+                            {
+                                Config.senderrorindex = 0;
+                            }
+                        }
+                    }
+
+
                 }
-                if (Convert.ToBoolean(Config.UIParameter[1]))
-                {
-                    ModBusdata(Config.OAvalueParameter);
-                }
-                if (Convert.ToBoolean(Config.UIParameter[2]) || Convert.ToBoolean(Config.UIParameter[3]))
-                {
-                    WriteMqtt("ChannelsValue", MqttRawandOAdata(Config.DDSChannelname, Config.OAvalueParameter), false);
-                    ch0rawdataarray.Clear();
-                    ch1rawdataarray.Clear();
-                    ch2rawdataarray.Clear();
-                    ch3rawdataarray.Clear();
-                }
+
+
                 if (Convert.ToBoolean(Config.UIParameter[9]))
                 {
                     copyfile();
@@ -2582,7 +2629,49 @@ namespace WindowsFormsApplication1
 
             }
         }
-
+        private void GetEqidToCHlist()
+        {
+            Config.EqIds = new List<List<string>>();
+            Config.Chs = new List<string>();
+            if (Convert.ToBoolean(Config.ChannelParameter[0, 2]) && Config.MonitorParameterCh0.GetLength(0) > 0)
+            {
+                Config.Chs.Add(EquipmentID0);
+                Config.Chs.Add("CH0");
+                Config.EqIds.Add(Config.Chs);
+                Config.Chs = new List<string>();
+            }
+            if (Convert.ToBoolean(Config.ChannelParameter[1, 2]) && Config.MonitorParameterCh1.GetLength(0) > 0)
+            {
+                Config.Chs.Add(EquipmentID1);
+                Config.Chs.Add("CH1");
+                Config.EqIds.Add(Config.Chs);
+                Config.Chs = new List<string>();
+            }
+            if (Convert.ToBoolean(Config.ChannelParameter[2, 2]) && Config.MonitorParameterCh2.GetLength(0) > 0)
+            {
+                Config.Chs.Add(EquipmentID2);
+                Config.Chs.Add("CH2");
+                Config.EqIds.Add(Config.Chs);
+                Config.Chs = new List<string>();
+            }
+            if (Convert.ToBoolean(Config.ChannelParameter[3, 2]) && Config.MonitorParameterCh3.GetLength(0) > 0)
+            {
+                Config.Chs.Add(EquipmentID3);
+                Config.Chs.Add("CH3");
+                Config.EqIds.Add(Config.Chs);
+                Config.Chs = new List<string>();
+            }
+            for (int i = 0; i < Config.EqIds.Count - 1; i++)
+            {
+                for (int j = 1; j < Config.EqIds.Count - i; j++)
+                    if (Config.EqIds[i][0] == Config.EqIds[i + j][0])
+                    {
+                        Config.EqIds[i].Add(Config.EqIds[i + j][1]);
+                        Config.EqIds.RemoveAt(i + j);
+                        j = 0;
+                    }
+            }
+        }
         private void ProcessQueue()
         {
             while (true)
@@ -2605,6 +2694,111 @@ namespace WindowsFormsApplication1
                 }
             }
 
+        }
+        private void filedelete()
+        {
+            while (true)
+            {
+                Thread.Sleep((Convert.ToInt32(Config.UIParameter[10]) * 1000));
+                try
+                {
+                    if (Convert.ToBoolean(Config.ChannelParameter[0, 2]) && Config.MonitorParameterCh0.GetLength(0) > 0)
+                    {
+                        if (Convert.ToBoolean(Config.UIParameter[8]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+                        if (Convert.ToBoolean(Config.UIParameter[9]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+
+                        if (Config.StorageAlarm)
+                        {
+                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
+                        }
+
+                    }
+                    if (Convert.ToBoolean(Config.ChannelParameter[1, 2]) && Config.MonitorParameterCh1.GetLength(0) > 0)
+                    {
+                        if (Convert.ToBoolean(Config.UIParameter[8]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+                        if (Convert.ToBoolean(Config.UIParameter[9]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+
+                        if (Config.StorageAlarm)
+                        {
+                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
+                        }
+                    }
+                    if (Convert.ToBoolean(Config.ChannelParameter[2, 2]) && Config.MonitorParameterCh2.GetLength(0) > 0)
+                    {
+                        if (Convert.ToBoolean(Config.UIParameter[8]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+                        if (Convert.ToBoolean(Config.UIParameter[9]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+
+                        if (Config.StorageAlarm)
+                        {
+                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
+                        }
+                    }
+                    if (Convert.ToBoolean(Config.ChannelParameter[3, 2]) && Config.MonitorParameterCh3.GetLength(0) > 0)
+                    {
+                        if (Convert.ToBoolean(Config.UIParameter[8]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+                        if (Convert.ToBoolean(Config.UIParameter[9]))
+                        {
+                            if (Config.StorageAlarm)
+                            {
+                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
+                            }
+                        }
+
+                        if (Config.StorageAlarm)
+                        {
+                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
+                        }
+                    }
+                   
+                }
+                catch
+                {
+
+                }
+                
+            }
         }
         private void trend()
         {
@@ -2655,7 +2849,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                richTextBoxAlarm.BackColor = Color.YellowGreen;
+                richTextBoxAlarm.BackColor = Color.Black;
 
                 richTextBoxAlarm.Text = null;
             }
@@ -2756,7 +2950,7 @@ namespace WindowsFormsApplication1
                     }
                     Config.csvWtr.Close();
 
-                    File.WriteAllLines(Config.path, daqcontrol.ch0data.Select(d => d.ToString()).ToArray());
+                    // File.WriteAllLines(Config.path, daqcontrol.ch0data.Select(d => d.ToString()).ToArray());
                     break;
 
                 case 1:
@@ -3013,13 +3207,7 @@ namespace WindowsFormsApplication1
                 Config.HDspaces = (Convert.ToUInt32(Config.UIParameter[13]) * Config.gb);
                 if (Config.averageindex == 1)
                 {
-                    Config.TrendDateTime = qoutdata.logtime;// Convert.ToDateTime(DateTime.Now);
-                    rawdata = new JObject();
-                    ch0rawdataarray = new JArray();
-                    ch1rawdataarray = new JArray();
-                    ch2rawdataarray = new JArray();
-                    ch3rawdataarray = new JArray();
-
+                    Config.TrendDateTime = qoutdata.logtime;// Convert.ToDateTime(DateTime.Now);                   
                 }
                 if (Config.AvailableSpace > Config.HDspaces)
                 {
@@ -3028,33 +3216,16 @@ namespace WindowsFormsApplication1
                 else
                 {
                     Config.StorageAlarm = true;
-
                 }
                 if (Convert.ToBoolean(Config.ChannelParameter[0, 2]) && Config.MonitorParameterCh0.GetLength(0) > 0)
                 {
                     if (Convert.ToBoolean(Config.UIParameter[8]))
                     {
                         writefftdataCsv(0, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                        }
                     }
                     if (Convert.ToBoolean(Config.UIParameter[9]))
                     {
                         writedataCsv(0, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                        }
-                    }
-                    if (Convert.ToBoolean(Config.UIParameter[3]))
-                    {
-                        WritedataJson(0);
-                    }
-                    if (Config.StorageAlarm)
-                    {
-                        Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
                     }
 
                 }
@@ -3063,80 +3234,34 @@ namespace WindowsFormsApplication1
                     if (Convert.ToBoolean(Config.UIParameter[8]))
                     {
                         writefftdataCsv(1, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                        }
                     }
                     if (Convert.ToBoolean(Config.UIParameter[9]))
                     {
                         writedataCsv(1, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                        }
                     }
-                    if (Convert.ToBoolean(Config.UIParameter[3]))
-                    {
-                        WritedataJson(1);
-                    }
-                    if (Config.StorageAlarm)
-                    {
-                        Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
-                    }
+
                 }
                 if (Convert.ToBoolean(Config.ChannelParameter[2, 2]) && Config.MonitorParameterCh2.GetLength(0) > 0)
                 {
                     if (Convert.ToBoolean(Config.UIParameter[8]))
                     {
                         writefftdataCsv(2, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                        }
                     }
                     if (Convert.ToBoolean(Config.UIParameter[9]))
                     {
                         writedataCsv(2, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                        }
                     }
-                    if (Convert.ToBoolean(Config.UIParameter[3]))
-                    {
-                        WritedataJson(2);
-                    }
-                    if (Config.StorageAlarm)
-                    {
-                        Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
-                    }
+
                 }
                 if (Convert.ToBoolean(Config.ChannelParameter[3, 2]) && Config.MonitorParameterCh3.GetLength(0) > 0)
                 {
                     if (Convert.ToBoolean(Config.UIParameter[8]))
                     {
                         writefftdataCsv(3, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                        }
                     }
                     if (Convert.ToBoolean(Config.UIParameter[9]))
                     {
                         writedataCsv(3, Config.averageindex);
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                        }
-                    }
-                    if (Convert.ToBoolean(Config.UIParameter[3]))
-                    {
-                        WritedataJson(3);
-                    }
-                    if (Config.StorageAlarm)
-                    {
-                        Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
                     }
                 }
 
@@ -3183,6 +3308,7 @@ namespace WindowsFormsApplication1
                     Config.OATrendCurRow = 0;
                     thdtrend = new Thread(trend);
                     DataQueue = new Thread(ProcessQueue);
+                    thddelete = new Thread(filedelete);
                     Config.averageindex = 0;
                     Config.averageenable = false;
                     Config.firstupdate = true;
@@ -3194,20 +3320,20 @@ namespace WindowsFormsApplication1
                     Config.DDSerror = false;
                     Config.Azureerror = false;
                     Config.Mqtterror = false;
-                    
+
                     if (this.metroCheckBoxAzure.Checked)
                     {
                         Azure();
-                    }                  
+                    }
                     UpateDeviceConfig();
                     UpateSpectrumConfig();
 
-                    if ((Config.allchannelmemsize < Config.memsizereturn) && !(Config.DDSerror || Config.Azureerror || Config.Modbuserror || Config.Mqtterror))
+                    if ((Config.allchannelmemsize < Config.memsizereturn) && !(Config.Azureerror))
                     {
                         Configuredaq();
                         DataQueue.Start();
                         thdtrend.Start();
-                        //IniModBus();
+                        thddelete.Start();
                         if ((Config.monitorlength0 + Config.monitorlength1 + Config.monitorlength2 + Config.monitorlength3) == 0)
                         {
                             this.dataGridViewOATrend.Rows.Clear();
@@ -3221,6 +3347,10 @@ namespace WindowsFormsApplication1
                         if (Config.allchannelmemsize > Config.memsizereturn)
                         {
                             MessageBox.Show("Initial Memory Allocated is not enough ,Please reduce bandwidth or reboot your computer with USB-2405");
+                        }
+                        if (Config.Azureerror)
+                        {
+                            MessageBox.Show("Fail to connect to DataConnectPro! \nPlease Check Email or Password of DataConnectPro Or your connection of internet");
                         }
                     }
                 }
@@ -3245,9 +3375,8 @@ namespace WindowsFormsApplication1
             }
             if (metroTabControl1.SelectedTab == Setting)
             {
+                daqcontrol.result = USBDASK.UD_AI_EventCallBack_x64(0, 0/*add*/, USBDASK.DBEvent/*EventType*/, ai_buf_ready_cbdel);
                 daqcontrol.result = USBDASK.UD_AI_AsyncClear(0, out daqcontrol.AccessCnt);
-
-
                 daqcontrol.result = USBDASK.UD_Release_Card(0);
                 //slave.Dispose();
                 if (DataQueue.IsAlive)
@@ -3264,7 +3393,14 @@ namespace WindowsFormsApplication1
                         thdtrend.Abort();
                     }
                 }
-                
+                if (thddelete.IsAlive)
+                {
+                    if (false == thddelete.Join(200))
+                    {
+                        thddelete.Abort();
+                    }
+                }
+                //Marshal.FreeHGlobal(daqcontrol.airowdata);
                 if (Config.Modbusenable)
                 {
                     slave.Dispose();
@@ -3277,7 +3413,7 @@ namespace WindowsFormsApplication1
                 {
                     try
                     {
-                        mqtt_client.Disconnect();
+                        //mqtt_client.Disconnect();
                     }
                     catch
                     {
@@ -3906,7 +4042,54 @@ namespace WindowsFormsApplication1
 
             }
         }*/
-        private string infodata(string information, string[,] OAdata)
+        public string connectprodatabyeqid(string[,] OAdata, string equipmentid, string[] chname)
+        {
+            topicName = new JObject();
+            topicName["companyId"] = CompanyId;
+            topicName["msgTimestamp"] = TimeZoneInfo.ConvertTimeToUtc(Config.TrendDateTime).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            topicName["equipmentId"] = equipmentid;
+            topicName["equipmentRunStatus"] = 1;
+            topicName["MessageName"] = MessageName;
+            for (int i = 0; i < OAdata.GetLongLength(0); i++)
+            {
+                for (int j = 1; j < chname.Length; j++)
+                {
+                    if (OAdata[i, 0].Substring(0, OAdata[i, 0].IndexOf("_")) == chname[j])
+                    {
+                        topicName[OAdata[i, 0].Substring(0, OAdata[i, 0].LastIndexOf("_"))] = Convert.ToDouble(OAdata[i, 3]);
+                        //topicName[OAdata[i, 0].Substring(0, OAdata[i, 0].LastIndexOf("_")) + "_U"] = OAdata[i, 4];
+                        topicName[OAdata[i, 0].Substring(0, OAdata[i, 0].LastIndexOf("_")) + "_I"] = OAdata[i, 7] + " Hz to " + OAdata[i, 8] + " Hz";
+                    }
+                }
+            }
+            /*Config.outputch = new FileStream(@"D:\\Dataconnectpro_" + equipmentid + ".txt", FileMode.Create, FileAccess.ReadWrite);
+            Config.csvWtr = new StreamWriter(Config.outputch);
+            Config.csvWtr.WriteLine(topicName.ToString());
+            Config.csvWtr.Close();*/
+            return topicName.ToString();
+        }
+        public string connectprodata(string[,] OAdata)
+        {
+            topicName = new JObject();
+            topicName["companyId"] = CompanyId;
+            topicName["msgTimestamp"] = TimeZoneInfo.ConvertTimeToUtc(Config.TrendDateTime).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            topicName["equipmentId"] = EquipmentID0;
+            topicName["equipmentRunStatus"] = 1;
+            topicName["MessageName"] = MessageName;
+            for (int i = 0; i < OAdata.GetLongLength(0); i++)
+            {
+                topicName[OAdata[i, 0].Substring(0, OAdata[i, 0].LastIndexOf("_"))] = Convert.ToDouble(OAdata[i, 3]);
+                //topicName[OAdata[i, 0].Substring(0, OAdata[i, 0].LastIndexOf("_")) + "_U"] = OAdata[i, 4];
+                topicName[OAdata[i, 0].Substring(0, OAdata[i, 0].LastIndexOf("_")) + "_I"] = OAdata[i, 7] + " Hz to " + OAdata[i, 8] + " Hz";
+
+            }
+            //Config.outputch = new FileStream(@"D:\\Dataconnectpro.txt", FileMode.Create, FileAccess.ReadWrite);
+            //Config.csvWtr = new StreamWriter(Config.outputch);
+            //Config.csvWtr.WriteLine(topicName.ToString());
+            //Config.csvWtr.Close();
+            return topicName.ToString();
+        }
+        public string infodata(string information, string[,] OAdata)
         {
             chname = new JObject();
             topicName = new JObject();
@@ -4017,13 +4200,13 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
 
             }
         }
         private void InitialDAQ()
-        {
+        {            
             daqcontrol.result = USBDASK.UD_Release_Card(0);
             daqcontrol.result = USBDASK.UD_Register_Card(USBDASK.USB_2405, 0);
             if (daqcontrol.result < 0)
@@ -4036,10 +4219,18 @@ namespace WindowsFormsApplication1
 
             daqcontrol.result = USBDASK.UD_AI_InitialMemoryAllocated(0, out Config.memsizereturn);
             Config.memsizereturn = Config.memsizereturn * 1024;
+            daqcontrol.result = USBDASK.UD_Serial_Number_Read(0, daqcontrol.Read_SN_char);
+            if (daqcontrol.result != USBDASK.NoError)
+            {
+                MessageBox.Show("UD_Serial_Number_Read() Fail, Code:" + daqcontrol.result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            daqcontrol.SN_str = System.Text.Encoding.ASCII.GetString(daqcontrol.Read_SN_char);
+            daqcontrol.SN_str = daqcontrol.SN_str.Substring(0, 10);
         }
         private void sendChannelsInfodemo()
         {
-           
+            infodata("ChannelsInfo", Config.OAvalueParameter);
         }
         private static int getStatusStringToInt(string statusString)
         {
@@ -4073,16 +4264,44 @@ namespace WindowsFormsApplication1
         }
         private void sendChannelsValuedemo(string OAunitvalue)
         {
+            //gateway.Run();
 
-            
         }
         private void Azure()
         {
-            // String containing Hostname, Device Id & Device Key in one of the following formats:
-            //  "HostName=<iothub_host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"
+            try
+            {
+                APIURL = "https://apiservicetrafficmanager.adlinktech.com/";      // Change to Your API URL
+                GatewayID = daqcontrol.SN_str;//.Replace("\0", "");//this.metroTextGatewayID.Text;                         // Change to Your IoTDeviceID
+                MessageName = "VCM";
+                EquipmentID0 = Convert.ToString(Config.UIParameter[3]);
+                EquipmentID1 = Convert.ToString(Config.UIParameter[16]);
+                EquipmentID2 = Convert.ToString(Config.UIParameter[17]);
+                EquipmentID3 = Convert.ToString(Config.UIParameter[18]);
+                username = this.metroTextUsername.Text;
+                password = this.metroTextPassword.Text;
+                cdsHelper = new CDSHelper(APIURL, GatewayID, GatewayPW, username, password);
+                cdsHelper.Connect().Wait();
+                cdsHelper.GetMessaegCatalogId().Wait();
+                cdsHelper.GetMessaegEquipmemtId().Wait();
+                Config.eqidlist = eqId.ToArray();
+                cdsHelper.ApplyMessage().Wait();
 
-           
-
+                if (CDSHelper._CDSClient != null)
+                {
+                    gateway = new Gateway(CDSHelper._CDSClient);
+                }
+                gateway.MessageReached -= Client_MessageReached;
+                Config.Azureenable = true;
+                Config.Azureerror = false;
+                GetEqidToCHlist();
+                gateway.MessageReached += Client_MessageReached;
+            }
+            catch
+            {
+                Config.Azureenable = false;
+                Config.Azureerror = true;
+            }
         }
         private void ModBusdata(string[,] OAdata)
         {
@@ -4194,184 +4413,37 @@ namespace WindowsFormsApplication1
 
         private void buttonfilecombine_Click(object sender, EventArgs e)
         {
-            if (Analyze.datadate.GetLength(0) > 0)
-            {
-                string time = null;
-                string day = null;
-                string daytemp = null;
-                DateTime t;
-                FileInfo[] files;
-                string[] allfiles;
-                filenames = new List<string>();
-                string selectchannel = Convert.ToString(Config.Analysistablename[dataGridViewOATrendAnalysis.CurrentRow.Index]);
-                OutputDatafolderPath = "C:\\ADLINK\\MCM\\Data\\" + selectchannel + "_" + DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss") + ".csv";
-                selectchannel = selectchannel.Substring(0, selectchannel.IndexOf("_"));
-                t = new XDate(Analyze.datadate[0]).DateTime;
-                day = t.ToString("yyyy-MM-dd");
-                daytemp = day;
-                RawDatafolderPath = "C:\\ADLINK\\MCM\\Data\\All FFTData\\" + Config.ConfigFileName + "\\" + day;
-                dirRaw = new DirectoryInfo(RawDatafolderPath);
-                for (int i = 0; i < Analyze.datadate.GetLength(0); i++)
-                {
-                    t = new XDate(Analyze.datadate[i]).DateTime;
-                    time = t.ToString("yyyy-MM-dd HH_mm_ss");
-                    day = t.ToString("yyyy-MM-dd");
-                    if (day != daytemp)
-                    {
-                        RawDatafolderPath = "C:\\ADLINK\\MCM\\Data\\All FFTData\\" + Config.ConfigFileName + "\\" + day;
-                        dirRaw = new DirectoryInfo(RawDatafolderPath);
-                    }
-                    files = dirRaw.GetFiles(time + "_" + "*" + "_" + selectchannel + "*", SearchOption.AllDirectories);
-                    allfiles = files.Select(f => f.Name).ToArray();
-                    if (files.Length > 0)
-                    {
-                        for (int j = 0; j < allfiles.GetLength(0); j++)
-                        {
-                            filenames.Add(allfiles[j]);
-                        }
-                    }
-                    daytemp = day;
-                }
-                if (filenames.ToArray().GetLength(0) > 0)
-                {
-                    RawDatafolderPath = "C:\\ADLINK\\MCM\\Data\\All FFTData\\" + Config.ConfigFileName;
-                    thdcombine.Abort();
-                    thdcombine = new Thread(filecount);
-                    outputchraw = new FileStream(OutputDatafolderPath, FileMode.Create, FileAccess.ReadWrite);
-                    csvWtrraw = new StreamWriter(outputchraw);
-                    freq(filenames.ElementAt(0));
-                    thdcombine.Start();
-                    buttonfilecombine.Enabled = false;
-                }
-                else
-                {
-                    MessageBox.Show("There is no FFT Data between start date and End date at C:\\ADLINK\\MCM\\Data\\All FFTData\\" + Config.ConfigFileName + "\\");
-                }
-            }
+
         }
         private void combinfirstdata(string firstfilename)
         {
-            data = File.ReadAllLines(RawDatafolderPath + "\\" + firstfilename.Substring(0, firstfilename.IndexOf(" ")) + "\\" + firstfilename, Encoding.UTF8);
-            nameunit(firstfilename);
-            for (int i = 0; i < data.GetLength(0); i++)
-            {
 
-                line = data[i].Split(new char[] { ',' });
-                if (i < 2)
-                {
-                    totalline[i] = frequency[i] + "," + unitname[i];
-                }
-                else
-                {
-                    totalline[i] = frequency[i] + "," + line[1];
-                }
-
-            }
         }
         private void combinotherdata(string otherfilename)
         {
-            data = File.ReadAllLines(RawDatafolderPath + "\\" + otherfilename.Substring(0, otherfilename.IndexOf(" ")) + "\\" + otherfilename, Encoding.UTF8);
-            nameunit(otherfilename);
-            for (int i = 0; i < data.GetLength(0); i++)
-            {
 
-                line = data[i].Split(new char[] { ',' });
-                if (i < 2)
-                {
-                    totalline[i] = totalline[i] + "," + unitname[i];
-                }
-                else
-                {
-                    totalline[i] = totalline[i] + "," + line[1];
-                }
-
-            }
         }
         private void freq(string firstfilename)
         {
 
-            data = File.ReadAllLines(RawDatafolderPath + "\\" + firstfilename.Substring(0, firstfilename.IndexOf(" ")) + "\\" + firstfilename, Encoding.UTF8);
-            frequency = new string[data.GetLength(0)];
-            totalline = new string[data.GetLength(0)];
-            for (int i = 0; i < data.GetLength(0); i++)
-            {
-
-                line = data[i].Split(new char[] { ',' });
-                if (i < 2)
-                {
-                    frequency[i] = null;
-                }
-                else
-                {
-                    frequency[i] = line[0];
-                }
-
-            }
 
         }
         private void nameunit(string otherfilename)
         {
-            unitname = new string[2];
-            data = File.ReadAllLines(RawDatafolderPath + "\\" + otherfilename.Substring(0, otherfilename.IndexOf(" ")) + "\\" + otherfilename, Encoding.UTF8);
-            for (int i = 0; i < 2; i++)
-            {
 
-                line = data[i].Split(new char[] { ',' });
-                if (i == 0)
-                {
-                    unitname[i] = otherfilename;
-                }
-                else
-                {
-                    unitname[i] = line[1];
-                }
-
-            }
         }
         private void filecount()
         {
-            MethodInvoker mi = new MethodInvoker(this.UpdateCount);
-            MethodInvoker en = new MethodInvoker(this.enbutton);
-            try
-            {
 
-                for (int i = 0; i < filenames.ToArray().GetLength(0); i++)
-                {
-                    count = filenames.ToArray().GetLength(0) - i - 1;
-                    this.BeginInvoke(mi, null);
-                    if (i == 0)
-                    {
-                        combinfirstdata(filenames.ElementAt(i).ToString());
-                    }
-                    else
-                    {
-                        combinotherdata(filenames.ElementAt(i).ToString());
-                    }
-
-                }
-                for (int i = 0; i < totalline.GetLength(0); i++)
-                {
-                    csvWtrraw.WriteLine(totalline[i]);
-                }
-                csvWtrraw.Close();
-                this.BeginInvoke(en, null);
-                MessageBox.Show("Output a total data file to" + OutputDatafolderPath);
-            }
-            catch
-            {
-                MessageBox.Show("Error:Make sure all of the resolution of FFT files are the same");
-                csvWtrraw.Close();
-                this.BeginInvoke(en, null);
-            }
 
         }
         private void UpdateCount()
         {
-            textBoxcount.Text = count.ToString();
+
         }
         private void enbutton()
         {
-            buttonfilecombine.Enabled = true;
+
         }
         private void CreateIfFolderMissing(string path)
         {
@@ -4549,7 +4621,7 @@ namespace WindowsFormsApplication1
             }
         }
         #endregion
-       
+
 
         private void Comportconfigure()
         {
@@ -4605,10 +4677,10 @@ namespace WindowsFormsApplication1
         }
         private void IniMqtt()
         {
-            try
+            /*try
             {
                 //Config.broker_ip = getBrokerIP();
-                mqtt_client = new MqttClient(IPAddress.Parse(Config.broker_ip));
+                //mqtt_client = new MqttClient(IPAddress.Parse(Config.broker_ip));
                 string clientid = Guid.NewGuid().ToString();
                 mqtt_client.Connect(clientid);
                 Config.Mqttenable = true;
@@ -4622,13 +4694,157 @@ namespace WindowsFormsApplication1
                 metroTabControl1.SelectedTab = Setting;
 
                 //Process.GetCurrentProcess().Kill();
+            }*/
+        }
+
+        private void metroTextMessageCatalogID_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+
+        private void metroTextUsername_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroTextUsername_Validating(object sender, CancelEventArgs e)
+        {
+            /*Regex datePattern = new Regex(@"^\w+$");
+            if (!datePattern.IsMatch(metroTextUsername.Text))
+            {
+                MessageBox.Show("Username must be english alphabet and Number or underline only");
+                e.Cancel = true;
+            }*/
+        }
+
+        private void metroTextPassword_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroTextPassword_Validating(object sender, CancelEventArgs e)
+        {
+            /*Regex datePattern = new Regex(@"^\w+$");
+            if (!datePattern.IsMatch(metroTextPassword.Text))
+            {
+                MessageBox.Show("Password must be english alphabet and Number or underline only");
+                e.Cancel = true;
+            }*/
+        }
+
+        private void metroTextCH0EquipmentID_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroTextCH1EquipmentID_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroTextCH2EquipmentID_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroComboBoxCH0EquipmentID_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            metroComboBoxCH0EquipmentID.Items.Clear();
+            Azure();
+            if (!Config.Azureerror)
+            {
+                Config.eqidlist = eqId.ToArray();
+                metroComboBoxCH0EquipmentID.Items.AddRange(Config.eqidlist);
+            }
+            else
+            {
+                MessageBox.Show("Fail to connect to DataConnectPro! \nPlease Check Email or Password of DataConnectPro Or your connection of internet");
+            }
+
+        }
+
+        private void metroComboBoxCH1EquipmentID_MouseDown(object sender, MouseEventArgs e)
+        {
+            metroComboBoxCH1EquipmentID.Items.Clear();
+            Azure();
+            if (!Config.Azureerror)
+            {
+                Config.eqidlist = eqId.ToArray();
+                metroComboBoxCH1EquipmentID.Items.AddRange(Config.eqidlist);
+            }
+            else
+            {
+                MessageBox.Show("Fail to connect to DataConnectPro! \nPlease Check Email or Password of DataConnectPro Or your connection of internet");
+            }
+
+        }
+
+        private void metroComboBoxCH0EquipmentID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroComboBoxCH1EquipmentID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroComboBoxCH2EquipmentID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroComboBoxCH3EquipmentID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+        private void metroComboBoxCH2EquipmentID_MouseDown(object sender, MouseEventArgs e)
+        {
+            metroComboBoxCH2EquipmentID.Items.Clear();
+            Azure();
+            if (!Config.Azureerror)
+            {
+                Config.eqidlist = eqId.ToArray();
+                metroComboBoxCH2EquipmentID.Items.AddRange(Config.eqidlist);
+            }
+            else
+            {
+                MessageBox.Show("Fail to connect to DataConnectPro! \nPlease Check Email or Password of DataConnectPro Or your connection of internet");
+            }
+
+        }
+
+        private void metroComboBoxCH3EquipmentID_MouseDown(object sender, MouseEventArgs e)
+        {
+            metroComboBoxCH3EquipmentID.Items.Clear();
+            Azure();
+            if (!Config.Azureerror)
+            {
+                Config.eqidlist = eqId.ToArray();
+                metroComboBoxCH3EquipmentID.Items.AddRange(Config.eqidlist);
+            }
+            else
+            {
+                MessageBox.Show("Fail to connect to DataConnectPro! \nPlease Check Email or Password of DataConnectPro Or your connection of internet");
             }
         }
+
+
+
+        private void metroTextCH3EquipmentID_TextChanged(object sender, EventArgs e)
+        {
+            MCMUIUpdate();
+        }
+
+
         private void WriteMqtt(string topic, string data, bool retain)
         {
             try
             {
-                mqtt_client.Publish(topic, Encoding.UTF8.GetBytes(data), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, retain);
+                //mqtt_client.Publish(topic, Encoding.UTF8.GetBytes(data), MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, retain);
             }
             catch
             {
@@ -4665,7 +4881,42 @@ namespace WindowsFormsApplication1
             Process proc = Process.Start(path);
 
         }
-       
+        private void Client_MessageReached(object sender, ReceiveEventArgs e)
+        {
+            daqcontrol.dio = e.Msg.ToString();
+            try
+            {
+
+                json = (JObject)JsonConvert.DeserializeObject(daqcontrol.dio);
+                if (json["D0"].ToString() == "on")
+                {
+                    daqcontrol.DO0 = 1;
+                }
+                else
+                {
+                    daqcontrol.DO0 = 0;
+                }
+                if (json["D1"].ToString() == "on")
+                {
+                    daqcontrol.DO1 = 1;
+                }
+                else
+                {
+                    daqcontrol.DO1 = 0;
+                }
+                DIOcontrolFromCloud(daqcontrol.DO0, daqcontrol.DO1);
+            }
+            catch
+            {
+
+            }
+        }
+
+    }
+    public class ReceiveEventArgs : EventArgs
+    {
+        public string Msg { get; set; }
+
     }
 }
 
