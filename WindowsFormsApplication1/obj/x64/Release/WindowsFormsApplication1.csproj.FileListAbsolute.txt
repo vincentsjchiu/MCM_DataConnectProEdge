@@ -6228,6 +6228,7 @@ D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\bin\x64\Release\k
 D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\bin\x64\Release\ru\System.Spatial.resources.dll
 D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\bin\x64\Release\zh-Hans\System.Spatial.resources.dll
 D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\bin\x64\Release\zh-Hant\System.Spatial.resources.dll
+D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\obj\x64\Release\WindowsFormsApplication1.csprojAssemblyReference.cache
 D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\obj\x64\Release\VCM.exe.config
 D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\obj\x64\Release\Interop.ADOX.dll
 D:\MCM POC\MCM_DataConnectPro20190508\WindowsFormsApplication1\obj\x64\Release\WindowsFormsApplication1.csproj.ResolveComReference.cache

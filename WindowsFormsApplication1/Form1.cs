@@ -2702,32 +2702,9 @@ namespace WindowsFormsApplication1
                 Thread.Sleep((Convert.ToInt32(Config.UIParameter[10]) * 1000));
                 try
                 {
-                    if (Convert.ToBoolean(Config.ChannelParameter[0, 2]) && Config.MonitorParameterCh0.GetLength(0) > 0)
-                    {
-                        if (Convert.ToBoolean(Config.UIParameter[8]))
-                        {
-                            if (Config.StorageAlarm)
-                            {
-                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                            }
-                        }
-                        if (Convert.ToBoolean(Config.UIParameter[9]))
-                        {
-                            if (Config.StorageAlarm)
-                            {
-                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                            }
-                        }
-
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
-                        }
-
-                    }
-                    if (Convert.ToBoolean(Config.ChannelParameter[1, 2]) && Config.MonitorParameterCh1.GetLength(0) > 0)
-                    {
-                        if (Convert.ToBoolean(Config.UIParameter[8]))
+                    for(int i=0; i<4;i++)
+                    { 
+                    if (Convert.ToBoolean(Config.UIParameter[8]))
                         {
                             if (Config.StorageAlarm)
                             {
@@ -2747,51 +2724,6 @@ namespace WindowsFormsApplication1
                             Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
                         }
                     }
-                    if (Convert.ToBoolean(Config.ChannelParameter[2, 2]) && Config.MonitorParameterCh2.GetLength(0) > 0)
-                    {
-                        if (Convert.ToBoolean(Config.UIParameter[8]))
-                        {
-                            if (Config.StorageAlarm)
-                            {
-                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                            }
-                        }
-                        if (Convert.ToBoolean(Config.UIParameter[9]))
-                        {
-                            if (Config.StorageAlarm)
-                            {
-                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                            }
-                        }
-
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
-                        }
-                    }
-                    if (Convert.ToBoolean(Config.ChannelParameter[3, 2]) && Config.MonitorParameterCh3.GetLength(0) > 0)
-                    {
-                        if (Convert.ToBoolean(Config.UIParameter[8]))
-                        {
-                            if (Config.StorageAlarm)
-                            {
-                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All FFTData\\" + Config.ConfigFileName + "\\");
-                            }
-                        }
-                        if (Convert.ToBoolean(Config.UIParameter[9]))
-                        {
-                            if (Config.StorageAlarm)
-                            {
-                                Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\All RAWData\\" + Config.ConfigFileName + "\\");
-                            }
-                        }
-
-                        if (Config.StorageAlarm)
-                        {
-                            Deleteoldfile(@"C:\\ADLINK\\MCM\\Data\Alarm RAWData\\" + Config.ConfigFileName + "\\");
-                        }
-                    }
-                   
                 }
                 catch
                 {
@@ -4194,7 +4126,7 @@ namespace WindowsFormsApplication1
                     FileInfo[] Deletefiles;
                     Deletefiles = dir.GetFiles(Oldfiles + "*", SearchOption.AllDirectories);
 
-                    for (int i = 0; i < 1; i++)
+                    for (int i = 0; i < Deletefiles.GetLength(0); i++)
                     {
                         File.Delete(path + "\\" + Oldfolder + "\\" + Deletefiles[i].ToString());
                     }
