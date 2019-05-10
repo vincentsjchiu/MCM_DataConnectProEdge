@@ -11,7 +11,7 @@ using System.Threading;
 using ZedGraph;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.IO
+using System.IO;
 using MCMDB;
 using System.Text.RegularExpressions;
 using ManagedAudioLibrary;
@@ -3718,6 +3718,11 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Schedule must be a none zero Integer number.");
                 e.Cancel = true;
             }
+            if (Convert.ToInt16(TextBoxNormalSechedule.Text) < 10)
+            {
+                MessageBox.Show(" Schedule must >= 10s .");
+                e.Cancel = true;
+            }
             if (Convert.ToInt16(TextBoxNormalSechedule.Text) < Convert.ToInt16(TextBoxNormalAverages.Text))
             {
                 MessageBox.Show("Schedule must >= Average times.");
@@ -3733,6 +3738,7 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Average times must be a none zero Integer number.");
                 e.Cancel = true;
             }
+            
             if (Convert.ToInt16(TextBoxNormalSechedule.Text) < Convert.ToInt16(TextBoxNormalAverages.Text))
             {
                 MessageBox.Show(" Average times must <= Schedule .");
