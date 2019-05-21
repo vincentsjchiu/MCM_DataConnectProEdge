@@ -1,0 +1,15 @@
+{
+  "name": "DCPRawdata",
+  "context": "com.adlinktech.example",
+  "qosProfile": "telemetry",
+  "version": "v1.0",
+  "description": "DataConnectPro",
+  "tags": [
+    {
+      "name": "rawdata",
+      "description": "rawdata",
+      "kind": "FLOAT64_SEQ",
+      "unit": "NA"
+    }
+  ]
+}

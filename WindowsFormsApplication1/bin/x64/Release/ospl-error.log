@@ -1,0 +1,10 @@
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::JSonTagGroupRegistry::registerTagGroupsFromURI(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &)
+Date        : 2019-05-20T14:47:57+0800
+Node        : TW02758N01
+Process     : VCM.exe <12304>
+Thread      : 12788
+Internals   : JSonTagGroupRegistry.cpp/42/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_FILE_OPEN_FAILED: File "definitions/TagGroup/com.adlinktech.example/DCPTagGroup.json" could not be opened
+Internals   : void __cdecl com::adlinktech::datariver::JSonTagGroupRegistry::registerTagGroupsFromURI(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &)/JSonTagGroupRegistry.cpp/52/0/1558334877.061812600
