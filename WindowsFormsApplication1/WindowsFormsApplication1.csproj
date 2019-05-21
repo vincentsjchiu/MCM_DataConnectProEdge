@@ -301,6 +301,7 @@
   <ItemGroup>
     <Compile Include="C2DCommand.cs" />
     <Compile Include="CDSHelper.cs" />
+    <Compile Include="Edge.cs" />
     <Compile Include="Gateway.cs" />
     <Compile Include="GenericCopier.cs" />
     <Compile Include="INIRW.cs" />

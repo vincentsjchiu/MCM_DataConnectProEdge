@@ -2590,7 +2590,7 @@ namespace WindowsFormsApplication1
                 BeginInvoke(displaytrendInvoke, new object[] { Config.datadate, Config.OAvaluecolum, Config.warning, Config.alarm, Config.OAUnit });
                 UpdateAlarmLog();
                 //DIOcontrol();
-
+                EdgeSend();
                 if (Convert.ToBoolean(Config.UIParameter[0]))
                 {
                     for (int i = 0; i < Config.EqIds.Count; i++)
@@ -4848,6 +4848,23 @@ namespace WindowsFormsApplication1
             {
 
             }
+        }
+        private void EdgeSend()
+        {
+            double[] rawdata = new double[8192];
+            Random r = new Random();
+            for (int i = 0; i < rawdata.Length; i++)
+            {
+                rawdata[i] = (double)(r.Next(0, 100)) / 10000;
+            }
+            Edge.CSharp.AddData("temperature", 3.2);
+            Edge.CSharp.AddData("grms", 1.5);
+            Edge.CSharp.AddData("equipmentId", "Compressor05");
+            Edge.CSharp.AddData("CH0_OA", Convert.ToDouble(Config.OAvalueParameter[0, 3])); 
+            Edge.CSharp.SentData("tags");
+            //Edge.CSharp.AddData("rawdata", rawdata, rawdata.Length);
+            //Edge.CSharp.SentData("rawdata");
+
         }
 
     }
