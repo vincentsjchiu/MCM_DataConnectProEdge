@@ -4851,19 +4851,20 @@ namespace WindowsFormsApplication1
         }
         private void EdgeSend()
         {
-            double[] rawdata = new double[8192];
-            Random r = new Random();
-            for (int i = 0; i < rawdata.Length; i++)
-            {
-                rawdata[i] = (double)(r.Next(0, 100)) / 10000;
-            }
+            try
+            {           
             Edge.CSharp.AddData("temperature", 3.2);
             Edge.CSharp.AddData("grms", 1.5);
             Edge.CSharp.AddData("equipmentId", "Compressor05");
             Edge.CSharp.AddData("CH0_OA", Convert.ToDouble(Config.OAvalueParameter[0, 3])); 
             Edge.CSharp.SentData("tags");
-            //Edge.CSharp.AddData("rawdata", rawdata, rawdata.Length);
-            //Edge.CSharp.SentData("rawdata");
+            Edge.CSharp.AddData("rawdata", daqcontrol.ch0data, daqcontrol.ch0data.Length);
+            Edge.CSharp.SentData("rawdata");
+            }
+            catch
+            {
+
+            }
 
         }
 
