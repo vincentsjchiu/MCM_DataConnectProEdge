@@ -1,0 +1,16 @@
+{
+  "name": "DCP",
+  "context": "com.adlinktech.example",
+  "version": "v1.0",
+  "description": "ADLINK Edge SDK Example Temperature sensor",
+  "outputs": [
+    {
+      "name": "tags",
+      "tagGroupId": "DCP:com.adlinktech.example:v1.0"
+    },
+    {
+      "name": "rawdata",
+      "tagGroupId": "DCPRawdata:com.adlinktech.example:v1.0"
+    }
+  ]
+}
