@@ -54931,3 +54931,386 @@ Node        : TW02758N01
 Process     : mcm.exe <11932>
 Thread      : ServiceManager 11508
 Internals   : 6.7.2/db9d039/c8f345c/OpenSplice domain service/serviceMonitor.c/65/0/1510736415.118999500/0
+========================================================================================
+Report      : ERROR
+Date        : 2019-05-23T10:39:49+0800
+Description : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : durability 11708
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/u_domain::startProcessDomain/u_domain.c/1271/781/1558579189.414200000/0
+========================================================================================
+Report      : ERROR
+Date        : 2019-05-23T10:39:49+0800
+Description : Could not connect to URI 'file://C:\Program Files\ADLINK\Vortex_v2\Device\VortexOpenSplice\6.10.1p2\RTS\x86_64.win64\etc\config\ospl.xml'.
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : durability 11708
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/DurabilityService/d_durability.c/480/0/1558579189.421200000/-1
+========================================================================================
+Context     : dds:core::Entity
+Date        : 2019-05-23T10:39:53+0800
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : UserObjectDelegate.cpp/52/6.10.1p2/b608d2bc51/104c750c5f/0
+----------------------------------------------------------------------------------------
+Report      : Error: Unable to successfully close object
+Internals   : org::opensplice::core::UserObjectDelegate::close/UserObjectDelegate.cpp/52/1/1558579193.942200000
+----------------------------------------------------------------------------------------
+Report      : Internal error: 1 participants still connected to domain "ospl_sp_ddsi" (0).
+Internals   : u_domain::u_domainRemoveParticipant/u_domain.c/2180/769/1558579193.942200000
+========================================================================================
+Context     : com::adlinktech::datariver::DataRiver::getInstance
+Date        : 2019-05-23T10:39:57+0800
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : DomainParticipantDelegate.cpp/90/6.10.1p2/b608d2bc51/104c750c5f/976907631
+----------------------------------------------------------------------------------------
+Report      : Error: Failed to create DomainParticipant
+Internals   : org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate/DomainParticipantDelegate.cpp/90/1/1558579197.101200000
+----------------------------------------------------------------------------------------
+Report      : Unable to connect to domain id = <ANY>.
+              The most common causes of this error are an incorrect configuration file or
+              that OpenSpliceDDS is not running (when using shared memory mode).
+Internals   : u_participantNew/u_participant.c/234/773/1558579197.101200000
+----------------------------------------------------------------------------------------
+Report      : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Internals   : u_domain::startProcessDomain/u_domain.c/1271/781/1558579197.101200000
+----------------------------------------------------------------------------------------
+Report      : I_LICENSE_OK: Successfully acquired license
+Internals   : __cdecl com::adlinktech::datariver::DataRiverImpl::DataRiverImpl(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &)/DataRiverImpl.cpp/84/0/1558579197.101200000
+========================================================================================
+Report      : CRITICAL
+Date        : 2019-05-23T10:39:57+0800
+Description : C_UNEXPECTED_ERROR: An unexpected error occurred while connecting to the DataRiver.
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/__cdecl com::adlinktech::datariver::ThingEntities::ThingEntities(void)/ThingEntities.cpp/93/0/1558579197.102200000/0
+========================================================================================
+Context     : com::adlinktech::datariver::DataRiver::getInstance
+Date        : 2019-05-23T10:39:58+0800
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : DomainParticipantDelegate.cpp/90/6.10.1p2/b608d2bc51/104c750c5f/976907631
+----------------------------------------------------------------------------------------
+Report      : Error: Failed to create DomainParticipant
+Internals   : org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate/DomainParticipantDelegate.cpp/90/1/1558579198.614200000
+----------------------------------------------------------------------------------------
+Report      : Unable to connect to domain id = <ANY>.
+              The most common causes of this error are an incorrect configuration file or
+              that OpenSpliceDDS is not running (when using shared memory mode).
+Internals   : u_participantNew/u_participant.c/234/773/1558579198.614200000
+----------------------------------------------------------------------------------------
+Report      : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Internals   : u_domain::startProcessDomain/u_domain.c/1271/781/1558579198.614200000
+========================================================================================
+Report      : CRITICAL
+Date        : 2019-05-23T10:39:58+0800
+Description : C_UNEXPECTED_ERROR: An unexpected error occurred while connecting to the DataRiver.
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/__cdecl com::adlinktech::datariver::ThingEntities::ThingEntities(void)/ThingEntities.cpp/93/0/1558579198.614200000/0
+========================================================================================
+Context     : com::adlinktech::datariver::DataRiver::getInstance
+Date        : 2019-05-23T10:39:59+0800
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : DomainParticipantDelegate.cpp/90/6.10.1p2/b608d2bc51/104c750c5f/976907631
+----------------------------------------------------------------------------------------
+Report      : Error: Failed to create DomainParticipant
+Internals   : org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate/DomainParticipantDelegate.cpp/90/1/1558579199.617200000
+----------------------------------------------------------------------------------------
+Report      : Unable to connect to domain id = <ANY>.
+              The most common causes of this error are an incorrect configuration file or
+              that OpenSpliceDDS is not running (when using shared memory mode).
+Internals   : u_participantNew/u_participant.c/234/773/1558579199.617200000
+----------------------------------------------------------------------------------------
+Report      : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Internals   : u_domain::startProcessDomain/u_domain.c/1271/781/1558579199.617200000
+========================================================================================
+Report      : CRITICAL
+Date        : 2019-05-23T10:39:59+0800
+Description : C_UNEXPECTED_ERROR: An unexpected error occurred while connecting to the DataRiver.
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : 13408
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/__cdecl com::adlinktech::datariver::ThingEntities::ThingEntities(void)/ThingEntities.cpp/93/0/1558579199.618200000/0
+========================================================================================
+Report      : ERROR
+Date        : 2019-05-23T10:40:04+0800
+Description : Thread deadlocked:  "ospl_spliced"(0x3700):d:224->224
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : threadsWatchdog 12328
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/threadsWatchdog/s_threadsMonitor.c/241/0/1558579204.108200000/-1
+========================================================================================
+Report      : FATAL
+Date        : 2019-05-23T10:40:04+0800
+Description : The spliced main thread found not-responding. A clean shutdown is highly unlikely. Best action left: abort!
+Node        : TW02758N01
+Process     : VCM.exe <12948>
+Thread      : threadsWatchdog 12328
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/threadsWatchdog/s_threadsMonitor.c/259/0/1558579204.109200000/-1
+========================================================================================
+Report      : ERROR
+Date        : 2019-05-23T10:44:00+0800
+Description : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : durability 1388
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/u_domain::startProcessDomain/u_domain.c/1271/781/1558579440.947200000/0
+========================================================================================
+Report      : ERROR
+Date        : 2019-05-23T10:44:00+0800
+Description : Could not connect to URI 'file://C:\Program Files\ADLINK\Vortex_v2\Device\VortexOpenSplice\6.10.1p2\RTS\x86_64.win64\etc\config\ospl.xml'.
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : durability 1388
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/DurabilityService/d_durability.c/480/0/1558579440.948200000/-1
+========================================================================================
+Context     : dds:core::Entity
+Date        : 2019-05-23T10:44:03+0800
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : 14772
+Internals   : UserObjectDelegate.cpp/52/6.10.1p2/b608d2bc51/104c750c5f/0
+----------------------------------------------------------------------------------------
+Report      : Error: Unable to successfully close object
+Internals   : org::opensplice::core::UserObjectDelegate::close/UserObjectDelegate.cpp/52/1/1558579443.444200000
+----------------------------------------------------------------------------------------
+Report      : Internal error: 1 participants still connected to domain "ospl_sp_ddsi" (0).
+Internals   : u_domain::u_domainRemoveParticipant/u_domain.c/2180/769/1558579443.444200000
+========================================================================================
+Context     : com::adlinktech::datariver::DataRiver::getInstance
+Date        : 2019-05-23T10:44:06+0800
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : 14772
+Internals   : DomainParticipantDelegate.cpp/90/6.10.1p2/b608d2bc51/104c750c5f/976907631
+----------------------------------------------------------------------------------------
+Report      : Error: Failed to create DomainParticipant
+Internals   : org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate/DomainParticipantDelegate.cpp/90/1/1558579446.562200000
+----------------------------------------------------------------------------------------
+Report      : Unable to connect to domain id = <ANY>.
+              The most common causes of this error are an incorrect configuration file or
+              that OpenSpliceDDS is not running (when using shared memory mode).
+Internals   : u_participantNew/u_participant.c/234/773/1558579446.563200000
+----------------------------------------------------------------------------------------
+Report      : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Internals   : u_domain::startProcessDomain/u_domain.c/1271/781/1558579446.563200000
+----------------------------------------------------------------------------------------
+Report      : I_LICENSE_OK: Successfully acquired license
+Internals   : __cdecl com::adlinktech::datariver::DataRiverImpl::DataRiverImpl(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &)/DataRiverImpl.cpp/84/0/1558579446.563200000
+========================================================================================
+Report      : CRITICAL
+Date        : 2019-05-23T10:44:06+0800
+Description : C_UNEXPECTED_ERROR: An unexpected error occurred while connecting to the DataRiver.
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : 14772
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/__cdecl com::adlinktech::datariver::ThingEntities::ThingEntities(void)/ThingEntities.cpp/93/0/1558579446.563200000/0
+========================================================================================
+Context     : com::adlinktech::datariver::DataRiver::getInstance
+Date        : 2019-05-23T10:44:07+0800
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : 14772
+Internals   : DomainParticipantDelegate.cpp/90/6.10.1p2/b608d2bc51/104c750c5f/976907631
+----------------------------------------------------------------------------------------
+Report      : Error: Failed to create DomainParticipant
+Internals   : org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate/DomainParticipantDelegate.cpp/90/1/1558579447.566200000
+----------------------------------------------------------------------------------------
+Report      : Unable to connect to domain id = <ANY>.
+              The most common causes of this error are an incorrect configuration file or
+              that OpenSpliceDDS is not running (when using shared memory mode).
+Internals   : u_participantNew/u_participant.c/234/773/1558579447.566200000
+----------------------------------------------------------------------------------------
+Report      : Failed to start Spliced for domain 'ospl_sp_ddsi' within 0 seconds, result = U_RESULT_PRECONDITION_NOT_MET
+
+Internals   : u_domain::startProcessDomain/u_domain.c/1271/781/1558579447.566200000
+========================================================================================
+Report      : CRITICAL
+Date        : 2019-05-23T10:44:07+0800
+Description : C_UNEXPECTED_ERROR: An unexpected error occurred while connecting to the DataRiver.
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : 14772
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/__cdecl com::adlinktech::datariver::ThingEntities::ThingEntities(void)/ThingEntities.cpp/93/0/1558579447.567200000/0
+========================================================================================
+Report      : ERROR
+Date        : 2019-05-23T10:44:13+0800
+Description : Thread deadlocked:  "ospl_spliced"(0x3b4c):d:226->226
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : threadsWatchdog 7468
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/threadsWatchdog/s_threadsMonitor.c/241/0/1558579453.667200000/-1
+========================================================================================
+Report      : FATAL
+Date        : 2019-05-23T10:44:13+0800
+Description : The spliced main thread found not-responding. A clean shutdown is highly unlikely. Best action left: abort!
+Node        : TW02758N01
+Process     : VCM.exe <2656>
+Thread      : threadsWatchdog 7468
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/threadsWatchdog/s_threadsMonitor.c/259/0/1558579453.670200000/-1
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::ThingImpl::write(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &,const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &)
+Date        : 2019-05-23T11:40:14+0800
+Node        : TW02758N01
+Process     : VCM.exe <5108>
+Thread      : 14992
+Internals   : ThingImpl.cpp/596/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_WRONG_NUMBER_OF_TAGS: The number of tag values provided does not match the number of tags defined in the output tag group.
+Internals   : bool __cdecl com::adlinktech::datariver::OutputHandlerImpl::validateData(const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &,class std::map<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class com::adlinktech::datariver::TagDefinitionImpl,struct std::less<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const ,class com::adlinktech::datariver::TagDefinitionImpl> > > &)/ThingImpl.cpp/1207/0/1558582814.391200000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::ThingImpl::write(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &,const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &)
+Date        : 2019-05-23T11:40:20+0800
+Node        : TW02758N01
+Process     : VCM.exe <5108>
+Thread      : 14992
+Internals   : ThingImpl.cpp/596/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_WRONG_NUMBER_OF_TAGS: The number of tag values provided does not match the number of tags defined in the output tag group.
+Internals   : bool __cdecl com::adlinktech::datariver::OutputHandlerImpl::validateData(const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &,class std::map<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class com::adlinktech::datariver::TagDefinitionImpl,struct std::less<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const ,class com::adlinktech::datariver::TagDefinitionImpl> > > &)/ThingImpl.cpp/1207/0/1558582820.267200000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::ThingImpl::write(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &,const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &)
+Date        : 2019-05-23T11:40:28+0800
+Node        : TW02758N01
+Process     : VCM.exe <5108>
+Thread      : 14992
+Internals   : ThingImpl.cpp/596/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_WRONG_NUMBER_OF_TAGS: The number of tag values provided does not match the number of tags defined in the output tag group.
+Internals   : bool __cdecl com::adlinktech::datariver::OutputHandlerImpl::validateData(const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &,class std::map<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class com::adlinktech::datariver::TagDefinitionImpl,struct std::less<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const ,class com::adlinktech::datariver::TagDefinitionImpl> > > &)/ThingImpl.cpp/1207/0/1558582828.799200000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::ThingImpl::write(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &,const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &)
+Date        : 2019-05-23T11:40:34+0800
+Node        : TW02758N01
+Process     : VCM.exe <5108>
+Thread      : 14992
+Internals   : ThingImpl.cpp/596/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_WRONG_NUMBER_OF_TAGS: The number of tag values provided does not match the number of tags defined in the output tag group.
+Internals   : bool __cdecl com::adlinktech::datariver::OutputHandlerImpl::validateData(const class std::vector<class com::adlinktech::iot::IOT_NVP,class std::allocator<class com::adlinktech::iot::IOT_NVP> > &,class std::map<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class com::adlinktech::datariver::TagDefinitionImpl,struct std::less<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >,class std::allocator<struct std::pair<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const ,class com::adlinktech::datariver::TagDefinitionImpl> > > &)/ThingImpl.cpp/1207/0/1558582834.967200000
+========================================================================================
+Context     : com::adlinktech::datariver::DataRiver::getInstance
+Date        : 2019-05-30T14:20:06+0800
+Node        : TW02758N01
+Process     : VCM.exe <14804>
+Thread      : 13944
+Internals   : DomainParticipantDelegate.cpp/90/6.10.1p2/b608d2bc51/104c750c5f/976907631
+----------------------------------------------------------------------------------------
+Report      : Error: Failed to create DomainParticipant
+Internals   : org::opensplice::domain::DomainParticipantDelegate::DomainParticipantDelegate/DomainParticipantDelegate.cpp/90/1/1559197206.541400000
+----------------------------------------------------------------------------------------
+Report      : Unable to connect to domain id = <ANY>.
+              The most common causes of this error are an incorrect configuration file or
+              that OpenSpliceDDS is not running (when using shared memory mode).
+Internals   : u_participantNew/u_participant.c/234/773/1559197206.541400000
+----------------------------------------------------------------------------------------
+Report      : Failed to start Spliced for domain 'ospl_sp_ddsi' within 10 seconds, result = U_RESULT_OK
+
+Internals   : u_domain::startProcessDomain/u_domain.c/1271/769/1559197206.541400000
+----------------------------------------------------------------------------------------
+Report      : I_LICENSE_OK: Successfully acquired license
+Internals   : __cdecl com::adlinktech::datariver::DataRiverImpl::DataRiverImpl(const class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > &)/DataRiverImpl.cpp/84/0/1559197206.541400000
+========================================================================================
+Report      : CRITICAL
+Date        : 2019-05-30T14:20:06+0800
+Description : C_UNEXPECTED_ERROR: An unexpected error occurred while connecting to the DataRiver.
+Node        : TW02758N01
+Process     : VCM.exe <14804>
+Thread      : 13944
+Internals   : 6.10.1p2/b608d2bc51/104c750c5f/__cdecl com::adlinktech::datariver::ThingEntities::ThingEntities(void)/ThingEntities.cpp/93/0/1559197206.543400000/-1
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T16:41:16+0800
+Node        : TW02758N01
+Process     : VCM.exe <14780>
+Thread      : 18124
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559205676.291978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T16:41:22+0800
+Node        : TW02758N01
+Process     : VCM.exe <14780>
+Thread      : 18124
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559205682.447978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T16:41:28+0800
+Node        : TW02758N01
+Process     : VCM.exe <14780>
+Thread      : 18124
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559205688.945978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T16:41:35+0800
+Node        : TW02758N01
+Process     : VCM.exe <14780>
+Thread      : 18124
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559205695.307978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T16:44:47+0800
+Node        : TW02758N01
+Process     : VCM.exe <12740>
+Thread      : 15972
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559205887.197978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T16:44:53+0800
+Node        : TW02758N01
+Process     : VCM.exe <12740>
+Thread      : 15972
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559205893.545978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T18:52:01+0800
+Node        : TW02758N01
+Process     : VCM.exe <8136>
+Thread      : 12724
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559213521.927978000
+========================================================================================
+Context     : void __cdecl com::adlinktech::datariver::DataRiver::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)
+Date        : 2019-05-30T18:52:08+0800
+Node        : TW02758N01
+Process     : VCM.exe <8136>
+Thread      : 12724
+Internals   : DataRiver.cpp/54/6.10.1p2/b608d2bc51/104c750c5f/-1
+----------------------------------------------------------------------------------------
+Report      : E_DUPLICATE_TAG_GROUP: Failed to add tag group: DCP:com.adlinktech.example:v1.0. A conflict tag group with the same key detected in the system.
+Internals   : void __cdecl com::adlinktech::datariver::DataRiverImpl::addTagGroupRegistry(const class com::adlinktech::datariver::TagGroupRegistry &)/DataRiverImpl.cpp/285/0/1559213528.879978000

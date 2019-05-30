@@ -2702,9 +2702,9 @@ namespace WindowsFormsApplication1
                 Thread.Sleep((Convert.ToInt32(Config.UIParameter[10]) * 1000));
                 try
                 {
-                    for(int i=0; i<4;i++)
-                    { 
-                    if (Convert.ToBoolean(Config.UIParameter[8]))
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (Convert.ToBoolean(Config.UIParameter[8]))
                         {
                             if (Config.StorageAlarm)
                             {
@@ -2729,7 +2729,7 @@ namespace WindowsFormsApplication1
                 {
 
                 }
-                
+
             }
         }
         private void trend()
@@ -3738,7 +3738,7 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Average times must be a none zero Integer number.");
                 e.Cancel = true;
             }
-            
+
             if (Convert.ToInt16(TextBoxNormalSechedule.Text) < Convert.ToInt16(TextBoxNormalAverages.Text))
             {
                 MessageBox.Show(" Average times must <= Schedule .");
@@ -4144,7 +4144,7 @@ namespace WindowsFormsApplication1
             }
         }
         private void InitialDAQ()
-        {            
+        {
             daqcontrol.result = USBDASK.UD_Release_Card(0);
             daqcontrol.result = USBDASK.UD_Register_Card(USBDASK.USB_2405, 0);
             if (daqcontrol.result < 0)
@@ -4852,14 +4852,13 @@ namespace WindowsFormsApplication1
         private void EdgeSend()
         {
             try
-            {           
-            Edge.CSharp.AddData("temperature", 3.2);
-            Edge.CSharp.AddData("grms", 1.5);
-            Edge.CSharp.AddData("equipmentId", "Compressor05");
-            Edge.CSharp.AddData("CH0_OA", Convert.ToDouble(Config.OAvalueParameter[0, 3])); 
-            Edge.CSharp.SentData("tags");
-            Edge.CSharp.AddData("rawdata", daqcontrol.ch0data, daqcontrol.ch0data.Length);
-            Edge.CSharp.SentData("rawdata");
+            {                
+                Edge.CSharp.AddData("equipmentId", "Compressor05");
+                Edge.CSharp.AddData("CH0_OA", Convert.ToDouble(Config.OAvalueParameter[0, 3]));
+                Edge.CSharp.SentData("tags");
+                Thread.Sleep(1000);
+                Edge.CSharp.AddData("rawdata", daqcontrol.ch0data, daqcontrol.ch0data.Length);
+                Edge.CSharp.SentData("rawdata");
             }
             catch
             {

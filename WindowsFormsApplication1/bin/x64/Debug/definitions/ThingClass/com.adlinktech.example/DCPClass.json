@@ -1,5 +1,5 @@
 {
-  "name": "DCP",
+  "name": "VCM",
   "context": "com.adlinktech.example",
   "version": "v1.0",
   "description": "ADLINK Edge SDK Example Temperature sensor",

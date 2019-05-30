@@ -6,18 +6,6 @@
   "description": "ADLINK Edge SDK Example Temperature TagGroup",
   "tags": [
     {
-      "name": "temperature",
-      "description": "Temperature",
-      "kind": "FLOAT64",
-      "unit": "°C"
-    },
-    {
-      "name": "grms",
-      "description": "GRMS",
-      "kind": "FLOAT64",
-      "unit": "grms"
-    },
-    {
       "name": "equipmentId",
       "description": "equipment id",
       "kind": "STRING",
